@@ -11,6 +11,8 @@ alasan memakai react sekalian belajar. finalisasi api spec. saling berbagi link 
 react untuk melihat struktur project dalam reac project, masih terngiang springboot without react/angular
 ada kemungkinan ganti templates html css lagi
 
+21 Feb
+baru membaca contoh react router, belum sreg pasti sama struktur html-nya nanti ketika di react, apakah isi body html dipecah jadi banyak file file react??*semoga dapat pencerahan
 23 Feb
 kondisi diana flu, tidak memungkinkan ketemu
 
