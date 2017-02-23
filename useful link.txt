@@ -1,2 +1,17 @@
 https://www.kirupa.com/react/introducing_react.htm Introducing React Kirupa
 http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-router-and-webpack/ Tutorial: Setting Up a Single Page React Web App with React-router and Webpack
+
+
+
+
+=========================================================================Daily LOG ============================================
+20 Feb
+memutuskan pake react, kami nggak menemukan hasil alias deadlock dari memperbandingkan angular vs react, kami ambil
+alasan memakai react sekalian belajar. finalisasi api spec.
+ada kemungkinan ganti templates html css lagi
+
+23 Feb
+kondisi diana flu, tidak memungkinkan ketemu
+
+24 Feb
+rencana: ketemu lagi
