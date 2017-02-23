@@ -7,7 +7,8 @@ http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-
 =========================================================================Daily LOG ============================================
 20 Feb
 memutuskan pake react, kami nggak menemukan hasil alias deadlock dari memperbandingkan angular vs react, kami ambil
-alasan memakai react sekalian belajar. finalisasi api spec.
+alasan memakai react sekalian belajar. finalisasi api spec. saling berbagi link belajar react. akan cari templates project
+react untuk melihat struktur project dalam reac project, masih terngiang springboot without react/angular
 ada kemungkinan ganti templates html css lagi
 
 23 Feb
