@@ -14,7 +14,7 @@ ada kemungkinan ganti templates html css lagi
 21 Feb
 baru membaca contoh react router, belum sreg pasti sama struktur html-nya nanti ketika di react, apakah isi body html dipecah jadi banyak file file react??*semoga dapat pencerahan
 23 Feb
-kondisi diana flu, tidak memungkinkan ketemu
+kondisi diana flu, tidak memungkinkan ketemuan
 
 24 Feb
 rencana: ketemu lagi
@@ -22,4 +22,12 @@ merancang rencana jadwal
 menemukan sebuah tutorial react lumayan bagus
 https://stormpath.com/blog/crud-application-react-spring-boot-user-authentication
 
+
+
 25 Feb
+or coba https://spring.io/guides/tutorials/react-and-spring-data-rest/
+https://spring.io/guides/gs/authenticating-ldap/
+
+
+or https://dzone.com/articles/reactjs-and-spring-data-rest-part-2
+
