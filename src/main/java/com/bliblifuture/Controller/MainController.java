@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class MainController {
 
-    @RequestMapping("/")
+    @RequestMapping("/indexdefault")
     private String lalala() {
+        return "indexdefault";
+    }
+
+    @RequestMapping("/")
+    private String react() {
         return "index";
     }
 
