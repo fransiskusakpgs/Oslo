@@ -3,13 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>ReactJS + Spring Data REST</title>
-    <link rel="stylesheet" href="/main.css" />
+    <!--<link rel="stylesheet" href="/main.css" />-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
 <body>
 <!--di bwh ini dari spring.io-->
-<div id="react"></div>
-<script src="built/bundle.js"></script>
+<!--<div id="react"></div>-->
+<!--<script src="built/bundle.js"></script>-->
 
 
 <!--di bwh ini dari stormpath-->
@@ -26,28 +27,47 @@
 <script type="text/babel">
     var Employee = React.createClass({
         render: function() {
-            return (<div>employee</div>);
+            return (
+                    <tr>
+                        <td>{this.props.employee.name}</td>
+                        <td>{this.props.employee.age}</td>
+                        <td>{this.props.employee.years}</td>
+                    </tr>);
         }
     });
 
 
-    var EmployeeTable = React.createClass({
-        render: function() {
-            return (<div>employee table</div>);
-        }
-    });
 
+                        var EmployeeTable = React.createClass({
+                        render: function() {
+                        var rows = [];
+                        this.props.employees.forEach(function(employee) {
+                        rows.push(<Employee employee={employee} />);
+                    });
+                        return (
+                        <table>
+                        <thead>
+                        <tr>
+                        <th>Name</th><th>Age</th><th>Years</th>
+                        </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                        </table>);
+                    }
+                    });
 
-    var EMPLOYEES = [
-        {name: 'Joe Biden', age: 45, years: 5},
-        {name: 'President Obama', age: 54, years: 8},
-        {name: 'Crystal Mac', age: 34, years: 12},
-        {name: 'James Henry', age: 33, years: 2}
-    ];
+                        var EMPLOYEES = [
+                        {name: 'Joe Biden', age: 45, years: 5},
+                        {name: 'President Obama', age: 54, years: 8},
+                        {name: 'Crystal Mac', age: 34, years: 12},
+                        {name: 'James Henry', age: 33, years: 2}
+                        ];
+
 
     ReactDOM.render(
-            <EmployeeTable employees={EMPLOYEES} />, document.getElementById('root')
+            <EmployeeTable employee={EMPLOYEES} />, document.getElementById('root')
     );
+            
 
 
 
