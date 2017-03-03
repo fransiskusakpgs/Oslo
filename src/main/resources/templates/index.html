@@ -17,12 +17,12 @@
 <!--Note: for ease of testing we are pulling in libraries using a CDN but normally you would use something like webpack to combine all your Javascript into one file.-->
 <div id='root'></div>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 <script src="https://fb.me/react-15.0.1.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-
-
-
 
 <script type="text/babel">
     var Employee = React.createClass({
@@ -35,42 +35,43 @@
                     </tr>);
         }
     });
-
-
-
-                        var EmployeeTable = React.createClass({
-                        render: function() {
-                        var rows = [];
-                        this.props.employees.forEach(function(employee) {
-                        rows.push(<Employee employee={employee} />);
-                    });
-                        return (
-                        <table>
+    var EmployeeTable = React.createClass({
+        render: function() {
+            return (<div>employee table</div>);
+        }
+    });
+    var EMPLOYEES = [
+        {name: 'Joe Biden', age: 45, years: 5},
+        {name: 'President Obama', age: 54, years: 8},
+        {name: 'Crystal Mac', age: 34, years: 12},
+        {name: 'James Henry', age: 33, years: 2}
+    ];
+    var EmployeeTable = React.createClass({
+        render: function() {
+            var rows = [];
+            this.props.employees.forEach(function(employee) {
+                rows.push(<Employee employee={employee} />);
+            });
+            return (
+                    <div className="container">
+                    <table className="table table-striped">
                         <thead>
                         <tr>
-                        <th>Name</th><th>Age</th><th>Years</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Years</th>
                         </tr>
                         </thead>
                         <tbody>{rows}</tbody>
-                        </table>);
-                    }
-                    });
-
-                        var EMPLOYEES = [
-                        {name: 'Joe Biden', age: 45, years: 5},
-                        {name: 'President Obama', age: 54, years: 8},
-                        {name: 'Crystal Mac', age: 34, years: 12},
-                        {name: 'James Henry', age: 33, years: 2}
-                        ];
-
+                    </table>
+                    </div>
+            )
+        }
+    });
 
     ReactDOM.render(
-            <EmployeeTable employee={EMPLOYEES} />, document.getElementById('root')
+            <EmployeeTable employees={EMPLOYEES} />, document.getElementById('root')
     );
-            
-
-
-
 </script>
 
 </body>
