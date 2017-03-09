@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ReactJS + Spring Data REST</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"-->
+</head>
+<body>
+
+<div id='root'></div>
+
+<script src="https://fb.me/react-15.0.1.js"></script>
+<script src="https://fb.me/react-dom-15.0.1.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script type="text/babel">
+
+    var AddUser = React.createClass({
+        render: function() {
+            return (
+
+
+
+                    <div class="login">
+                        <div class="main-agileits">
+                            <div class="form-w3agile form1">
+                                <h3>Add User</h3>
+                                <form action="/register" method="post" modelAttribute="User">
+
+                                    <div class="key">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <input  type="text" value="Username" name="username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" required="" />
+                                            <div class="clearfix"></div>
+                                    </div>
+                                    <div class="key">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        <input  type="text" value="Email" name="email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" />
+                                            <div class="clearfix"></div>
+                                    </div>
+                                    <div class="key">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        <input  type="password" value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="" />
+                                            <div class="clearfix"></div>
+                                    </div>
+                                    <div class="key">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        <input  type="password" value="Confirm Password" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirm Password';}" required="" />
+                                            <div class="clearfix"></div>
+                                    </div>
+                                    <input type="submit" value="Submit" />
+                                        <input type="hidden" name="_csrf" value="{{_csrf}}"/>
+                                </form>
+                            </div>
+                            <div class="forg">
+                                <a href="register/merchant" class="forg-right">Register as Merchant</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+            );
+        }
+    });
+    ReactDOM.render(
+            <AddUser />, document.getElementById('root') );
+</script>
+
+</body>
+</html>

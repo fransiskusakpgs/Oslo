@@ -5,24 +5,26 @@
     <title>ReactJS + Spring Data REST</title>
     <!--<link rel="stylesheet" href="/main.css" />-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 </head>
 <body>
 <!--di bwh ini dari spring.io-->
 <!--<div id="react"></div>-->
 <!--<script src="built/bundle.js"></script>-->
 
-
 <!--di bwh ini dari stormpath-->
 <!--Note: for ease of testing we are pulling in libraries using a CDN but normally you would use something like webpack to combine all your Javascript into one file.-->
 <div id='root'></div>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
 <script src="https://fb.me/react-15.0.1.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <script type="text/babel">
     var Employee = React.createClass({
@@ -32,6 +34,9 @@
                         <td>{this.props.employee.name}</td>
                         <td>{this.props.employee.age}</td>
                         <td>{this.props.employee.years}</td>
+                        <td>
+                            <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
+                        </td>
                     </tr>);
         }
     });
@@ -68,10 +73,35 @@
             )
         }
     });
+    var App = React.createClass({
 
+        loadEmployeesFromServer: function () {
+            var self = this;
+            $.ajax({
+                url: "http://localhost:8080/api/employees"
+            }).then(function (data) {
+                self.setState({employees: data._embedded.employees});
+            });
+        },
+
+        getInitialState: function () {
+            return {employees: []};
+        },
+
+        componentDidMount: function () {
+            this.loadEmployeesFromServer();
+        },
+
+        render() {
+            return ( <EmployeeTable employees={this.state.employees}/> );
+        }
+    });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ReactDOM.render(
-            <EmployeeTable employees={EMPLOYEES} />, document.getElementById('root')
-    );
+            <App />, document.getElementById('root') );
 </script>
 
 </body>
