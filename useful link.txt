@@ -31,3 +31,14 @@ https://spring.io/guides/gs/authenticating-ldap/
 
 or https://dzone.com/articles/reactjs-and-spring-data-rest-part-2
 
+
+7 Maret 2017
+Di dunkin. Sudah mulai bisa membuat komponen komponen react. Sudah bisa memakai bootstrap di react.
+Tetapi belom bisa integrasi.
+
+
+11 Maret Mentoring
+Mau tanya:
+1. Cara integrasinya gimana??
+2. Supaya jadi spa, komponen2 di react digimanain?
+semoga terjawab

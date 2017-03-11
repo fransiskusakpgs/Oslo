@@ -24,6 +24,23 @@
 <script type="text/babel">
 
 
+
+    var Breadcumb = React.createClass({
+        render: function () {
+            return (
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a href="#">Home</a></li>
+                        <li className="breadcrumb-item"><a href="#">Worklist</a></li>
+
+                    </ol>
+
+            )
+
+        }
+    });
+
+
+
     var DropdownUser = React.createClass({
         render: function() {
             return (
@@ -42,7 +59,15 @@
     });
 
 
+    var JudulWorklist = React.createClass({
+        render: function () {
+            return (
+                    <div> <h3> Worklist </ h3> </div>
 
+            )
+
+        }
+    });
 
     var JudulTabel = React.createClass({
         render: function() {
@@ -164,6 +189,25 @@
     });
 
 
+    var Pagination = React.createClass({
+        render: function () {
+            return (
+                    <nav aria-label="..." className="right-side">
+                        <ul className="pagination">
+                            <li className="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li><a href="#">First</a></li>
+                            <li className="active"><a href="#">1 <span className="sr-only">(current)</span></a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">Last</a></li>
+                            <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                        </ul>
+                    </nav>
+            );
+        }
+    });
 
 
 
@@ -171,11 +215,25 @@
     var Gabungan = React.createClass({
         render: function () {
             return (
-                    <div> <DropdownUser/> <JudulTabel/>   </div>
+                    <div>
+                        <div className="row">
+                            <div className="col-sm-10"> <Breadcumb/> </div>
+                            <div className="col-sm-2 right-side"> <DropdownUser/> </div>
+                        </div>
+                        <JudulWorklist/>
+                        <JudulTabel/>
 
+                        <div className="right-side"><Pagination/></div>
+
+                    </div>
             );
         }
     });
+
+
+
+
+
             ReactDOM.render(
             <Gabungan />, document.getElementById('root') );
 </script>
