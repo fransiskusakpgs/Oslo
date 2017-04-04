@@ -2,6 +2,7 @@ package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
 //import com.bliblifuture.StockopnameRepository;
+import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.response.StockOpnameResponse;
 import com.bliblifuture.response.StockOpnameResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,43 +19,16 @@ import java.util.List;
 
 @Controller
 public class MainController {
-//    @Autowired
-//    StockopnameRepository stockopnameRepository;
-//    @RequestMapping("/stockopname")
-//    public String herbs (Model model) {
-//        List<StockOpname> Stockopname = stockopnameRepository.findByCategory(.HERBS);
-//        model.addAttribute("StockOpname", Stockopname);
-//        return "URLNYA BUKAN YA?";
-//    }
-
+    @Autowired
+    StockOpnameRepository stockOpnameRepo;
 
     @RequestMapping(value="/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public StockOpnameResponses getAllData() {
-        StockOpnameResponses stockOpnameResponses = new StockOpnameResponses();
-        StockOpnameResponse stockOpnameOne = new StockOpnameResponse();
-        stockOpnameOne.setSKU("ABAB");
-        StockOpnameResponse stockOpnameTwo = new StockOpnameResponse();
-        stockOpnameTwo.setSKU("BABA");
-        StockOpnameResponse stockOpnameThree = new StockOpnameResponse();
-        stockOpnameThree.setSKU("CACA");
-        List<StockOpnameResponse> data = new ArrayList<StockOpnameResponse>();
-        data.add(stockOpnameOne);
-        data.add(stockOpnameTwo);
-        data.add(stockOpnameThree);
-        stockOpnameResponses.setData(data);
-        return stockOpnameResponses;
+        StockOpnameResponses response = new StockOpnameResponses();
+        response.setData(stockOpnameRepo.findAll());
+        return response;
     }
-
-
-
-
-
-
-
-
-
-
 
     //abaikan saja dibahwah ini
     @RequestMapping("/template")

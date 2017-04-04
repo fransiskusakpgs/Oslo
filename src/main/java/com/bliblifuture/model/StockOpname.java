@@ -2,9 +2,6 @@ package com.bliblifuture.model;
 
 import javax.persistence.*;
 
-/**
- * Created by Fransiskus A K on 11/03/2017.
- */
 @Entity
 @Table(name="stockOpname")
 public class StockOpname {
