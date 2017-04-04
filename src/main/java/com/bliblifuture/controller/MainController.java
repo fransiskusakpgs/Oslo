@@ -24,15 +24,23 @@ import java.util.List;
 public class MainController {
 //    @Autowired
 //    StockopnameRepository stockopnameRepository;
-
 //    @RequestMapping("/stockopname")
 //    public String herbs (Model model) {
-//
 //        List<StockOpname> Stockopname = stockopnameRepository.findByCategory(.HERBS);
 //        model.addAttribute("StockOpname", Stockopname);
-//
 //        return "URLNYA BUKAN YA?";
 //    }
+
+
+
+
+
+
+
+
+
+
+
 
     @RequestMapping(value="/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -54,6 +62,15 @@ public class MainController {
 
 
 
+
+
+
+
+
+
+
+
+    //abaikan saja dibahwah ini
     @RequestMapping("/template")
     private String temp() {
         return "TEMPLATE_REACT_JS_BOOTSTRAP";
@@ -68,7 +85,6 @@ public class MainController {
     private String react() {
         return "index";
     }
-
 
     @RequestMapping("/indexdiana")
     private String reacts() {
@@ -94,8 +110,4 @@ public class MainController {
     private String detail() {
         return "jsForDetailWorklist";
     }
-
-
-
-
 }

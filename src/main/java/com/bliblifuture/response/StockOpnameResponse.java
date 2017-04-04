@@ -12,6 +12,8 @@ public class StockOpnameResponse {
     private String totalQty;
     private String SKU;
 
+
+    //dibikin getter setter
     public long getId() {
         return id;
     }

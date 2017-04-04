@@ -9,6 +9,8 @@ public class StockOpnameResponses {
 
     private List<StockOpnameResponse> data;
 
+
+    //dibikin getter setter
     public List<StockOpnameResponse> getData() {
         return data;
     }
