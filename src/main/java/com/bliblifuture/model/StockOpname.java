@@ -1,14 +1,15 @@
 package com.bliblifuture.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Fransiskus A K on 11/03/2017.
  */
 @Entity
+@Table(name="stockOpname")
 public class StockOpname {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String Counter;
     private String Status;

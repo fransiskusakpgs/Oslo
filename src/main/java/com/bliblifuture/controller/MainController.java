@@ -1,7 +1,7 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.StockopnameRepository;
+//import com.bliblifuture.StockopnameRepository;
 import com.bliblifuture.response.StockOpnameResponse;
 import com.bliblifuture.response.StockOpnameResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ASUS My Windows on 2/3/2017.
- */
-
 @Controller
 public class MainController {
 //    @Autowired
@@ -30,16 +26,6 @@ public class MainController {
 //        model.addAttribute("StockOpname", Stockopname);
 //        return "URLNYA BUKAN YA?";
 //    }
-
-
-
-
-
-
-
-
-
-
 
 
     @RequestMapping(value="/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
