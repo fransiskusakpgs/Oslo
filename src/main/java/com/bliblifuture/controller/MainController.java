@@ -1,9 +1,10 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.repository.StockOpnameRepository;
+import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.response.ListResponse;
 import com.bliblifuture.service.StockOpnameService;
+import com.bliblifuture.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,22 @@ import java.util.List;
 public class MainController {
     @Autowired
     StockOpnameService stockOpnameService;
+    @Autowired
+    WarehouseService warehouseService;
 
-    @RequestMapping(value="/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<StockOpname> getAllData() {
+    public ListResponse<StockOpname> getAllStockOpname() {
         List<StockOpname> data = stockOpnameService.findAll();
         ListResponse<StockOpname> response = new ListResponse<>(true, "", data);
+        return response;
+    }
+
+    @RequestMapping(value = "/api/warehouses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ListResponse<Warehouse> getAllWarehouse() {
+        List<Warehouse> data = warehouseService.findAll();
+        ListResponse<Warehouse> response = new ListResponse<>(true, "", data);
         return response;
     }
 }
