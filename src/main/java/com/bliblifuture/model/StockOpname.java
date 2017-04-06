@@ -1,6 +1,7 @@
 package com.bliblifuture.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="stockOpname")
