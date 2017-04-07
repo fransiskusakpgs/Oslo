@@ -1,33 +1,16 @@
 package com.bliblifuture.response;
 
 /**
- * Created by Fransiskus A K on 11/03/2017.
+ * Created by Fransiskus A K on 04/04/2017.
  */
-public class StockOpnameResponse {
+public class WorkListResponse {
 
-    private long id;
-    private String Counter;
-    private String Status;
-    private String waktuPembuatan;
-    private String totalQty;
-    private String SKU;
-
-
-    //dibikin getter setter
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getCounter() {
-        return Counter;
-    }
-
-    public void setCounter(String counter) {
-        Counter = counter;
     }
 
     public String getStatus() {
@@ -61,4 +44,10 @@ public class StockOpnameResponse {
     public void setSKU(String SKU) {
         this.SKU = SKU;
     }
+
+    private long id;
+    private String Status;
+    private String waktuPembuatan;
+    private String totalQty;
+    private String SKU;
 }
