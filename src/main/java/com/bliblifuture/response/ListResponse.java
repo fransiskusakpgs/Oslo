@@ -15,6 +15,18 @@ public class ListResponse<T> implements Serializable {
         this.errorMessage = errorMessage;
     }
 
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
     public List<T> getData() {
         return data;
     }
