@@ -1,0 +1,6 @@
+11 Maret
+bagaimana menyatukan pendekatan ber-react diana dan frans untuk dimasukin spring project
+solved, aplikasinya dibikin gak monolitik, spring project khusus api, npm khusus react
+
+7 April
+bingung bagaimana memproduce 1 json dari list SKU dan SKUUnknown sekaligus
