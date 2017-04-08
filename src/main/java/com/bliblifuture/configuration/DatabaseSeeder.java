@@ -1,13 +1,7 @@
 package com.bliblifuture.configuration;
 
-import com.bliblifuture.model.Admin;
-import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.model.User;
-import com.bliblifuture.model.Warehouse;
-import com.bliblifuture.repository.AdminRepository;
-import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.UserRoleRepository;
-import com.bliblifuture.repository.WarehouseRepository;
+import com.bliblifuture.model.*;
+import com.bliblifuture.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +18,13 @@ public class DatabaseSeeder {
     AdminRepository adminRepo;
     @Autowired
     UserRoleRepository userRoleRepo;
+    @Autowired
+    SuperAdminRepository superAdminRepo;
 
     @PostConstruct
     private void mockupData(){
+
+//      StockOpname Dummy
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setSKU("ABAB");
         stockOpnameRepo.save(stockOpnameOne);
@@ -39,6 +37,7 @@ public class DatabaseSeeder {
         stockOpnameThree.setSKU("CACA");
         stockOpnameRepo.save(stockOpnameThree);
 
+//      Warehouse Dummy
         Warehouse warehouseOne = new Warehouse();
         warehouseOne.setName("Cawang");
         warehouseRepo.save(warehouseOne);
@@ -51,9 +50,11 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
+//      ListWarehouse Dummy
         List<Warehouse> warehouseList = new ArrayList<>();
         warehouseList.add(warehouseOne);
 
+//      Admin Dummy
         Admin adminone = new Admin();
         adminone.setUsername("admin-demo-one");
         adminone.setPassword("123");
@@ -71,6 +72,15 @@ public class DatabaseSeeder {
         adminRepo.save(admintwo);
         admintwo.createEntryUserRole(userRoleRepo);
         adminRepo.save(admintwo);
+
+//      SuperAdmin Dummy
+        SuperAdmin superAdminOne = new SuperAdmin();
+        superAdminOne.setUsername("super-admin-demo");
+        superAdminOne.setPassword("123");
+        superAdminOne.setStatus("Active");
+        superAdminRepo.save(superAdminOne);
+        superAdminOne.createEntryUserRole(userRoleRepo);
+        superAdminRepo.save(superAdminOne);
 
     }
 }
