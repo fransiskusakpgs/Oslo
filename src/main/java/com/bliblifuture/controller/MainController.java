@@ -66,6 +66,7 @@ public class MainController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse registerUser(@RequestBody UserRequest request){
+        userService.registerAdmin(request);
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }

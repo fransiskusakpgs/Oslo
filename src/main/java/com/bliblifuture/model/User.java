@@ -46,11 +46,6 @@ public class User {
         this.userRole = userRole;
     }
 
-//    public String getUserRoleString(){
-//        String userRoleString = userRole.getRole();
-//        return userRoleString;
-//    }
-
 
     public String getRole() {
         return userRole.role;

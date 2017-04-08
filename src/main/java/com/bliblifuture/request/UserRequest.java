@@ -1,15 +1,14 @@
 package com.bliblifuture.request;
 
-import com.bliblifuture.model.Warehouse;
-
 import java.io.Serializable;
 import java.util.List;
 
-public class UserRequest<T> implements Serializable {
+public class UserRequest implements Serializable {
     private String username;
-    private String passord;
+    private String password;
+    private String status;
     private String role;
-    private List<Warehouse> warehouse;
+    private List<String> warehouse;
 
     public String getUsername() {
         return username;
@@ -19,12 +18,20 @@ public class UserRequest<T> implements Serializable {
         this.username = username;
     }
 
-    public String getPassord() {
-        return passord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassord(String passord) {
-        this.passord = passord;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getRole() {
@@ -35,11 +42,11 @@ public class UserRequest<T> implements Serializable {
         this.role = role;
     }
 
-    public List<Warehouse> getWarehouse() {
+    public List<String> getWarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(List<Warehouse> warehouse) {
+    public void setWarehouse(List<String> warehouse) {
         this.warehouse = warehouse;
     }
 }
