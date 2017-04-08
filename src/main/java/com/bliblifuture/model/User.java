@@ -13,10 +13,10 @@ public class User {
     private String username;
     private String password;
     private String status;
+    private String role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private UserRole userRole;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    protected UserRole userRole;
 
     public String getUsername() {
         return username;
@@ -42,11 +42,18 @@ public class User {
         this.status = status;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
+
+//    public String getUserRoleString(){
+//        String userRoleString = userRole.getRole();
+//        return userRoleString;
+//    }
+
+
+    public String getRole() {
+        return userRole.role;
+    }
+
 }

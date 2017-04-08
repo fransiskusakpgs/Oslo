@@ -8,7 +8,7 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username;
-    private String userRole;
+    protected String role;
 
     public String getUsername() {
         return username;
@@ -18,12 +18,12 @@ public class UserRole {
         this.username = username;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

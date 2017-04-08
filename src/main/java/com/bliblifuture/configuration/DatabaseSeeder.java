@@ -51,24 +51,30 @@ public class DatabaseSeeder {
         warehouseRepo.save(warehouseThree);
 
 //      ListWarehouse Dummy
-        List<Warehouse> warehouseList = new ArrayList<>();
-        warehouseList.add(warehouseOne);
+        List<Warehouse> warehouseListOne = new ArrayList<>();
+        warehouseListOne.add(warehouseOne);
 
 //      Admin Dummy
         Admin adminone = new Admin();
         adminone.setUsername("admin-demo-one");
         adminone.setPassword("123");
         adminone.setStatus("Active");
-        adminone.setWarehouse(warehouseList);
+//      Trial set Warehouse Function
+        adminone.setWarehouse(warehouseListOne);
         adminRepo.save(adminone);
         adminone.createEntryUserRole(userRoleRepo);
         adminRepo.save(adminone);
+
+//      ListWarehouse Dummy
+        List<Warehouse> warehouseListTwo = new ArrayList<>();
+        warehouseListTwo.add(warehouseOne);
 
         Admin admintwo = new Admin();
         admintwo.setUsername("admin-demo-two");
         admintwo.setPassword("123");
         admintwo.setStatus("Active");
-        adminone.setWarehouse(warehouseList);
+//      Trial set Warehouse Function
+        adminone.setWarehouse(warehouseListTwo);
         adminRepo.save(admintwo);
         admintwo.createEntryUserRole(userRoleRepo);
         adminRepo.save(admintwo);

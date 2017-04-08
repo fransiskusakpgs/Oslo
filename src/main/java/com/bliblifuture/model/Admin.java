@@ -1,7 +1,7 @@
 package com.bliblifuture.model;
 
 import com.bliblifuture.repository.UserRoleRepository;
-import org.hibernate.annotations.Fetch;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,8 +21,10 @@ public class Admin extends User{
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
         UserRole adminrole = new UserRole();
         adminrole.setUsername(this.getUsername());
-        adminrole.setUserRole("ROLE_ADMIN");
+        adminrole.setRole("ROLE_ADMIN");
         userRoleRepo.save(adminrole);
+
+        this.userRole = adminrole;
     }
 
     public List<Warehouse> getWarehouse() {
@@ -31,5 +33,9 @@ public class Admin extends User{
 
     public void setWarehouse(List<Warehouse> warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public void addWarehouse(Warehouse warehouse){
+        this.warehouse.add(warehouse);
     }
 }
