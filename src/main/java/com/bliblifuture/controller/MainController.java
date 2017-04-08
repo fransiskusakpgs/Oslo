@@ -4,6 +4,7 @@ import com.bliblifuture.model.Admin;
 import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
+import com.bliblifuture.request.UserRequest;
 import com.bliblifuture.request.WarehouseRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
@@ -57,6 +58,14 @@ public class MainController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse selectWarehouse(@RequestBody WarehouseRequest request){
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
+    @RequestMapping(value = "api/users", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse registerUser(@RequestBody UserRequest request){
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
