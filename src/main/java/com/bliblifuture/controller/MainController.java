@@ -45,7 +45,7 @@ public class MainController {
         return response;
     }
 
-    @RequestMapping(value="/api/admins", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<User> getAllUsers(){
         List<User> data = userService.findAll();
