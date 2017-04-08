@@ -19,3 +19,4 @@ public class DemoApplication extends WebMvcConfigurerAdapter {
 				.addResourceLocations("classpath:/static/");
 	}
 }
+//
