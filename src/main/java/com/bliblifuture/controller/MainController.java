@@ -58,6 +58,7 @@ public class MainController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse selectWarehouse(@RequestBody WarehouseRequest request){
+//        warehouseService.registerWarehouse(request);
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
