@@ -71,4 +71,15 @@ public class MainController {
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
+
+    @RequestMapping(value = "api/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse editUser(@RequestBody UserRequest request){
+        if (request.getRole().equals("ROLE_ADMIN")){
+            userService.editAdmin(request);
+        }
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
 }

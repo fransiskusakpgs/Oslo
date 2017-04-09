@@ -31,6 +31,36 @@ public class UserService {
         List<User> data = userRepo.findAll();
         return data;
     }
+    public void editAdmin(UserRequest data){
+        Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
+        currentAdmin.setPassword(data.getPassword());
+        currentAdmin.setStatus(data.getStatus());
+        adminRepo.save(currentAdmin);
+
+//      Mendapatkan semua warehouse yang ada di database
+        List<Warehouse> availableWarehouses = warehouseRepo.findAll();
+
+        for (String newWarehouse: data.getWarehouse()) {
+            for (String oldWarehouse: currentAdmin.getWarehouse()) {
+                if (!newWarehouse.equals(oldWarehouse)){
+//                  Melakukan pengecekan apakah requestWarehouse ada di availableWarehouse
+                    for (Warehouse availableWarehouse: availableWarehouses) {
+                        if (availableWarehouse.getName().equals(newWarehouse)){
+//                          Membuat adminWarehouse
+                            AdminWarehouse adminWarehouse = new AdminWarehouse();
+                            adminWarehouse.setAdmin(currentAdmin);
+                            adminWarehouse.setWarehouse(availableWarehouse);
+                            adminWarehouseRepo.save(adminWarehouse);
+//                          Menambahkan AdminWarehouse adminWarehouse kedalam newAdmin dalam bentuk List<AdminWarehouse>
+                            currentAdmin.addAdminWarehouse(adminWarehouse);
+                            adminRepo.save(currentAdmin);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 
     public void registerAdmin(UserRequest data){
 //      Membuat admin
