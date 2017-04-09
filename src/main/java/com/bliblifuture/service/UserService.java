@@ -6,6 +6,7 @@ import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
+import com.bliblifuture.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,16 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
+    AdminRepository adminRepo;
+    @Autowired
+    AdminWarehouseRepository adminWarehouseRepo;
+    @Autowired
     UserRepository userRepo;
     @Autowired
     UserRoleRepository userRoleRepo;
     @Autowired
-    AdminRepository adminRepo;
-    @Autowired
     WarehouseRepository warehouseRepo;
-    @Autowired
-    AdminWarehouseRepository adminWarehouseRepo;
+
 
     public List<User> findAll(){
         List<User> data = userRepo.findAll();
@@ -42,24 +44,23 @@ public class UserService {
         newAdmin.setStatus(data.getStatus());
         adminRepo.save(newAdmin);
 
-//      Membuat warehouse
-        AdminWarehouse adminWarehouse = new AdminWarehouse();
+//      Mendapatkan semua warehouse yang ada di database
+        List<Warehouse> availableWarehouses = warehouseRepo.findAll();
 
-        for (String warehouse: data.getWarehouse()) {
-
-//          Merubah string warehouse menjadi Warehouse addingWarehouse
-            Warehouse addingWarehouse = new Warehouse();
-            addingWarehouse.setName(warehouse);
-            warehouseRepo.save(addingWarehouse);
-
-//          Merubah Warehouse addingWarehouse menjadi AdminWarehouse adminWarehouse
-            adminWarehouse.setWarehouse(addingWarehouse);
-            adminWarehouseRepo.save(adminWarehouse);
-
-//          Menambahkan AdminWarehouse adminWarehouse kedalam newAdmin dalam bentuk List<AdminWarehouse>
-            newAdmin.addAdminWarehouse(adminWarehouse);
-            adminRepo.save(newAdmin);
+        for (String requestWarehouse: data.getWarehouse()) {
+//          Melakukan pengecekan apakah requestWarehouse ada di availableWarehouse
+            for (Warehouse availableWarehouse: availableWarehouses) {
+                if (availableWarehouse.getName().equals(requestWarehouse)){
+//                  Membuat adminWarehouse
+                    AdminWarehouse adminWarehouse = new AdminWarehouse();
+                    adminWarehouse.setAdmin(newAdmin);
+                    adminWarehouse.setWarehouse(availableWarehouse);
+                    adminWarehouseRepo.save(adminWarehouse);
+//                  Menambahkan AdminWarehouse adminWarehouse kedalam newAdmin dalam bentuk List<AdminWarehouse>
+                    newAdmin.addAdminWarehouse(adminWarehouse);
+                    adminRepo.save(newAdmin);
+                }
+            }
         }
-        adminRepo.save(newAdmin);
     }
 }
