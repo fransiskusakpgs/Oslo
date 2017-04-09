@@ -13,9 +13,8 @@ public class User {
     private String username;
     private String password;
     private String status;
-    private String role;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
     protected UserRole userRole;
 
     public String getUsername() {
@@ -45,7 +44,6 @@ public class User {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-
 
     public String getRole() {
         return userRole.role;

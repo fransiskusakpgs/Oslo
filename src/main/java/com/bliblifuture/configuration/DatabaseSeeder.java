@@ -87,6 +87,5 @@ public class DatabaseSeeder {
         superAdminRepo.save(superAdminOne);
         superAdminOne.createEntryUserRole(userRoleRepo);
         superAdminRepo.save(superAdminOne);
-
     }
 }

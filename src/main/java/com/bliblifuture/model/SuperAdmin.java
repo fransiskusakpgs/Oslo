@@ -9,7 +9,6 @@ public class SuperAdmin extends User {
     public SuperAdmin (){super();}
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
         UserRole superAdminRole = new UserRole();
-        superAdminRole.setUsername(this.getUsername());
         superAdminRole.setRole("ROLE_SUPER_ADMIN");
         userRoleRepo.save(superAdminRole);
 
