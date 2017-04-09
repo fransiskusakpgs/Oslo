@@ -10,9 +10,8 @@ import java.util.List;
 @Entity
 public class Admin extends User{
 
-    @ManyToMany
-    @JoinColumn(name="admin_id")
-    private List<Warehouse> warehouse = new ArrayList<>();
+    @OneToMany
+    private List<AdminWarehouse> adminWarehouse = new ArrayList<>();
 
     public Admin(){
         super();
@@ -24,17 +23,24 @@ public class Admin extends User{
         userRoleRepo.save(adminrole);
 
         this.userRole = adminrole;
+}
+
+    public List<String> getWarehouse(){
+        List<String> warehouses = new ArrayList<>();
+        for (AdminWarehouse adminWarehouse: this.adminWarehouse) {
+            Warehouse warehouse = adminWarehouse.getWarehouse();
+            String whName = warehouse.getName();
+            warehouses.add(whName);
+        }
+        return warehouses;
     }
 
-    public List<Warehouse> getWarehouse() {
-        return warehouse;
+    public void setAdminWarehouse(List<AdminWarehouse> adminWarehouse) {
+        this.adminWarehouse = adminWarehouse;
     }
 
-    public void setWarehouse(List<Warehouse> warehouse) {
-        this.warehouse = warehouse;
+    public void addAdminWarehouse(AdminWarehouse adminWarehouse){
+        this.adminWarehouse.add(adminWarehouse);
     }
 
-    public void addWarehouse(Warehouse warehouse){
-        this.warehouse.add(warehouse);
-    }
 }

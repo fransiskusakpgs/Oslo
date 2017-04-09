@@ -1,12 +1,10 @@
 package com.bliblifuture.service;
 
 import com.bliblifuture.model.Admin;
+import com.bliblifuture.model.AdminWarehouse;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
-import com.bliblifuture.repository.AdminRepository;
-import com.bliblifuture.repository.UserRepository;
-import com.bliblifuture.repository.UserRoleRepository;
-import com.bliblifuture.repository.WarehouseRepository;
+import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,8 @@ public class UserService {
     AdminRepository adminRepo;
     @Autowired
     WarehouseRepository warehouseRepo;
+    @Autowired
+    AdminWarehouseRepository adminWarehouseRepo;
 
     public List<User> findAll(){
         List<User> data = userRepo.findAll();
@@ -31,26 +31,35 @@ public class UserService {
     }
 
     public void registerAdmin(UserRequest data){
+//      Membuat admin
         Admin newAdmin = new Admin();
         newAdmin.createEntryUserRole(userRoleRepo);
         adminRepo.save(newAdmin);
+
+//      Mengisi atribut admin
         newAdmin.setUsername(data.getUsername());
         newAdmin.setPassword(data.getPassword());
         newAdmin.setStatus(data.getStatus());
         adminRepo.save(newAdmin);
 
-        List<Warehouse> listOfWarehouse = new ArrayList<>();
-        List<String> warehouses = new ArrayList<>();
+//      Membuat warehouse
+        AdminWarehouse adminWarehouse = new AdminWarehouse();
 
-        for (String warehouse: warehouses) {
+        for (String warehouse: data.getWarehouse()) {
+
+//          Merubah string warehouse menjadi Warehouse addingWarehouse
             Warehouse addingWarehouse = new Warehouse();
             addingWarehouse.setName(warehouse);
             warehouseRepo.save(addingWarehouse);
-            listOfWarehouse.add(addingWarehouse);
+
+//          Merubah Warehouse addingWarehouse menjadi AdminWarehouse adminWarehouse
+            adminWarehouse.setWarehouse(addingWarehouse);
+            adminWarehouseRepo.save(adminWarehouse);
+
+//          Menambahkan AdminWarehouse adminWarehouse kedalam newAdmin dalam bentuk List<AdminWarehouse>
+            newAdmin.addAdminWarehouse(adminWarehouse);
+            adminRepo.save(newAdmin);
         }
-
-        newAdmin.setWarehouse(listOfWarehouse);
         adminRepo.save(newAdmin);
-
     }
 }

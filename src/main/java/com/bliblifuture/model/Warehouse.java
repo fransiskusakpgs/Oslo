@@ -11,6 +11,9 @@ public class Warehouse {
     private long id;
     private String name;
 
+    @OneToMany
+    private List<AdminWarehouse> adminWarehouse = new ArrayList<>();
+
     public String getName() {
         return name;
     }
@@ -19,4 +22,15 @@ public class Warehouse {
         this.name = name;
     }
 
+    public List<AdminWarehouse> getAdminWarehouse() {
+        return adminWarehouse;
+    }
+
+    public void setAdminWarehouse(List<AdminWarehouse> adminWarehouse) {
+        this.adminWarehouse = adminWarehouse;
+    }
+
+    public void addAdminWarehouse(AdminWarehouse adminWarehouse){
+        this.adminWarehouse.add(adminWarehouse);
+    }
 }

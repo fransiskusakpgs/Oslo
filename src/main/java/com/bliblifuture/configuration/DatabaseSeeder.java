@@ -20,6 +20,8 @@ public class DatabaseSeeder {
     UserRoleRepository userRoleRepo;
     @Autowired
     SuperAdminRepository superAdminRepo;
+    @Autowired
+    AdminWarehouseRepository adminWarehouseRepo;
 
     @PostConstruct
     private void mockupData(){
@@ -50,33 +52,50 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
-//      ListWarehouse Dummy
-        List<Warehouse> warehouseListOne = new ArrayList<>();
-        warehouseListOne.add(warehouseOne);
-
-//      Admin Dummy
+//      Admin One Dummy
         Admin adminone = new Admin();
         adminone.setUsername("admin-demo-one");
         adminone.setPassword("123");
         adminone.setStatus("Active");
-//      Trial set Warehouse Function
-        adminone.setWarehouse(warehouseListOne);
         adminRepo.save(adminone);
+
         adminone.createEntryUserRole(userRoleRepo);
         adminRepo.save(adminone);
 
-//      ListWarehouse Dummy
-        List<Warehouse> warehouseListTwo = new ArrayList<>();
-        warehouseListTwo.add(warehouseOne);
+//      AdminWarehouse One Dummy
+        AdminWarehouse adminWarehouseOne = new AdminWarehouse();
+        adminWarehouseOne.setAdmin(adminone);
+        adminWarehouseOne.setWarehouse(warehouseOne);
+        adminWarehouseRepo.save(adminWarehouseOne);
 
+        adminone.addAdminWarehouse(adminWarehouseOne);
+        adminRepo.save(adminone);
+
+//      Admin Two Dummy
         Admin admintwo = new Admin();
         admintwo.setUsername("admin-demo-two");
         admintwo.setPassword("123");
         admintwo.setStatus("Active");
-//      Trial set Warehouse Function
-        adminone.setWarehouse(warehouseListTwo);
         adminRepo.save(admintwo);
+
         admintwo.createEntryUserRole(userRoleRepo);
+        adminRepo.save(admintwo);
+
+//      AdminWarehouse Dummy
+        AdminWarehouse adminWarehouseTwo = new AdminWarehouse();
+        adminWarehouseTwo.setAdmin(admintwo);
+        adminWarehouseTwo.setWarehouse(warehouseOne);
+        adminWarehouseRepo.save(adminWarehouseTwo);
+
+        admintwo.addAdminWarehouse(adminWarehouseTwo);
+
+//      AdminWarehouse Dummy
+        AdminWarehouse adminWarehouseThree = new AdminWarehouse();
+        adminWarehouseThree.setAdmin(admintwo);
+        adminWarehouseThree.setWarehouse(warehouseTwo);
+        adminWarehouseRepo.save(adminWarehouseThree);
+
+        admintwo.addAdminWarehouse(adminWarehouseThree);
         adminRepo.save(admintwo);
 
 //      SuperAdmin Dummy
