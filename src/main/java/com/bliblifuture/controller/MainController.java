@@ -76,9 +76,9 @@ public class MainController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse editUser(@RequestBody UserRequest request){
-        if (request.getRole().equals("ROLE_ADMIN")){
+//        if (request.getRole().equals("ROLE_ADMIN")){
             userService.editAdmin(request);
-        }
+//        }
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
