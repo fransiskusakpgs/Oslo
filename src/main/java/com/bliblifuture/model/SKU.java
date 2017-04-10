@@ -5,13 +5,21 @@ import javax.persistence.*;
 @Entity
 @Table(name="SKU")
 public class SKU {
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String itemName;
+    private String stockType;
+    private String storageCode;
+    private int systemQty;
+    private int physicalQty;
+    private int deviationQty;
+    private String information;
+    @ManyToOne
+    @JoinColumn(name = "stockopname_id")
+    private StockOpname stockOpname;
+
 
     public String getItemName() {
         return itemName;
@@ -69,16 +77,7 @@ public class SKU {
         this.information = information;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String itemName;
-    private String stockType;
-    private String storageCode;
-    private int systemQty;
-    private int physicalQty;
-    private int deviationQty;
-    private String information;
+
 }
 
 

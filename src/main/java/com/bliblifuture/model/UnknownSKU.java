@@ -8,13 +8,16 @@ import javax.persistence.*;
 @Entity
 @Table(name="UnknownSKU")
 public class UnknownSKU {
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private long id;
+    private String storageCode;
+    private int physicalQty;
+    @ManyToOne
+    @JoinColumn(name = "stockopname_Id")
+    private StockOpname stockOpname;
 
     public String getStorageCode() {
         return storageCode;
@@ -31,12 +34,5 @@ public class UnknownSKU {
     public void setPhysicalQty(int physicalQty) {
         this.physicalQty = physicalQty;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String storageCode;
-    private int physicalQty;
-
 
 }

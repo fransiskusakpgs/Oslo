@@ -21,6 +21,7 @@ public class StockOpname {
     @OneToMany
     private List<UnknownSKU> UnknownSKUs = new ArrayList<>();
 
+
     public String getCounter() {
         return Counter;
     }
