@@ -1,14 +1,12 @@
-package com.bliblifuture.model;
+package com.bliblifuture.request;
 
-import javax.persistence.*;
+import com.bliblifuture.model.StockOpname;
 
-@Entity
-@Table(name="SKU")
-public class SKU {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class SKURequest implements Serializable{
 
     private String SKUid;
     private String itemName;
@@ -18,8 +16,6 @@ public class SKU {
     private int physicalQty;
     private int deviationQty;
     private String information;
-    @ManyToOne
-    @JoinColumn(name = "stockopname_id")
     private StockOpname stockOpname;
 
     public String getSKUid() {
@@ -86,11 +82,11 @@ public class SKU {
         this.information = information;
     }
 
+    public StockOpname getStockOpname() {
+        return stockOpname;
+    }
 
+    public void setStockOpname(StockOpname stockOpname) {
+        this.stockOpname = stockOpname;
+    }
 }
-
-
-
-
-
-

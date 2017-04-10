@@ -36,12 +36,13 @@ public class DatabaseSeeder {
 //        workListRepo.save(workListOne);
 
         SKU skuOne = new SKU();
+        skuOne.setSKUid("AAA1111");
         skuOne.setItemName("Agree To Shop Pants");
         skuOne.setDeviationQty(0);
         skuOne.setInformation("");
         skuOne.setStockType("Trading");
         skuOne.setStorageCode("A-101-100");
-//        skuRepo.save(skuOne);
+        skuRepo.save(skuOne);
         skuOne.setPhysicalQty(0);
         skuOne.setSystemQty(10);
         skuRepo.save(skuOne);
@@ -52,44 +53,53 @@ public class DatabaseSeeder {
         unknownSKURepo.save(unknownSKUone);
 
         SKU skuTwo = new SKU();
+        skuTwo.setSKUid("BBB1111");
         skuTwo.setItemName("Agree To Shop Pants");
         skuTwo.setDeviationQty(0);
         skuTwo.setInformation("");
         skuTwo.setStockType("Trading");
         skuTwo.setStorageCode("A-101-100");
-//        skuRepo.save(skuTwo);
+        skuRepo.save(skuTwo);
         skuTwo.setPhysicalQty(0);
         skuTwo.setSystemQty(10);
         skuRepo.save(skuTwo);
 
-//        UnknownSKU unknownSKUtwo = new UnknownSKU();
-//        unknownSKUtwo.setStorageCode("B-101-100");
-//        unknownSKUtwo.setPhysicalQty(1);
-//        unknownSKURepo.save(unknownSKUtwo);
-//
-//        List<UnknownSKU> UnknownSKUsOne = new ArrayList<>();
-//        UnknownSKUsOne.add(unknownSKUone);
-//
-//        List<UnknownSKU> UnknownSKUsTwo = new ArrayList<>();
-//        UnknownSKUsTwo.add(unknownSKUtwo);
+        UnknownSKU unknownSKUtwo = new UnknownSKU();
+        unknownSKUtwo.setStorageCode("B-101-100");
+        unknownSKUtwo.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUtwo);
+
+        List<UnknownSKU> UnknownSKUsOne = new ArrayList<>();
+        UnknownSKUsOne.add(unknownSKUone);
+
+        List<UnknownSKU> UnknownSKUsTwo = new ArrayList<>();
+        UnknownSKUsTwo.add(unknownSKUtwo);
 
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStatus("");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
         stockOpnameOne.addSKU(skuTwo);
+        stockOpnameOne.addUnknownSKU(unknownSKUone);
+        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
+
 //        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
         stockOpnameOne.countTotalQty();
+        stockOpnameOne.countTotalSKU();
         stockOpnameOne.setWaktuPembuatan("");
         stockOpnameRepo.save(stockOpnameOne);
-
+//
 //        StockOpname stockOpnameTwo = new StockOpname();
 //        stockOpnameTwo.setStatus("");
-//        stockOpnameTwo.setSKUs(SKUsTwo);
-//        stockOpnameTwo.setUnknownSKUs(UnknownSKUsTwo);
+//        stockOpnameRepo.save(stockOpnameTwo);
+//        stockOpnameTwo.addSKU(skuThree);
+//        stockOpnameTwo.addSKU(skuFour);
+//
+//        stockOpnameTwo.setUnknownSKUs(UnknownSKUsOne);
+//        stockOpnameTwo.countTotalQty();
 //        stockOpnameTwo.setWaktuPembuatan("");
 //        stockOpnameRepo.save(stockOpnameTwo);
-
+//
 
 
 //

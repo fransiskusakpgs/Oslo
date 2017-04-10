@@ -67,6 +67,11 @@ public class StockOpname {
         UnknownSKUs = unknownSKUs;
     }
 
+    public void addUnknownSKU(UnknownSKU unknownSKU){
+        this.UnknownSKUs.add(unknownSKU);
+    }
+
+
     public int getTotalQty() {
         return totalQty;
     }
@@ -88,8 +93,12 @@ public class StockOpname {
         return totalSKU;
     }
 
-    public void setTotalSKU() {
-        this.totalSKU = SKUs.size();
+    public void setTotalSKU(int totalSKU ) {
+        this.totalSKU = totalSKU;
+    }
+    public void countTotalSKU() {
+        totalSKU = SKUs.size();
+
     }
 
 

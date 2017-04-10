@@ -7,6 +7,7 @@ import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UnknownSKURepository;
 import com.bliblifuture.repository.WorkListRepository;
+import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.response.*;
 
 import com.bliblifuture.service.SKUService;
@@ -62,4 +63,15 @@ public class MainController {
 //        response2.setDataworklist(workListRepo.findAll());
 //        return response2;
 //    }
+
+
+@RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
+    stockOpnameService.createStockOpname(request);
+    BaseResponse response = new BaseResponse(true,"");
+    return response;
+
+}
 }
