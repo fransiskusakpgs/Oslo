@@ -9,13 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockOpnameRequest implements Serializable{
-
+    private String stockOpnameId;
     private String Status;
     private String waktuPembuatan;
     private int totalQty;
     private int totalSKU;
     private List<SKURequest> SKUs = new ArrayList<>();
-    private List<String> UnknownSKUs = new ArrayList<>();
+    private UnknownSKURequest UnknownSKUs = new UnknownSKURequest();
+
+    public String getStockOpnameId() {
+        return stockOpnameId;
+    }
+
+    public void setStockOpnameId(String stockOpnameId) {
+        this.stockOpnameId = stockOpnameId;
+    }
 
     public String getStatus() {
         return Status;
@@ -57,11 +65,12 @@ public class StockOpnameRequest implements Serializable{
         this.SKUs = SKUs;
     }
 
-    public List<String> getUnknownSKUs() {
+    public UnknownSKURequest getUnknownSKUs() {
         return UnknownSKUs;
     }
 
-    public void setUnknownSKUs(List<String> unknownSKUs) {
+    public void setUnknownSKUs(UnknownSKURequest unknownSKUs) {
         UnknownSKUs = unknownSKUs;
     }
+
 }

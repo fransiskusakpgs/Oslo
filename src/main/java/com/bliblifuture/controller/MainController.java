@@ -8,6 +8,7 @@ import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UnknownSKURepository;
 import com.bliblifuture.repository.WorkListRepository;
 import com.bliblifuture.request.StockOpnameRequest;
+import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.response.*;
 
 import com.bliblifuture.service.SKUService;
@@ -72,6 +73,15 @@ public class MainController {
     stockOpnameService.createStockOpname(request);
     BaseResponse response = new BaseResponse(true,"");
     return response;
-
 }
+    @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse addUnknownSKU(@RequestBody StockOpnameRequest request) {
+        stockOpnameService.addUnknownSKUtoList(request);
+        BaseResponse responseBS = new BaseResponse(true,"");
+        return responseBS;
+
+    }
+
 }

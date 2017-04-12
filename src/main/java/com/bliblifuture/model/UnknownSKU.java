@@ -2,9 +2,7 @@ package com.bliblifuture.model;
 
 import javax.persistence.*;
 
-/**
- * Created by Fransiskus A K on 06/04/2017.
- */
+
 @Entity
 @Table(name="UnknownSKU")
 public class UnknownSKU {
@@ -13,11 +11,28 @@ public class UnknownSKU {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private long id;
+    private String unknownSKUId;
     private String storageCode;
     private int physicalQty;
     @ManyToOne
     @JoinColumn(name = "stockopname_Id")
     private StockOpname stockOpname;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUnknownSKUId() {
+        return unknownSKUId;
+    }
+
+    public void setUnknownSKUId(String unknownSKUId) {
+        this.unknownSKUId = unknownSKUId;
+    }
 
     public String getStorageCode() {
         return storageCode;
@@ -35,4 +50,11 @@ public class UnknownSKU {
         this.physicalQty = physicalQty;
     }
 
+    public StockOpname getStockOpname() {
+        return stockOpname;
+    }
+
+    public void setStockOpname(StockOpname stockOpname) {
+        this.stockOpname = stockOpname;
+    }
 }

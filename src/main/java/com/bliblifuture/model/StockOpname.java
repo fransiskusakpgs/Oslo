@@ -1,4 +1,4 @@
-package com.bliblifuture.model;
+    package com.bliblifuture.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +11,7 @@ public class StockOpname {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String stockOpnameId;
     private String Counter;
     private String Status;
     private String waktuPembuatan;
@@ -21,6 +22,13 @@ public class StockOpname {
     @OneToMany
     private List<UnknownSKU> UnknownSKUs = new ArrayList<>();
 
+    public String getStockOpnameId() {
+        return stockOpnameId;
+    }
+
+    public void setStockOpnameId(String stockOpnameId) {
+        this.stockOpnameId = stockOpnameId;
+    }
 
     public String getCounter() {
         return Counter;
