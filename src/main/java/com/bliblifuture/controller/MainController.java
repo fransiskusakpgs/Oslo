@@ -67,7 +67,12 @@ public class MainController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse registerUser(@RequestBody UserRequest request){
-        userService.registerAdmin(request);
+        if(request.getRole().equals("ROLE_ADMIN")){
+            userService.registerAdmin(request);
+        } else if (request.getRole().equals("ROLE_COUNTER")) {
+            userService.registerCounter(request);
+        }
+
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
@@ -76,9 +81,12 @@ public class MainController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse editUser(@RequestBody UserRequest request){
-//        if (request.getRole().equals("ROLE_ADMIN")){
+        if (request.getRole().equals("ROLE_ADMIN")){
             userService.editAdmin(request);
-//        }
+        }
+        else if(request.getRole().equals("ROLE_COUNTER")){
+            userService.editCounter(request);
+        }
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }

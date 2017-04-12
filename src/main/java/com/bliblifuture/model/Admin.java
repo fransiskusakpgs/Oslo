@@ -24,7 +24,7 @@ public class Admin extends User{
         userRoleRepo.save(adminrole);
 
         this.userRole = adminrole;
-}
+    }
     public List<Warehouse> getWarehouses() {
         return warehouses;
     }

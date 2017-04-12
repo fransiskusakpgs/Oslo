@@ -1,6 +1,7 @@
 package com.bliblifuture.service;
 
 import com.bliblifuture.model.Admin;
+import com.bliblifuture.model.Counter;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.repository.*;
@@ -18,6 +19,8 @@ public class UserService {
     @Autowired
     AdminWarehouseRepository adminWarehouseRepo;
     @Autowired
+    CounterRepository counterRepo;
+    @Autowired
     UserRepository userRepo;
     @Autowired
     UserRoleRepository userRoleRepo;
@@ -26,11 +29,7 @@ public class UserService {
 
     public List<User> findAll(){
        List<User> dataUser = userRepo.findAll();
-       List<Warehouse> coba = warehouseRepo.findByAdmins(adminRepo.findByUsername("demo-admin-one"));
-        for (Warehouse w: coba) {
-            System.out.println("ini adalah" + w.getName());
-        }
-        return dataUser;
+       return dataUser;
     }
 
     public void editAdmin(UserRequest data) {
@@ -48,6 +47,13 @@ public class UserService {
             }
         currentAdmin.setWarehouses(acceptedWarehouses);
         adminRepo.save(currentAdmin);
+    }
+
+    public void editCounter(UserRequest data){
+        Counter currentCounter = counterRepo.findByUsername(data.getUsername());
+        currentCounter.setPassword(data.getPassword());
+        currentCounter.setStatus(data.getStatus());
+        counterRepo.save(currentCounter);
     }
 
     public void registerAdmin(UserRequest data){
@@ -75,5 +81,17 @@ public class UserService {
             }
         }
         newAdmin.setWarehouses(acceptedWarehouses);
+    }
+
+    public void registerCounter(UserRequest data){
+        Counter newCounter = new Counter();
+        newCounter.createEntryUserRole(userRoleRepo);
+        counterRepo.save(newCounter);
+        newCounter.setUsername(data.getUsername());
+        newCounter.setPassword(data.getPassword());
+        newCounter.setStatus(data.getStatus());
+        Warehouse counterSetWarehouse = warehouseRepo.findByName(data.getWarehouse().get(0));
+        newCounter.setWarehouse(counterSetWarehouse);
+        counterRepo.save(newCounter);
     }
 }

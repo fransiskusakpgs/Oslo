@@ -11,17 +11,18 @@ import java.util.*;
 @Component
 public class DatabaseSeeder {
     @Autowired
-    StockOpnameRepository stockOpnameRepo;
-    @Autowired
-    WarehouseRepository warehouseRepo;
-    @Autowired
     AdminRepository adminRepo;
     @Autowired
-    UserRoleRepository userRoleRepo;
+    CounterRepository counterRepo;
+    @Autowired
+    StockOpnameRepository stockOpnameRepo;
     @Autowired
     SuperAdminRepository superAdminRepo;
     @Autowired
-    AdminWarehouseRepository adminWarehouseRepo;
+    UserRoleRepository userRoleRepo;
+    @Autowired
+    WarehouseRepository warehouseRepo;
+
 
     @PostConstruct
     private void mockupData(){
@@ -83,28 +84,15 @@ public class DatabaseSeeder {
         superAdminOne.createEntryUserRole(userRoleRepo);
         superAdminRepo.save(superAdminOne);
 
-//        Coba many to many
-        Warehouse warehouseFour = new Warehouse();
-        warehouseFour.setName("cobacoba");
-        warehouseRepo.save(warehouseFour);
-
-        Admin adminThree = new Admin();
-        adminThree.createEntryUserRole(userRoleRepo);
-        adminThree.setUsername("inicobacoba");
-        adminRepo.save(adminThree);
-        adminThree.addWarehouse(warehouseOne);
-        adminThree.addWarehouse(warehouseTwo);
-        adminRepo.save(adminThree);
-
-        Admin adminFour = new Admin();
-        adminFour.createEntryUserRole(userRoleRepo);
-        adminFour.setUsername("inicobacoba2");
-        adminRepo.save(adminFour);
-        adminFour.addWarehouse(warehouseOne);
-        adminFour.addWarehouse(warehouseTwo);
-        adminFour.deleteWarehouse(warehouseOne);
-        adminRepo.save(adminFour);
-
+//      Counter Dummy
+        Counter counterOne = new Counter();
+        counterOne.createEntryUserRole(userRoleRepo);
+        counterOne.setUsername("demo-counter-one");
+        counterOne.setPassword("123");
+        counterOne.setStatus("Active");
+        counterRepo.save(counterOne);
+        counterOne.setWarehouse(warehouseOne);
+        counterRepo.save(counterOne);
 
     }
 }
