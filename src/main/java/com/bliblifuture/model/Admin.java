@@ -10,8 +10,9 @@ import java.util.List;
 @Entity
 public class Admin extends User{
 
-    @OneToMany
-    private List<AdminWarehouse> adminWarehouse = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "warehouse_id")
+    private List<Warehouse> warehouses = new ArrayList<>();
 
     public Admin(){
         super();
@@ -24,23 +25,28 @@ public class Admin extends User{
 
         this.userRole = adminrole;
 }
-
-    public List<String> getWarehouse(){
-        List<String> warehouses = new ArrayList<>();
-        for (AdminWarehouse adminWarehouse: this.adminWarehouse) {
-            Warehouse warehouse = adminWarehouse.getWarehouse();
-            String whName = warehouse.getName();
-            warehouses.add(whName);
-        }
+    public List<Warehouse> getWarehouses() {
         return warehouses;
     }
 
-    public void setAdminWarehouse(List<AdminWarehouse> adminWarehouse) {
-        this.adminWarehouse = adminWarehouse;
+    public void setWarehouses(List<Warehouse> warehouses) {
+        this.warehouses = warehouses;
     }
 
-    public void addAdminWarehouse(AdminWarehouse adminWarehouse){
-        this.adminWarehouse.add(adminWarehouse);
+    public void addWarehouse(Warehouse warehouse){
+        warehouse.addAdmins(this);
+        this.warehouses.add(warehouse);
     }
 
+    public void deleteWarehouse(Warehouse warehouse){
+        warehouses.remove(warehouse);
+        warehouse.deleteAdmin(this);
+    }
+    public void deleteAllWarehouse(){
+        for (Warehouse wh: warehouses) {
+            wh.deleteAdmin(this);
+        }
+        warehouses.clear();
+    }
 }
+

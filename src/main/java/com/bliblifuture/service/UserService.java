@@ -1,12 +1,10 @@
 package com.bliblifuture.service;
 
 import com.bliblifuture.model.Admin;
-import com.bliblifuture.model.AdminWarehouse;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
-import com.bliblifuture.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,22 +24,13 @@ public class UserService {
     @Autowired
     WarehouseRepository warehouseRepo;
 
-
     public List<User> findAll(){
-        List<User> data = userRepo.findAll();
-        return data;
-    }
-
-    public Boolean checkWarehouseAvailability(UserRequest data) {
-        List<Warehouse> availableWarehouses = warehouseRepo.findAll();
-        for (String newWarehouse : data.getWarehouse()) {
-            for (Warehouse availableWarehouse : availableWarehouses) {
-                if (!availableWarehouse.getName().equals(newWarehouse)) {
-                    return false;
-                }
-            }
+       List<User> dataUser = userRepo.findAll();
+       List<Warehouse> coba = warehouseRepo.findByAdmins(adminRepo.findByUsername("demo-admin-one"));
+        for (Warehouse w: coba) {
+            System.out.println("ini adalah" + w.getName());
         }
-        return true;
+        return dataUser;
     }
 
     public void editAdmin(UserRequest data) {
@@ -50,19 +39,16 @@ public class UserService {
         currentAdmin.setStatus(data.getStatus());
         adminRepo.save(currentAdmin);
 
-//        if(checkWarehouseAvailability(data)){
-//            adminWarehouseRepo.deleteByAdmin(currentAdmin);
-            for (String newWarehouse: data.getWarehouse()) {
-                AdminWarehouse adminWarehouse = new AdminWarehouse();
-                adminWarehouse.setAdmin(currentAdmin);
+        currentAdmin.deleteAllWarehouse();
+        List<String> newWarehouses = data.getWarehouse();
+        List<Warehouse> acceptedWarehouses = new ArrayList<>();
+            for (String newWarehouse : newWarehouses) {
                 Warehouse availableWarehouse = warehouseRepo.findByName(newWarehouse);
-                adminWarehouse.setWarehouse(availableWarehouse);
-                adminWarehouseRepo.save(adminWarehouse);
-                currentAdmin.addAdminWarehouse(adminWarehouse);
-                adminRepo.save(currentAdmin);
+                acceptedWarehouses.add(availableWarehouse);
             }
-        }
-//    }
+        currentAdmin.setWarehouses(acceptedWarehouses);
+        adminRepo.save(currentAdmin);
+    }
 
     public void registerAdmin(UserRequest data){
 //      Membuat admin
@@ -78,21 +64,16 @@ public class UserService {
 
 //      Mendapatkan semua warehouse yang ada di database
         List<Warehouse> availableWarehouses = warehouseRepo.findAll();
+        List<Warehouse> acceptedWarehouses = new ArrayList<>();
 
         for (String requestWarehouse: data.getWarehouse()) {
 //          Melakukan pengecekan apakah requestWarehouse ada di availableWarehouse
             for (Warehouse availableWarehouse: availableWarehouses) {
                 if (availableWarehouse.getName().equals(requestWarehouse)){
-//                  Membuat adminWarehouse
-                    AdminWarehouse adminWarehouse = new AdminWarehouse();
-                    adminWarehouse.setAdmin(newAdmin);
-                    adminWarehouse.setWarehouse(availableWarehouse);
-                    adminWarehouseRepo.save(adminWarehouse);
-//                  Menambahkan AdminWarehouse adminWarehouse kedalam newAdmin dalam bentuk List<AdminWarehouse>
-                    newAdmin.addAdminWarehouse(adminWarehouse);
-                    adminRepo.save(newAdmin);
+                    acceptedWarehouses.add(availableWarehouse);
                 }
             }
         }
+        newAdmin.setWarehouses(acceptedWarehouses);
     }
 }

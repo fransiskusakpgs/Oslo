@@ -57,18 +57,10 @@ public class DatabaseSeeder {
         adminone.setUsername("admin-demo-one");
         adminone.setPassword("123");
         adminone.setStatus("Active");
+        adminone.addWarehouse(warehouseOne);
         adminRepo.save(adminone);
 
         adminone.createEntryUserRole(userRoleRepo);
-        adminRepo.save(adminone);
-
-//      AdminWarehouse One Dummy
-        AdminWarehouse adminWarehouseOne = new AdminWarehouse();
-        adminWarehouseOne.setAdmin(adminone);
-        adminWarehouseOne.setWarehouse(warehouseOne);
-        adminWarehouseRepo.save(adminWarehouseOne);
-
-        adminone.addAdminWarehouse(adminWarehouseOne);
         adminRepo.save(adminone);
 
 //      Admin Two Dummy
@@ -76,26 +68,10 @@ public class DatabaseSeeder {
         admintwo.setUsername("admin-demo-two");
         admintwo.setPassword("123");
         admintwo.setStatus("Active");
+        admintwo.addWarehouse(warehouseTwo);
         adminRepo.save(admintwo);
 
         admintwo.createEntryUserRole(userRoleRepo);
-        adminRepo.save(admintwo);
-
-//      AdminWarehouse Dummy
-        AdminWarehouse adminWarehouseTwo = new AdminWarehouse();
-        adminWarehouseTwo.setAdmin(admintwo);
-        adminWarehouseTwo.setWarehouse(warehouseOne);
-        adminWarehouseRepo.save(adminWarehouseTwo);
-
-        admintwo.addAdminWarehouse(adminWarehouseTwo);
-
-//      AdminWarehouse Dummy
-        AdminWarehouse adminWarehouseThree = new AdminWarehouse();
-        adminWarehouseThree.setAdmin(admintwo);
-        adminWarehouseThree.setWarehouse(warehouseTwo);
-        adminWarehouseRepo.save(adminWarehouseThree);
-
-        admintwo.addAdminWarehouse(adminWarehouseThree);
         adminRepo.save(admintwo);
 
 //      SuperAdmin Dummy
@@ -106,5 +82,29 @@ public class DatabaseSeeder {
         superAdminRepo.save(superAdminOne);
         superAdminOne.createEntryUserRole(userRoleRepo);
         superAdminRepo.save(superAdminOne);
+
+//        Coba many to many
+        Warehouse warehouseFour = new Warehouse();
+        warehouseFour.setName("cobacoba");
+        warehouseRepo.save(warehouseFour);
+
+        Admin adminThree = new Admin();
+        adminThree.createEntryUserRole(userRoleRepo);
+        adminThree.setUsername("inicobacoba");
+        adminRepo.save(adminThree);
+        adminThree.addWarehouse(warehouseOne);
+        adminThree.addWarehouse(warehouseTwo);
+        adminRepo.save(adminThree);
+
+        Admin adminFour = new Admin();
+        adminFour.createEntryUserRole(userRoleRepo);
+        adminFour.setUsername("inicobacoba2");
+        adminRepo.save(adminFour);
+        adminFour.addWarehouse(warehouseOne);
+        adminFour.addWarehouse(warehouseTwo);
+        adminFour.deleteWarehouse(warehouseOne);
+        adminRepo.save(adminFour);
+
+
     }
 }

@@ -8,6 +8,7 @@ import com.bliblifuture.request.UserRequest;
 import com.bliblifuture.request.WarehouseRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+//import com.bliblifuture.response.UserResponse;
 import com.bliblifuture.service.StockOpnameService;
 import com.bliblifuture.service.UserService;
 import com.bliblifuture.service.WarehouseService;
@@ -49,8 +50,8 @@ public class MainController {
     @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<User> getAllUsers(){
-        List<User> data = userService.findAll();
-        ListResponse<User> response = new ListResponse<>(true,"", data);
+        List<User> data= userService.findAll();
+        ListResponse<User> response = new ListResponse<>(true,"",data);
         return response;
     }
 
@@ -58,7 +59,6 @@ public class MainController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse selectWarehouse(@RequestBody WarehouseRequest request){
-//        warehouseService.registerWarehouse(request);
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }

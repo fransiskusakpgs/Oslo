@@ -10,9 +10,9 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-
-    @OneToMany
-    private List<AdminWarehouse> adminWarehouse = new ArrayList<>();
+    @ManyToMany
+    @JoinColumn(name = "admin_id")
+    private List<Admin> admins = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -22,15 +22,26 @@ public class Warehouse {
         this.name = name;
     }
 
-    public List<AdminWarehouse> getAdminWarehouse() {
-        return adminWarehouse;
+    public List<Admin> getAdmins() {
+        return admins;
     }
 
-    public void setAdminWarehouse(List<AdminWarehouse> adminWarehouse) {
-        this.adminWarehouse = adminWarehouse;
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
     }
 
-    public void addAdminWarehouse(AdminWarehouse adminWarehouse){
-        this.adminWarehouse.add(adminWarehouse);
+    public void addAdmins(Admin admin){
+        this.admins.add(admin);
     }
+
+    public void deleteAllAdmin(){
+        admins.clear();
+    }
+
+    public void deleteAdmin(Admin admin){
+        admins.remove(admin);
+    }
+
+
+
 }

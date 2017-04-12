@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public interface AdminWarehouseRepository extends JpaRepository<AdminWarehouse, String>{
-    @Modifying
+    AdminWarehouse findByAdmin(Admin admin);
     @Transactional
     void deleteByAdmin(Admin admin);
 }
