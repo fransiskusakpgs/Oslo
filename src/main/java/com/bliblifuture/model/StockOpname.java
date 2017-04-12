@@ -20,7 +20,7 @@ public class StockOpname {
     @OneToMany
     private List<SKU> SKUs = new ArrayList<>();
     @OneToMany
-    private List<UnknownSKU> UnknownSKUs = new ArrayList<>();
+    private List<UnknownSKU> unknownSKUs = new ArrayList<>();
 
     public String getStockOpnameId() {
         return stockOpnameId;
@@ -68,15 +68,15 @@ public class StockOpname {
     }
 
     public List<UnknownSKU> getUnknownSKUs() {
-        return UnknownSKUs;
+        return unknownSKUs;
     }
 
     public void setUnknownSKUs(List<UnknownSKU> unknownSKUs) {
-        UnknownSKUs = unknownSKUs;
+        unknownSKUs = unknownSKUs;
     }
 
     public void addUnknownSKU(UnknownSKU unknownSKU){
-        this.UnknownSKUs.add(unknownSKU);
+        this.unknownSKUs.add(unknownSKU);
     }
 
 

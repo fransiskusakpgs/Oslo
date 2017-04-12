@@ -14,9 +14,9 @@ public class UnknownSKU {
     private String unknownSKUId;
     private String storageCode;
     private int physicalQty;
-    @ManyToOne
-    @JoinColumn(name = "stockopname_Id")
-    private StockOpname stockOpname;
+//    @ManyToOne
+//    @JoinColumn(name = "stockopname_Id")
+//    private StockOpname stockOpname;
 
     public long getId() {
         return id;
@@ -50,11 +50,11 @@ public class UnknownSKU {
         this.physicalQty = physicalQty;
     }
 
-    public StockOpname getStockOpname() {
-        return stockOpname;
-    }
-
-    public void setStockOpname(StockOpname stockOpname) {
-        this.stockOpname = stockOpname;
-    }
+//    public StockOpname getStockOpname() {
+//        return stockOpname;
+//    }
+//
+//    public void setStockOpname(StockOpname stockOpname) {
+//        this.stockOpname = stockOpname;
+//    }
 }

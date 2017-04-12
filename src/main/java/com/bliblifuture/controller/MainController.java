@@ -77,7 +77,7 @@ public class MainController {
     @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BaseResponse addUnknownSKU(@RequestBody StockOpnameRequest request) {
+    public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {
         stockOpnameService.addUnknownSKUtoList(request);
         BaseResponse responseBS = new BaseResponse(true,"");
         return responseBS;

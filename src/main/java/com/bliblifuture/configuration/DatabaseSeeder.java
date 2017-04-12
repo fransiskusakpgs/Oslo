@@ -34,12 +34,6 @@ public class DatabaseSeeder {
     @PostConstruct
     private void mockupData(){
 
-//        WorkList workListOne = new WorkList();
-//        workListOne.setSKUs("1A1A");
-//        workListRepo.save(workListOne);
-
-
-
         SKU skuOne = new SKU();
         skuOne.setSKUid("AAA1111");
         skuOne.setItemName("Agree To Shop Pants");
@@ -51,11 +45,6 @@ public class DatabaseSeeder {
         skuOne.setPhysicalQty(0);
         skuOne.setSystemQty(1);
         skuRepo.save(skuOne);
-
-        UnknownSKU unknownSKUone = new UnknownSKU();
-        unknownSKUone.setStorageCode("B-101-100");
-        unknownSKUone.setPhysicalQty(1);
-        unknownSKURepo.save(unknownSKUone);
 
         SKU skuTwo = new SKU();
         skuTwo.setSKUid("BBB1111");
@@ -69,16 +58,17 @@ public class DatabaseSeeder {
         skuTwo.setSystemQty(1);
         skuRepo.save(skuTwo);
 
+        UnknownSKU unknownSKUone = new UnknownSKU();
+        unknownSKUone.setUnknownSKUId("SKU-112-001");
+        unknownSKUone.setStorageCode("B-101-100");
+        unknownSKUone.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUone);
+
         UnknownSKU unknownSKUtwo = new UnknownSKU();
-        unknownSKUtwo.setStorageCode("B-101-100");
+        unknownSKUtwo.setUnknownSKUId("SKU-112-001");
+        unknownSKUtwo.setStorageCode("B-101-101");
         unknownSKUtwo.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUtwo);
-
-        List<UnknownSKU> UnknownSKUsOne = new ArrayList<>();
-        UnknownSKUsOne.add(unknownSKUone);
-
-        List<UnknownSKU> UnknownSKUsTwo = new ArrayList<>();
-        UnknownSKUsTwo.add(unknownSKUtwo);
 
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStatus("");
@@ -94,17 +84,5 @@ public class DatabaseSeeder {
         stockOpnameOne.countTotalSKU();
         stockOpnameOne.setWaktuPembuatan("");
         stockOpnameRepo.save(stockOpnameOne);
-
-//        UnknownSKURequest usr = new UnknownSKURequest();
-//        usr.setUnknownSKUid("10001");
-//        usr.setStorageCode("10000");
-//        usr.setPhysicalQty(2);
-//
-//        StockOpnameRequest str = new StockOpnameRequest();
-//        str.setStockOpnameId("100");
-//        str.setUnknownSKUs(usr);
-//
-//        stockOpnameService.addUnknownSKUtoList(str);
-
     }
 }

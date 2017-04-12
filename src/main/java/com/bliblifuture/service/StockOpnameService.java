@@ -24,7 +24,6 @@ public class StockOpnameService {
     @Autowired
     UnknownSKURepository unknownSKURepo;
 
-
     public List<StockOpname> findAll(){
         List<StockOpname> data2 = stockOpnameRepo.findAll();
         return data2;
@@ -51,35 +50,21 @@ public class StockOpnameService {
         stockOpnameRepo.save(newStockOpname);
     }
 
-    public void addUnknownSKUtoList (StockOpnameRequest stockOpnameRequest) {
+    public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
 
-        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(stockOpnameRequest.getStockOpnameId());
+        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
+//        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId("100");
 
         UnknownSKU newUnknownSKU = new UnknownSKU();
-        newUnknownSKU.setStockOpname(currentStockOpname);
-
-        UnknownSKURequest requestedUSKU = stockOpnameRequest.getUnknownSKUs();
-        newUnknownSKU.setStorageCode(requestedUSKU.getStorageCode());
-        newUnknownSKU.setPhysicalQty(requestedUSKU.getPhysicalQty());
-        newUnknownSKU.setUnknownSKUId(requestedUSKU.getUnknownSKUid());
+        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUId());
+        newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
+        newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
         unknownSKURepo.save(newUnknownSKU);
         currentStockOpname.addUnknownSKU(newUnknownSKU);
+        currentStockOpname.countTotalQty();
+        currentStockOpname.countTotalSKU();
         stockOpnameRepo.save(currentStockOpname);
     }
-
-//    public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
-//        UnknownSKU newUnknownSKU = new UnknownSKU();
-//        newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
-//        newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
-//        newUnknownSKU.setId(unknownSKURequest.getUnknownSKUid());
-//        unknownSKURepo.save(newUnknownSKU);
-//
-//    }
-//        UnknownSKU unknownSKUone = new UnknownSKU();
-//        unknownSKUone.setStorageCode("B-101-100");
-//        unknownSKUone.setPhysicalQty(1);
-//        unknownSKURepo.save(unknownSKUone);
-
-    }
+}
 
 
