@@ -17,8 +17,6 @@ public class UserService {
     @Autowired
     AdminRepository adminRepo;
     @Autowired
-    AdminWarehouseRepository adminWarehouseRepo;
-    @Autowired
     CounterRepository counterRepo;
     @Autowired
     UserRepository userRepo;
