@@ -14,6 +14,14 @@ public class Warehouse {
     @JoinColumn(name = "admin_id")
     private List<Admin> admins = new ArrayList<>();
 
+    public void deleteAllAdmin(){
+        admins.clear();
+    }
+
+    public void deleteAdmin(Admin admin){
+        admins.remove(admin);
+    }
+
     public String getName() {
         return name;
     }
@@ -34,13 +42,6 @@ public class Warehouse {
         this.admins.add(admin);
     }
 
-    public void deleteAllAdmin(){
-        admins.clear();
-    }
-
-    public void deleteAdmin(Admin admin){
-        admins.remove(admin);
-    }
 
 
 

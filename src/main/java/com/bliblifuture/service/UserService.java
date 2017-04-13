@@ -27,11 +27,6 @@ public class UserService {
     @Autowired
     WarehouseRepository warehouseRepo;
 
-    public List<User> findAll(){
-       List<User> dataUser = userRepo.findAll();
-       return dataUser;
-    }
-
     public void editAdmin(UserRequest data) {
         Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
         currentAdmin.setPassword(data.getPassword());
@@ -54,6 +49,11 @@ public class UserService {
         currentCounter.setPassword(data.getPassword());
         currentCounter.setStatus(data.getStatus());
         counterRepo.save(currentCounter);
+    }
+
+    public List<User> findAll(){
+        List<User> dataUser = userRepo.findAll();
+        return dataUser;
     }
 
     public void registerAdmin(UserRequest data){

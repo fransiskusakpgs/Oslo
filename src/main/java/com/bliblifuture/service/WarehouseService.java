@@ -18,11 +18,4 @@ public class WarehouseService {
         List<Warehouse> data = warehouseRepo.findAll();
         return data;
     }
-
-//    public void registerWarehouse(WarehouseRequest request){
-//        Warehouse newWarehouse = new Warehouse();
-//        newWarehouse.setName(request.getData());
-//        warehouseRepo.save(newWarehouse);
-//    }
-
 }

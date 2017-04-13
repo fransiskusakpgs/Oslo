@@ -18,6 +18,11 @@ public class Admin extends User{
         super();
     }
 
+    public void addWarehouse(Warehouse warehouse){
+        warehouse.addAdmins(this);
+        this.warehouses.add(warehouse);
+    }
+
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
         UserRole adminrole = new UserRole();
         adminrole.setRole("ROLE_ADMIN");
@@ -25,6 +30,19 @@ public class Admin extends User{
 
         this.userRole = adminrole;
     }
+
+    public void deleteWarehouse(Warehouse warehouse){
+        warehouses.remove(warehouse);
+        warehouse.deleteAdmin(this);
+    }
+
+    public void deleteAllWarehouse(){
+        for (Warehouse wh: warehouses) {
+            wh.deleteAdmin(this);
+        }
+        warehouses.clear();
+    }
+
     public List<Warehouse> getWarehouses() {
         return warehouses;
     }
@@ -33,20 +51,6 @@ public class Admin extends User{
         this.warehouses = warehouses;
     }
 
-    public void addWarehouse(Warehouse warehouse){
-        warehouse.addAdmins(this);
-        this.warehouses.add(warehouse);
-    }
 
-    public void deleteWarehouse(Warehouse warehouse){
-        warehouses.remove(warehouse);
-        warehouse.deleteAdmin(this);
-    }
-    public void deleteAllWarehouse(){
-        for (Warehouse wh: warehouses) {
-            wh.deleteAdmin(this);
-        }
-        warehouses.clear();
-    }
 }
 
