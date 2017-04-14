@@ -89,7 +89,6 @@ public class DatabaseSeeder {
 //        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
-        stockOpnameOne.setWaktuPembuatan("");
         stockOpnameRepo.save(stockOpnameOne);
     }
 }
