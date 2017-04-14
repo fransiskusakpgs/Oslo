@@ -71,7 +71,6 @@ public class DatabaseSeeder {
         skuTwo.setSystemQty(1);
         skuRepo.save(skuTwo);
 
-
         UnknownSKU unknownSKUone = new UnknownSKU();
         unknownSKUone.setUnknownSKUId("SKU-112-001");
         unknownSKUone.setStorageCode("B-101-100");

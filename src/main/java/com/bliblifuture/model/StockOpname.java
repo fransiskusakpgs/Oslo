@@ -45,6 +45,12 @@ public class StockOpname {
         if (!(assignedTo == null)){
             this.setStatus("ASSIGNED");
         }
+        else if(!(startCountingTime == null)){
+            this.setStatus("IN PROGRESS");
+        }
+        else if(!(finishCountingTime == null)){
+            this.setStatus("FINISH COUNTING");
+        }
         else{
             this.setStatus("OPEN");
         }
@@ -68,11 +74,13 @@ public class StockOpname {
     public void startCounting(){
         Date currentTime = new Date();
         this.setStartCountingTime(currentTime);
+        updateStatus();
     }
 
     public void endCounting(){
         Date currentTime = new Date();
         this.setFinishCountingTime(currentTime);
+        updateStatus();
     }
 
     public Date getStartCountingTime() {
