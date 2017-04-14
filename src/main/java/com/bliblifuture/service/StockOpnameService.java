@@ -27,7 +27,6 @@ public class StockOpnameService {
     @Autowired
     UnknownSKURepository unknownSKURepo;
 
-
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
 
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
@@ -48,6 +47,8 @@ public class StockOpnameService {
         Counter currentCounter = counterRepo.findByUsername(
                 request.getUsername());
         currentStockOpname.setAssignedTo(currentCounter);
+        stockOpnameRepo.save(currentStockOpname);
+        currentStockOpname.updateStatus();
         stockOpnameRepo.save(currentStockOpname);
     }
 

@@ -90,7 +90,6 @@ public class DatabaseSeeder {
 //      checkDate
         stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
-        stockOpnameOne.setStatus("");
         stockOpnameOne.setStockOpnameId("100");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
@@ -99,6 +98,7 @@ public class DatabaseSeeder {
         stockOpnameOne.addUnknownSKU(unknownSKUtwo);
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
+        stockOpnameOne.updateStatus();
         stockOpnameRepo.save(stockOpnameOne);
 
 //      Admin One Dummy

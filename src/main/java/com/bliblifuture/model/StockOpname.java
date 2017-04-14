@@ -40,6 +40,15 @@ public class StockOpname {
         this.assignedTo = null;
     }
 
+    public void updateStatus(){
+        if (!(assignedTo == null)){
+            this.setStatus("ASSIGNED");
+        }
+        else{
+            this.setStatus("OPEN");
+        }
+    }
+
     public void formatWaktuPembuatan(String waktuPembuatan){
         try
         {
