@@ -1,7 +1,10 @@
 package com.bliblifuture.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @Table(name="stockOpname")
@@ -11,7 +14,7 @@ public class StockOpname {
     private long id;
     private String Counter;
     private String Status;
-    private String waktuPembuatan;
+    private Date waktuPembuatan;
     private String totalQty;
     private String SKU;
 
@@ -39,12 +42,23 @@ public class StockOpname {
         Status = status;
     }
 
-    public String getWaktuPembuatan() {
-        return waktuPembuatan;
+    public Date getWaktuPembuatan() {
+        return this.waktuPembuatan;
     }
 
-    public void setWaktuPembuatan(String waktuPembuatan) {
+    public void setWaktuPembuatan(Date waktuPembuatan) {
         this.waktuPembuatan = waktuPembuatan;
+    }
+
+    public void formatWaktuPembuatan(String waktuPembuatan){
+        try
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
+            Date la = sdf.parse(waktuPembuatan);
+            this.waktuPembuatan = la;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTotalQty() {

@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Component
 public class DatabaseSeeder {
@@ -20,6 +24,8 @@ public class DatabaseSeeder {
     private void mockupData(){
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setSKU("ABAB");
+//      checkDate
+        stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();
