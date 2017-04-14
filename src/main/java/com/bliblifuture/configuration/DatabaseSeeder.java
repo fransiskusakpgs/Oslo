@@ -1,24 +1,11 @@
 package com.bliblifuture.configuration;
 
-import com.bliblifuture.model.SKU;
-import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.model.UnknownSKU;
-import com.bliblifuture.model.WorkList;
-import com.bliblifuture.repository.SKURepository;
-import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.UnknownSKURepository;
-import com.bliblifuture.repository.WorkListRepository;
-import com.bliblifuture.request.StockOpnameRequest;
-import com.bliblifuture.request.UnknownSKURequest;
+import com.bliblifuture.model.*;
+import com.bliblifuture.repository.*;
 import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class DatabaseSeeder {
@@ -29,48 +16,20 @@ public class DatabaseSeeder {
     @Autowired
     StockOpnameRepository stockOpnameRepo;
     @Autowired
-    WorkListRepository workListRepo;
-    @Autowired
     SKURepository skuRepo;
     @Autowired
-    UnknownSKURepository unknownSKURepo;
-    @Autowired
     SuperAdminRepository superAdminRepo;
+    @Autowired
+    UnknownSKURepository unknownSKURepo;
     @Autowired
     UserRoleRepository userRoleRepo;
     @Autowired
     WarehouseRepository warehouseRepo;
 
-
     @Autowired
     StockOpnameService stockOpnameService;
     @PostConstruct
     private void mockupData(){
-
-        SKU skuOne = new SKU();
-        skuOne.setSKUid("AAA1111");
-        skuOne.setItemName("Agree To Shop Pants");
-        skuOne.setDeviationQty(0);
-        skuOne.setInformation("");
-        skuOne.setStockType("Trading");
-        skuOne.setStorageCode("A-101-100");
-        skuRepo.save(skuOne);
-        skuOne.setPhysicalQty(0);
-        skuOne.setSystemQty(1);
-        skuRepo.save(skuOne);
-//      StockOpname Dummy
-        StockOpname stockOpnameOne = new StockOpname();
-        stockOpnameOne.setSKU("ABAB");
-        stockOpnameRepo.save(stockOpnameOne);
-
-        StockOpname stockOpnameTwo = new StockOpname();
-        stockOpnameTwo.setSKU("BABA");
-        stockOpnameRepo.save(stockOpnameTwo);
-
-        StockOpname stockOpnameThree = new StockOpname();
-        stockOpnameThree.setSKU("CACA");
-        stockOpnameRepo.save(stockOpnameThree);
-
 //      Warehouse Dummy
         Warehouse warehouseOne = new Warehouse();
         warehouseOne.setName("Cawang");
@@ -84,46 +43,17 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
-//      Admin One Dummy
-        Admin adminone = new Admin();
-        adminone.setUsername("admin-demo-one");
-        adminone.setPassword("123");
-        adminone.setStatus("Active");
-        adminone.addWarehouse(warehouseOne);
-        adminRepo.save(adminone);
-
-        adminone.createEntryUserRole(userRoleRepo);
-        adminRepo.save(adminone);
-
-//      Admin Two Dummy
-        Admin admintwo = new Admin();
-        admintwo.setUsername("admin-demo-two");
-        admintwo.setPassword("123");
-        admintwo.setStatus("Active");
-        admintwo.addWarehouse(warehouseTwo);
-        adminRepo.save(admintwo);
-
-        admintwo.createEntryUserRole(userRoleRepo);
-        adminRepo.save(admintwo);
-
-//      SuperAdmin Dummy
-        SuperAdmin superAdminOne = new SuperAdmin();
-        superAdminOne.setUsername("super-admin-demo");
-        superAdminOne.setPassword("123");
-        superAdminOne.setStatus("Active");
-        superAdminRepo.save(superAdminOne);
-        superAdminOne.createEntryUserRole(userRoleRepo);
-        superAdminRepo.save(superAdminOne);
-
-//      Counter Dummy
-        Counter counterOne = new Counter();
-        counterOne.createEntryUserRole(userRoleRepo);
-        counterOne.setUsername("demo-counter-one");
-        counterOne.setPassword("123");
-        counterOne.setStatus("Active");
-        counterRepo.save(counterOne);
-        counterOne.setWarehouse(warehouseOne);
-        counterRepo.save(counterOne);
+        SKU skuOne = new SKU();
+        skuOne.setSKUid("AAA1111");
+        skuOne.setItemName("Agree To Shop Pants");
+        skuOne.setDeviationQty(0);
+        skuOne.setInformation("");
+        skuOne.setStockType("Trading");
+        skuOne.setStorageCode("A-101-100");
+        skuRepo.save(skuOne);
+        skuOne.setPhysicalQty(0);
+        skuOne.setSystemQty(1);
+        skuRepo.save(skuOne);
 
         SKU skuTwo = new SKU();
         skuTwo.setSKUid("BBB1111");
@@ -166,7 +96,48 @@ public class DatabaseSeeder {
 //        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
-        stockOpnameOne.setWaktuPembuatan("");
         stockOpnameRepo.save(stockOpnameOne);
+
+//      Admin One Dummy
+        Admin adminone = new Admin();
+        adminone.setUsername("admin-demo-one");
+        adminone.setPassword("123");
+        adminone.setStatus("Active");
+        adminone.addWarehouse(warehouseOne);
+        adminRepo.save(adminone);
+
+        adminone.createEntryUserRole(userRoleRepo);
+        adminRepo.save(adminone);
+
+//      Admin Two Dummy
+        Admin admintwo = new Admin();
+        admintwo.setUsername("admin-demo-two");
+        admintwo.setPassword("123");
+        admintwo.setStatus("Active");
+        admintwo.addWarehouse(warehouseTwo);
+        adminRepo.save(admintwo);
+
+        admintwo.createEntryUserRole(userRoleRepo);
+        adminRepo.save(admintwo);
+
+//      SuperAdmin Dummy
+        SuperAdmin superAdminOne = new SuperAdmin();
+        superAdminOne.setUsername("super-admin-demo");
+        superAdminOne.setPassword("123");
+        superAdminOne.setStatus("Active");
+        superAdminRepo.save(superAdminOne);
+        superAdminOne.createEntryUserRole(userRoleRepo);
+        superAdminRepo.save(superAdminOne);
+
+//      Counter Dummy
+        Counter counterOne = new Counter();
+        counterOne.createEntryUserRole(userRoleRepo);
+        counterOne.setUsername("demo-counter-one");
+        counterOne.setPassword("123");
+        counterOne.setStatus("Active");
+        counterRepo.save(counterOne);
+        counterOne.setWarehouse(warehouseOne);
+        counterRepo.save(counterOne);
+
     }
 }
