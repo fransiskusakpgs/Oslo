@@ -23,16 +23,19 @@ public class DatabaseSeeder {
     @PostConstruct
     private void mockupData(){
         StockOpname stockOpnameOne = new StockOpname();
+        stockOpnameOne.setStockOpnameId("STO-001-1001");
         stockOpnameOne.setSKU("ABAB");
 //      checkDate
         stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();
+        stockOpnameTwo.setStockOpnameId("STO-002-1002");
         stockOpnameTwo.setSKU("BABA");
         stockOpnameRepo.save(stockOpnameTwo);
 
         StockOpname stockOpnameThree = new StockOpname();
+        stockOpnameThree.setStockOpnameId("STO-003-1003");
         stockOpnameThree.setSKU("CACA");
         stockOpnameRepo.save(stockOpnameThree);
 

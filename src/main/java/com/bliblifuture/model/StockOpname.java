@@ -10,20 +10,19 @@ import java.util.Locale;
 @Table(name="stockOpname")
 public class StockOpname {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String stockOpnameId;
     private String Counter;
     private String Status;
     private Date waktuPembuatan;
     private String totalQty;
     private String SKU;
 
-    public long getId() {
-        return id;
+    public String getStockOpnameId() {
+        return stockOpnameId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setStockOpnameId(String stockOpnameId) {
+        this.stockOpnameId = stockOpnameId;
     }
 
     public String getCounter() {
