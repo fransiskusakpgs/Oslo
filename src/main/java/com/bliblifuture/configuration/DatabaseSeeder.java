@@ -1,55 +1,95 @@
 package com.bliblifuture.configuration;
 
+import com.bliblifuture.model.SKU;
 import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.model.Warehouse;
+import com.bliblifuture.model.UnknownSKU;
+import com.bliblifuture.model.WorkList;
+import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.WarehouseRepository;
+import com.bliblifuture.repository.UnknownSKURepository;
+import com.bliblifuture.repository.WorkListRepository;
+import com.bliblifuture.request.StockOpnameRequest;
+import com.bliblifuture.request.UnknownSKURequest;
+import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DatabaseSeeder {
     @Autowired
     StockOpnameRepository stockOpnameRepo;
     @Autowired
-    WarehouseRepository warehouseRepo;
+    WorkListRepository workListRepo;
+    @Autowired
+    SKURepository skuRepo;
+    @Autowired
+    UnknownSKURepository unknownSKURepo;
 
+    @Autowired
+    StockOpnameService stockOpnameService;
     @PostConstruct
     private void mockupData(){
+
+        SKU skuOne = new SKU();
+        skuOne.setSKUid("AAA1111");
+        skuOne.setItemName("Agree To Shop Pants");
+        skuOne.setDeviationQty(0);
+        skuOne.setInformation("");
+        skuOne.setStockType("Trading");
+        skuOne.setStorageCode("A-101-100");
+        skuRepo.save(skuOne);
+        skuOne.setPhysicalQty(0);
+        skuOne.setSystemQty(1);
+        skuRepo.save(skuOne);
+
+        SKU skuTwo = new SKU();
+        skuTwo.setSKUid("BBB1111");
+        skuTwo.setItemName("Agree To Shop Pants");
+        skuTwo.setDeviationQty(0);
+        skuTwo.setInformation("");
+        skuTwo.setStockType("Trading");
+        skuTwo.setStorageCode("A-101-100");
+        skuRepo.save(skuTwo);
+        skuTwo.setPhysicalQty(0);
+        skuTwo.setSystemQty(1);
+        skuRepo.save(skuTwo);
+
+
+        UnknownSKU unknownSKUone = new UnknownSKU();
+        unknownSKUone.setUnknownSKUId("SKU-112-001");
+        unknownSKUone.setStorageCode("B-101-100");
+        unknownSKUone.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUone);
+
+        UnknownSKU unknownSKUtwo = new UnknownSKU();
+        unknownSKUtwo.setUnknownSKUId("SKU-112-001");
+        unknownSKUtwo.setStorageCode("B-101-101");
+        unknownSKUtwo.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUtwo);
+
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
-        stockOpnameOne.setSKU("ABAB");
 //      checkDate
         stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
+        stockOpnameOne.setStatus("");
+        stockOpnameOne.setStockOpnameId("100");
+        stockOpnameRepo.save(stockOpnameOne);
+        stockOpnameOne.addSKU(skuOne);
+        stockOpnameOne.addSKU(skuTwo);
+        stockOpnameOne.addUnknownSKU(unknownSKUone);
+        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
 
-        StockOpname stockOpnameTwo = new StockOpname();
-        stockOpnameTwo.setStockOpnameId("STO-002-1002");
-        stockOpnameTwo.setSKU("BABA");
-        stockOpnameRepo.save(stockOpnameTwo);
-
-        StockOpname stockOpnameThree = new StockOpname();
-        stockOpnameThree.setStockOpnameId("STO-003-1003");
-        stockOpnameThree.setSKU("CACA");
-        stockOpnameRepo.save(stockOpnameThree);
-
-        Warehouse warehouseOne = new Warehouse();
-        warehouseOne.setName("Cawang");
-        warehouseRepo.save(warehouseOne);
-
-        Warehouse warehouseTwo = new Warehouse();
-        warehouseTwo.setName("Cakung");
-        warehouseRepo.save(warehouseTwo);
-
-        Warehouse warehouseThree = new Warehouse();
-        warehouseThree.setName("Gudang KS Tubun");
-        warehouseRepo.save(warehouseThree);
-
+//        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
+        stockOpnameOne.countTotalQty();
+        stockOpnameOne.countTotalSKU();
+        stockOpnameOne.setWaktuPembuatan("");
+        stockOpnameRepo.save(stockOpnameOne);
     }
 }
