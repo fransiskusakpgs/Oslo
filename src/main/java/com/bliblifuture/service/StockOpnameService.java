@@ -78,6 +78,12 @@ public class StockOpnameService {
         return data2;
     }
 
+    public void unAssignStockOpname(AssignmentRequest request){
+        StockOpname selectedStockOpname = stockOpnameRepo.findByStockOpnameId(request.getStockOpnameId());
+        selectedStockOpname.unAssignStockOpname();
+        stockOpnameRepo.save(selectedStockOpname);
+    }
+
 }
 
 

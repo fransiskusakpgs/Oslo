@@ -36,6 +36,10 @@ public class StockOpname {
         this.totalQty = total;
     }
 
+    public void unAssignStockOpname(){
+        this.assignedTo = null;
+    }
+
     public void formatWaktuPembuatan(String waktuPembuatan){
         try
         {

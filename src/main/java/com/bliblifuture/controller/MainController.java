@@ -119,5 +119,14 @@ public class MainController {
         return response;
     }
 
+    @RequestMapping(value = "/api/assignment", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+             produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse unAssignStockOpname(@RequestBody AssignmentRequest request){
+        stockOpnameService.unAssignStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
 
 }
