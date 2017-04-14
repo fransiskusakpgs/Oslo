@@ -1,13 +1,7 @@
 package com.bliblifuture.configuration;
 
-import com.bliblifuture.model.SKU;
-import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.model.UnknownSKU;
-import com.bliblifuture.model.WorkList;
-import com.bliblifuture.repository.SKURepository;
-import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.UnknownSKURepository;
-import com.bliblifuture.repository.WorkListRepository;
+import com.bliblifuture.model.*;
+import com.bliblifuture.repository.*;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
@@ -39,6 +33,19 @@ public class DatabaseSeeder {
     StockOpnameService stockOpnameService;
     @PostConstruct
     private void mockupData(){
+
+//      Warehouse Dummy
+        Warehouse warehouseOne = new Warehouse();
+        warehouseOne.setName("Cawang");
+        warehouseRepo.save(warehouseOne);
+
+        Warehouse warehouseTwo = new Warehouse();
+        warehouseTwo.setName("Cakung");
+        warehouseRepo.save(warehouseTwo);
+
+        Warehouse warehouseThree = new Warehouse();
+        warehouseThree.setName("Gudang KS Tubun");
+        warehouseRepo.save(warehouseThree);
 
         SKU skuOne = new SKU();
         skuOne.setSKUid("AAA1111");
