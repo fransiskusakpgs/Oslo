@@ -1,13 +1,15 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
+import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
+import com.bliblifuture.request.UserRequest;
 import com.bliblifuture.request.WarehouseRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
 import com.bliblifuture.service.StockOpnameService;
+import com.bliblifuture.service.UserService;
 import com.bliblifuture.service.WarehouseService;
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,23 @@ public class MainController {
     @Autowired
     StockOpnameService stockOpnameService;
     @Autowired
+    UserService userService;
+    @Autowired
     WarehouseService warehouseService;
+
+    @RequestMapping(value = "api/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse editUser(@RequestBody UserRequest request){
+        if (request.getRole().equals("ROLE_ADMIN")){
+            userService.editAdmin(request);
+        }
+        else if(request.getRole().equals("ROLE_COUNTER")){
+            userService.editCounter(request);
+        }
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
 
     @RequestMapping(value = "/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -33,11 +51,33 @@ public class MainController {
         return response;
     }
 
+    @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ListResponse<User> getAllUsers(){
+        List<User> data= userService.findAll();
+        ListResponse<User> response = new ListResponse<>(true,"",data);
+        return response;
+    }
+
     @RequestMapping(value = "/api/warehouses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<Warehouse> getAllWarehouse() {
         List<Warehouse> data = warehouseService.findAll();
         ListResponse<Warehouse> response = new ListResponse<>(true, "", data);
+        return response;
+    }
+
+    @RequestMapping(value = "api/users", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse registerUser(@RequestBody UserRequest request){
+        if(request.getRole().equals("ROLE_ADMIN")){
+            userService.registerAdmin(request);
+        } else if (request.getRole().equals("ROLE_COUNTER")) {
+            userService.registerCounter(request);
+        }
+
+        BaseResponse response = new BaseResponse(true,"");
         return response;
     }
 
