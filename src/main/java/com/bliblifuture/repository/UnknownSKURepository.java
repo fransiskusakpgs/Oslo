@@ -1,7 +1,8 @@
 package com.bliblifuture.repository;
 
-/**
- * Created by Elisabet Diana K S on 14/04/2017.
- */
-public class UnknownSKURepository {
+import com.bliblifuture.model.UnknownSKU;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UnknownSKURepository extends JpaRepository<UnknownSKU, String> {
+
 }

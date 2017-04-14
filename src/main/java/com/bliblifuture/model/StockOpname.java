@@ -4,25 +4,25 @@ import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="stockOpname")
 public class StockOpname {
-
+    @Id
     private String stockOpnameId;
-    private String Counter;
     private Date waktuPembuatan;
     private String Status;
     private int totalQty;
     private int totalSKU;
+
     @OneToMany
     private List<SKU> SKUs = new ArrayList<>();
     @OneToMany
     private List<UnknownSKU> unknownSKUs = new ArrayList<>();
+    @ManyToOne
+    private Counter assignedTo;
   
     public void countTotalSKU() {
         totalSKU = SKUs.size();
@@ -35,8 +35,7 @@ public class StockOpname {
         }
         this.totalQty = total;
     }
-  
-  
+
     public void formatWaktuPembuatan(String waktuPembuatan){
         try
         {
@@ -56,12 +55,12 @@ public class StockOpname {
         this.stockOpnameId = stockOpnameId;
     }
 
-    public String getCounter() {
-        return Counter;
+    public Counter getAssignedTo() {
+        return assignedTo;
     }
 
-    public void setCounter(String counter) {
-        Counter = counter;
+    public void setAssignedTo(Counter assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     public String getStatus() {

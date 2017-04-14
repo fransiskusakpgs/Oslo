@@ -1,20 +1,12 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
-import com.bliblifuture.model.UnknownSKU;
-import com.bliblifuture.repository.SKURepository;
-import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.UnknownSKURepository;
-import com.bliblifuture.repository.WorkListRepository;
-import com.bliblifuture.request.StockOpnameRequest;
-import com.bliblifuture.request.UnknownSKURequest;
-import com.bliblifuture.response.*;
 
-import com.bliblifuture.service.SKUService;
+import com.bliblifuture.repository.StockOpnameRepository;
+import com.bliblifuture.request.*;
+
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
-import com.bliblifuture.request.UserRequest;
-import com.bliblifuture.request.WarehouseRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
 import com.bliblifuture.service.StockOpnameService;
@@ -33,16 +25,39 @@ import java.util.List;
 @Controller
 public class MainController {
     @Autowired
-    StockOpnameRepository stockOpnameRepo;
-    @Autowired
-    WorkListRepository workListRepo;
-
-    @Autowired
     StockOpnameService stockOpnameService;
     @Autowired
     UserService userService;
     @Autowired
     WarehouseService warehouseService;
+
+    @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {
+        stockOpnameService.addUnknownSKUtoList(request);
+        BaseResponse responseBS = new BaseResponse(true,"");
+        return responseBS;
+
+    }
+
+    @RequestMapping(value = "api/assignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse assignStockOpname(@RequestBody AssignmentRequest request){
+        stockOpnameService.assignStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
+    @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
+        stockOpnameService.createStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
 
     @RequestMapping(value = "api/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -104,22 +119,5 @@ public class MainController {
         return response;
     }
 
-    @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
-        stockOpnameService.createStockOpname(request);
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
-    }
-    @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {
-        stockOpnameService.addUnknownSKUtoList(request);
-        BaseResponse responseBS = new BaseResponse(true,"");
-        return responseBS;
-
-    }
 
 }
