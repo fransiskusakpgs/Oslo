@@ -13,8 +13,10 @@ import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class DatabaseSeeder {
         skuTwo.setSystemQty(1);
         skuRepo.save(skuTwo);
 
+
         UnknownSKU unknownSKUone = new UnknownSKU();
         unknownSKUone.setUnknownSKUId("SKU-112-001");
         unknownSKUone.setStorageCode("B-101-100");
@@ -71,6 +74,10 @@ public class DatabaseSeeder {
         unknownSKURepo.save(unknownSKUtwo);
 
         StockOpname stockOpnameOne = new StockOpname();
+        stockOpnameOne.setStockOpnameId("STO-001-1001");
+//      checkDate
+        stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
+        stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.setStatus("");
         stockOpnameOne.setStockOpnameId("100");
         stockOpnameRepo.save(stockOpnameOne);

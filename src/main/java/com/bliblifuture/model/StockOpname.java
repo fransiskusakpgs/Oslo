@@ -1,6 +1,10 @@
     package com.bliblifuture.model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,19 +12,41 @@ import java.util.List;
 @Entity
 @Table(name="stockOpname")
 public class StockOpname {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+
     private String stockOpnameId;
     private String Counter;
+    private Date waktuPembuatan;
     private String Status;
-    private String waktuPembuatan;
     private int totalQty;
     private int totalSKU;
     @OneToMany
     private List<SKU> SKUs = new ArrayList<>();
     @OneToMany
     private List<UnknownSKU> unknownSKUs = new ArrayList<>();
+  
+    public void countTotalSKU() {
+        totalSKU = SKUs.size();
+    }
+  
+    public void countTotalQty(){
+        int total = 0;
+        for (SKU sku: SKUs) {
+            total = total + sku.getSystemQty();
+        }
+        this.totalQty = total;
+    }
+  
+  
+    public void formatWaktuPembuatan(String waktuPembuatan){
+        try
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
+            Date la = sdf.parse(waktuPembuatan);
+            this.waktuPembuatan = la;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getStockOpnameId() {
         return stockOpnameId;
@@ -46,14 +72,14 @@ public class StockOpname {
         Status = status;
     }
 
-    public String getWaktuPembuatan() {
-        return waktuPembuatan;
+    public Date getWaktuPembuatan() {
+        return this.waktuPembuatan;
     }
 
-    public void setWaktuPembuatan(String waktuPembuatan) {
+    public void setWaktuPembuatan(Date waktuPembuatan) {
         this.waktuPembuatan = waktuPembuatan;
     }
-
+  
     public List<SKU> getSKUs() {
         return SKUs;
     }
@@ -89,14 +115,7 @@ public class StockOpname {
         this.totalQty = totalQty;
     }
 
-    public void countTotalQty(){
-        int total = 0;
-        for (SKU sku: SKUs) {
-            total = total + sku.getSystemQty();
-        }
-        this.totalQty = total;
-    }
-
+    
     public int getTotalSKU() {
         return totalSKU;
     }
@@ -104,16 +123,4 @@ public class StockOpname {
     public void setTotalSKU(int totalSKU ) {
         this.totalSKU = totalSKU;
     }
-    public void countTotalSKU() {
-        totalSKU = SKUs.size();
-
-    }
-
-
-
-
-
-
-
-
 }
