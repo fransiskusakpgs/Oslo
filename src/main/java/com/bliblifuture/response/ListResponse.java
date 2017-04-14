@@ -9,7 +9,11 @@ public class ListResponse<T> implements Serializable {
     private boolean success;
     private String errorMessage;
 
-    public ListResponse(Boolean success, String errorMessage,List<T> data){
+    public ListResponse() {
+        success = true;
+    }
+
+    public ListResponse(Boolean success, String errorMessage, List<T> data){
         this.data = data;
         this.success = true;
         this.errorMessage = errorMessage;
