@@ -67,6 +67,17 @@ public class StockOpname {
         }
     }
 
+    public void formatStartCountingTime(String startCountTime){
+        try
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
+            Date la = sdf.parse(startCountTime);
+            this.startCountingTime = la;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addUnknownSKU(UnknownSKU unknownSKU){
         this.unknownSKUs.add(unknownSKU);
     }
@@ -148,7 +159,7 @@ public class StockOpname {
     }
 
     public void setUnknownSKUs(List<UnknownSKU> unknownSKUs) {
-        unknownSKUs = unknownSKUs;
+        this.unknownSKUs = unknownSKUs;
     }
 
     public int getTotalQty() {

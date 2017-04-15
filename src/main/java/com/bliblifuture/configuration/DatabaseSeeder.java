@@ -95,8 +95,7 @@ public class DatabaseSeeder {
         stockOpnameOne.addSKU(skuTwo);
         stockOpnameOne.addUnknownSKU(unknownSKUone);
         stockOpnameOne.addUnknownSKU(unknownSKUtwo);
-
-//        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
+        stockOpnameOne.startCounting();
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
         stockOpnameRepo.save(stockOpnameOne);
