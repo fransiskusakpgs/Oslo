@@ -67,12 +67,12 @@ public class StockOpname {
         }
     }
 
-    public void formatStartCountingTime(String startCountTime){
+    public void formatFinishCountingTime(String waktuPembuatan){
         try
         {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
-            Date la = sdf.parse(startCountTime);
-            this.startCountingTime = la;
+            Date la = sdf.parse(waktuPembuatan);
+            this.finishCountingTime = la;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -92,6 +92,7 @@ public class StockOpname {
         Date currentTime = new Date();
         this.setFinishCountingTime(currentTime);
         updateStatus();
+
     }
 
     public Date getStartCountingTime() {
@@ -177,4 +178,5 @@ public class StockOpname {
     public void setTotalSKU(int totalSKU ) {
         this.totalSKU = totalSKU;
     }
+
 }

@@ -1,14 +1,16 @@
 package com.bliblifuture.controller;
 
+import com.bliblifuture.model.Report;
 import com.bliblifuture.model.StockOpname;
 
-import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.request.*;
 
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+import com.bliblifuture.response.SingleResponse;
+import com.bliblifuture.service.ReportService;
 import com.bliblifuture.service.StockOpnameService;
 import com.bliblifuture.service.UserService;
 import com.bliblifuture.service.WarehouseService;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    @Autowired
+    ReportService reportService;
     @Autowired
     StockOpnameService stockOpnameService;
     @Autowired
@@ -50,6 +54,15 @@ public class MainController {
         return response;
     }
 
+    @RequestMapping(value ="/api/reports", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createReport(@RequestBody ReportRequest request){
+        reportService.createReport(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
     @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -72,6 +85,16 @@ public class MainController {
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
+
+    @RequestMapping(value ="/api/reports", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ListResponse<Report> findReport(){
+        List<Report> data = reportService.findAllReport();
+        ListResponse<Report>  response = new ListResponse<Report>(true,"", data);
+        return response;
+    }
+
 
     @RequestMapping(value = "/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -119,7 +142,7 @@ public class MainController {
         return response;
     }
 
-    @RequestMapping(value = "/api/assignment", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/api/assignments", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
              produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse unAssignStockOpname(@RequestBody AssignmentRequest request){
@@ -127,6 +150,4 @@ public class MainController {
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
-
-
 }

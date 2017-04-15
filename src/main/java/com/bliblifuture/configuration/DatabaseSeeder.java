@@ -55,21 +55,34 @@ public class DatabaseSeeder {
         skuOne.setStockType("Trading");
         skuOne.setStorageCode("A-101-100");
         skuRepo.save(skuOne);
-        skuOne.setPhysicalQty(0);
-        skuOne.setSystemQty(1);
+        skuOne.setPhysicalQty(9);
+        skuOne.setSystemQty(10);
         skuRepo.save(skuOne);
 
         SKU skuTwo = new SKU();
         skuTwo.setSKUid("BBB1111");
         skuTwo.setItemName("Agree To Shop Pants");
         skuTwo.setDeviationQty(0);
-        skuTwo.setInformation("");
+        skuTwo.setInformation("COUNTED");
         skuTwo.setStockType("Trading");
         skuTwo.setStorageCode("A-101-100");
         skuRepo.save(skuTwo);
-        skuTwo.setPhysicalQty(0);
-        skuTwo.setSystemQty(1);
+        skuTwo.setPhysicalQty(7);
+        skuTwo.setSystemQty(3);
         skuRepo.save(skuTwo);
+
+        SKU skuThree = new SKU();
+        skuThree.setSKUid("SKU-100-111");
+        skuThree.setItemName("Agree To Shop Pants");
+        skuThree.setDeviationQty(0);
+        skuThree.setInformation("COUNTED");
+        skuThree.setStockType("Trading");
+        skuThree.setStorageCode("A-101-100");
+        skuRepo.save(skuThree);
+        skuThree.setPhysicalQty(5);
+        skuThree.setSystemQty(10);
+        skuRepo.save(skuThree);
+
 
         UnknownSKU unknownSKUone = new UnknownSKU();
         unknownSKUone.setUnknownSKUId("SKU-112-001");
@@ -83,22 +96,42 @@ public class DatabaseSeeder {
         unknownSKUtwo.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUtwo);
 
+        UnknownSKU unknownSKUthree = new UnknownSKU();
+        unknownSKUthree.setUnknownSKUId("SKU-113-001");
+        unknownSKUthree.setStorageCode("B-101-101");
+        unknownSKUthree.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUthree);
+
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
 //      checkDate
         stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
-        stockOpnameOne.setStatus("");
-        stockOpnameOne.setStockOpnameId("100");
-        stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
         stockOpnameOne.addSKU(skuTwo);
         stockOpnameOne.addUnknownSKU(unknownSKUone);
         stockOpnameOne.addUnknownSKU(unknownSKUtwo);
-        stockOpnameOne.startCounting();
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
+        stockOpnameOne.updateStatus();
+        stockOpnameOne.startCounting();
+        stockOpnameOne.endCounting();
+//        stockOpnameOne.formatFinishCountingTime("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
+
+        StockOpname stockOpnameTwo = new StockOpname();
+        stockOpnameTwo.setStockOpnameId("STO-002-1002");
+//      checkDate
+        stockOpnameTwo.formatWaktuPembuatan("2011/02/01 03:04:01");
+        stockOpnameRepo.save(stockOpnameTwo);
+        stockOpnameTwo.addSKU(skuThree);
+        stockOpnameTwo.addUnknownSKU(unknownSKUthree);
+        stockOpnameTwo.countTotalQty();
+        stockOpnameTwo.countTotalSKU();
+        stockOpnameTwo.startCounting();
+        stockOpnameTwo.endCounting();
+//        stockOpnameTwo.formatFinishCountingTime("2011/02/01 03:04:01");
+        stockOpnameRepo.save(stockOpnameTwo);
 
 //      Admin One Dummy
         Admin adminone = new Admin();
