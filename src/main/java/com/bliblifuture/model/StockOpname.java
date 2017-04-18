@@ -1,5 +1,9 @@
     package com.bliblifuture.model;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,10 +16,11 @@ import java.util.List;
 public class StockOpname {
     @Id
     private String stockOpnameId;
-    private Date waktuPembuatan;
+    private LocalDate waktuPembuatan;
     private String Status;
-    private Date startCountingTime;
-    private Date finishCountingTime;
+    private LocalDateTime startCountingTime;
+    private LocalDateTime finishCountingTime;
+    private LocalDate reportDate;
     private int totalQty;
     private int totalSKU;
     @OneToMany
@@ -24,6 +29,8 @@ public class StockOpname {
     private List<UnknownSKU> unknownSKUs = new ArrayList<>();
     @ManyToOne
     private Counter assignedTo;
+    @ManyToOne
+    private Report report;
 
     public void countTotalSKU() {
         totalSKU = SKUs.size();
@@ -56,58 +63,40 @@ public class StockOpname {
         }
     }
 
-    public void formatWaktuPembuatan(String waktuPembuatan){
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
-            Date la = sdf.parse(waktuPembuatan);
-            this.waktuPembuatan = la;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void formatFinishCountingTime(String waktuPembuatan){
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd hh:mm:ss");
-            Date la = sdf.parse(waktuPembuatan);
-            this.finishCountingTime = la;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void addUnknownSKU(UnknownSKU unknownSKU){
         this.unknownSKUs.add(unknownSKU);
     }
 
     public void startCounting(){
-        Date currentTime = new Date();
-        this.setStartCountingTime(currentTime);
+        LocalDateTime  currentTime = new LocalDateTime();
+        this.startCountingTime = currentTime;
         updateStatus();
     }
 
     public void endCounting(){
-        Date currentTime = new Date();
+        LocalDateTime currentTime = new LocalDateTime();
         this.setFinishCountingTime(currentTime);
         updateStatus();
+//        LocalDate currentDate = new LocalDate();
+//        this.reportDate = currentDate;
+//        System.out.println("inilho"+currentDate);
 
     }
 
-    public Date getStartCountingTime() {
+    public LocalDateTime getStartCountingTime() {
         return startCountingTime;
     }
 
-    public void setStartCountingTime(Date startCountingTime) {
+    public void setStartCountingTime(LocalDateTime startCountingTime) {
         this.startCountingTime = startCountingTime;
     }
 
-    public Date getFinishCountingTime() {
+    public LocalDateTime getFinishCountingTime() {
         return finishCountingTime;
     }
 
-    public void setFinishCountingTime(Date finishCountingTime) {
+    public void setFinishCountingTime(LocalDateTime finishCountingTime) {
         this.finishCountingTime = finishCountingTime;
     }
 
@@ -135,14 +124,18 @@ public class StockOpname {
         Status = status;
     }
 
-    public Date getWaktuPembuatan() {
-        return this.waktuPembuatan;
+    public LocalDate getWaktuPembuatan() {
+        return waktuPembuatan;
     }
 
-    public void setWaktuPembuatan(Date waktuPembuatan) {
+    public void setWaktuPembuatan(LocalDate waktuPembuatan) {
         this.waktuPembuatan = waktuPembuatan;
     }
-  
+
+    public void setStringWaktuPembuatan(String stringWaktuPembuatan){
+        this.waktuPembuatan = convertStringToLocalDate(stringWaktuPembuatan);
+    }
+
     public List<SKU> getSKUs() {
         return SKUs;
     }
@@ -178,5 +171,32 @@ public class StockOpname {
     public void setTotalSKU(int totalSKU ) {
         this.totalSKU = totalSKU;
     }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
+    public LocalDate getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(LocalDate reportDate) {
+        this.reportDate = reportDate;
+    }
+
+    public void setStringReportDate(String stringReportDate){
+       LocalDate reportDate = convertStringToLocalDate(stringReportDate);
+       this.reportDate = reportDate;
+    }
+
+    public LocalDate convertStringToLocalDate(String stringDate){
+        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("yyyy/mm/dd"));
+        return convertedDate;
+    }
+
 
 }

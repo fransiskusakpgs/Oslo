@@ -105,7 +105,7 @@ public class DatabaseSeeder {
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
 //      checkDate
-        stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
+        stockOpnameOne.setStringWaktuPembuatan("2011/02/01");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
         stockOpnameOne.addSKU(skuTwo);
@@ -116,21 +116,21 @@ public class DatabaseSeeder {
         stockOpnameOne.updateStatus();
         stockOpnameOne.startCounting();
         stockOpnameOne.endCounting();
-//        stockOpnameOne.formatFinishCountingTime("2011/02/01 03:04:01");
+        stockOpnameOne.setStringReportDate("2012/11/02");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();
         stockOpnameTwo.setStockOpnameId("STO-002-1002");
 //      checkDate
-        stockOpnameTwo.formatWaktuPembuatan("2011/02/01 03:04:01");
+        stockOpnameTwo.setStringWaktuPembuatan("2011/02/01");
         stockOpnameRepo.save(stockOpnameTwo);
         stockOpnameTwo.addSKU(skuThree);
         stockOpnameTwo.addUnknownSKU(unknownSKUthree);
         stockOpnameTwo.countTotalQty();
         stockOpnameTwo.countTotalSKU();
         stockOpnameTwo.startCounting();
+        stockOpnameTwo.setStringReportDate("2012/11/02");
         stockOpnameTwo.endCounting();
-//        stockOpnameTwo.formatFinishCountingTime("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameTwo);
 
 //      Admin One Dummy

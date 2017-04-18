@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class ReportRequest implements Serializable {
 
-    private String finishCountingTime;
+    private String reportDate;
 
-    public String getFinishCountingTime() {
-        return finishCountingTime;
+    public String getReportDate() {
+        return reportDate;
     }
 
-    public void setFinishCountingTime(String finishCountingTime) {
-        this.finishCountingTime = finishCountingTime;
+    public void setReportDate(String reportDate) {
+        this.reportDate = reportDate;
     }
 }
