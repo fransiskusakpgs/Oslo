@@ -5,9 +5,6 @@ import com.bliblifuture.model.UnknownSKU;
 
 import java.util.List;
 
-/**
- * Created by Fransiskus A K on 06/04/2017.
- */
 public class UnknownSKUresponses {
 
 

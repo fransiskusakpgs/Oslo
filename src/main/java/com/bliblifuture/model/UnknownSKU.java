@@ -8,23 +8,12 @@ import javax.persistence.*;
 public class UnknownSKU {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private long id;
     private String unknownSKUId;
     private String storageCode;
     private int physicalQty;
-//    @ManyToOne
-//    @JoinColumn(name = "stockopname_Id")
-//    private StockOpname stockOpname;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @ManyToOne
+    private StockOpname stockOpname;
 
     public String getUnknownSKUId() {
         return unknownSKUId;
@@ -50,11 +39,11 @@ public class UnknownSKU {
         this.physicalQty = physicalQty;
     }
 
-//    public StockOpname getStockOpname() {
-//        return stockOpname;
-//    }
-//
-//    public void setStockOpname(StockOpname stockOpname) {
-//        this.stockOpname = stockOpname;
-//    }
+    public StockOpname getStockOpname() {
+        return stockOpname;
+    }
+
+    public void setStockOpname(StockOpname stockOpname) {
+        this.stockOpname = stockOpname;
+    }
 }

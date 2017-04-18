@@ -10,10 +10,10 @@ import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,47 +25,74 @@ public class StockOpnameService {
     @Autowired
     UnknownSKURepository unknownSKURepo;
 
+
     public List<StockOpname> findAll(){
         List<StockOpname> data2 = stockOpnameRepo.findAll();
         return data2;
     }
 
-    public void createStockOpname(StockOpnameRequest stockOpnameRequest) {
-
-        StockOpname newStockOpname = new StockOpname();
-        newStockOpname.setStatus(stockOpnameRequest.getStatus());
-        for (SKURequest SKU : stockOpnameRequest.getSKUs()) {
-            SKU newSKU = new SKU();
-            newSKU.setItemName(SKU.getItemName());
-            newSKU.setDeviationQty(SKU.getDeviationQty());
-            newSKU.setInformation(SKU.getInformation());
-            newSKU.setStockType(SKU.getStockType());
-            newSKU.setStorageCode(SKU.getStorageCode());
-            newSKU.setPhysicalQty(SKU.getPhysicalQty());
-            newSKU.setSystemQty(SKU.getSystemQty());
-            skuRepo.save(newSKU);
-        }
-        newStockOpname.countTotalQty();
-        newStockOpname.countTotalSKU();
-        Date time  = new Date();
-        newStockOpname.setWaktuPembuatan(time);
-        stockOpnameRepo.save(newStockOpname);
-    }
+//    public void createStockOpname(StockOpnameRequest stockOpnameRequest) {
+//
+//        StockOpname newStockOpname = new StockOpname();
+//        newStockOpname.setStatus(stockOpnameRequest.getStatus());
+//        for (SKURequest SKU : stockOpnameRequest.getSKUs()) {
+//            SKU newSKU = new SKU();
+//            newSKU.setItemName(SKU.getItemName());
+//            newSKU.setDeviationQty(SKU.getDeviationQty());
+//            newSKU.setInformation(SKU.getInformation());
+//            newSKU.setStockType(SKU.getStockType());
+//            newSKU.setStorageCode(SKU.getStorageCode());
+//            newSKU.setPhysicalQty(SKU.getPhysicalQty());
+//            newSKU.setSystemQty(SKU.getSystemQty());
+//            skuRepo.save(newSKU);
+//        }
+//        newStockOpname.countTotalQty();
+//        newStockOpname.countTotalSKU();
+//        newStockOpname.setWaktuPembuatan("");
+//        stockOpnameRepo.save(newStockOpname);
+//    }
 
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
 
-        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
-//        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId("100");
-
         UnknownSKU newUnknownSKU = new UnknownSKU();
-        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUId());
+        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUid());
         newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
         newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
         unknownSKURepo.save(newUnknownSKU);
-        currentStockOpname.addUnknownSKU(newUnknownSKU);
-        currentStockOpname.countTotalQty();
-        currentStockOpname.countTotalSKU();
-        stockOpnameRepo.save(currentStockOpname);
+        StockOpname st = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
+        newUnknownSKU.setStockOpname(st);
+        unknownSKURepo.save(newUnknownSKU);
+
+        List<UnknownSKU> uk = new ArrayList<>();
+        uk.add(newUnknownSKU);
+        st.setUnknownSKUs(uk);
+//        st.addUnknownSKU(newUnknownSKU);
+
+
+
+
+//
+        stockOpnameRepo.save(st);
+
+
+
+
+
+//        System.out.println("inilho"+us.size());
+//
+//        us.add(newUnknownSKU);
+//
+//        System.out.println("inilho"+us.size());
+//
+//
+//        stockOpnameRepo.save(currentStockOpname);
+//
+//        System.out.println("inilho"+us.size());
+//        System.out.println("inilho" + unknownSKURepo.findByStockOpname(currentStockOpname).size());
+//
+//
+//        System.out.println("inilho" + unknownSKURepo.findByStockOpname(currentStockOpname).size());
+
     }
 }
 

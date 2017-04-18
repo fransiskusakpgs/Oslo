@@ -15,15 +15,11 @@ import java.util.StringTokenizer;
 
 @Service
 public class UnknownSKUService {
-    @Autowired
-    SKURepository SKUrepo;
+
     @Autowired
     UnknownSKURepository UnknownSKUrepo;
     @Autowired
     StockOpnameRepository stockOpnameRepo;
-
-
-
 
 //    public List<UnknownSKU> findUnknownSKUByStockOpname(SingleRequest request){ //data request udah dipassing disini
 //

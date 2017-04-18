@@ -13,10 +13,8 @@ import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +31,9 @@ public class DatabaseSeeder {
 
     @Autowired
     StockOpnameService stockOpnameService;
+
     @PostConstruct
     private void mockupData(){
-
         SKU skuOne = new SKU();
         skuOne.setSKUid("AAA1111");
         skuOne.setItemName("Agree To Shop Pants");
@@ -60,35 +58,52 @@ public class DatabaseSeeder {
         skuTwo.setSystemQty(1);
         skuRepo.save(skuTwo);
 
-
         UnknownSKU unknownSKUone = new UnknownSKU();
-        unknownSKUone.setUnknownSKUId("SKU-112-001");
+        unknownSKUone.setUnknownSKUId("US-1001");
         unknownSKUone.setStorageCode("B-101-100");
         unknownSKUone.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUone);
 
         UnknownSKU unknownSKUtwo = new UnknownSKU();
-        unknownSKUtwo.setUnknownSKUId("SKU-112-001");
+        unknownSKUtwo.setUnknownSKUId("US-1002");
         unknownSKUtwo.setStorageCode("B-101-101");
         unknownSKUtwo.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUtwo);
 
+        List<UnknownSKU> unknownSKUsOnes = new ArrayList<>();
+        unknownSKUsOnes.add(unknownSKUone);
+        unknownSKUsOnes.add(unknownSKUtwo);
+
+        List<SKU> gabungan = new ArrayList<>();
+        gabungan.add(skuOne);
+        gabungan.add(skuTwo);
+
         StockOpname stockOpnameOne = new StockOpname();
-        stockOpnameOne.setStockOpnameId("STO-001-1001");
-//      checkDate
-        stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
-        stockOpnameRepo.save(stockOpnameOne);
-        stockOpnameOne.setStatus("");
+        stockOpnameOne.setStatus("Halo");
         stockOpnameOne.setStockOpnameId("100");
         stockOpnameRepo.save(stockOpnameOne);
-        stockOpnameOne.addSKU(skuOne);
-        stockOpnameOne.addSKU(skuTwo);
-        stockOpnameOne.addUnknownSKU(unknownSKUone);
-        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
 
-//        stockOpnameOne.setUnknownSKUs(UnknownSKUsOne);
+//        stockOpnameOne.addSKU(skuOne);
+//        stockOpnameOne.addSKU(skuTwo);
+        stockOpnameOne.setSKUs(gabungan);
+        skuOne.setStockOpname(stockOpnameOne);
+        skuRepo.save(skuOne);
+        skuTwo.setStockOpname(stockOpnameOne);
+        skuRepo.save(skuTwo);
+        stockOpnameOne.setUnknownSKUs(unknownSKUsOnes);
+//        stockOpnameOne.addUnknownSKU(unknownSKUone);
+        unknownSKUone.setStockOpname(stockOpnameOne);
+        unknownSKURepo.save(unknownSKUone);
+
+
+//        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
+        unknownSKUtwo.setStockOpname(stockOpnameOne);
+        unknownSKURepo.save(unknownSKUtwo);
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
+        stockOpnameOne.setWaktuPembuatan("11/01/2016");
         stockOpnameRepo.save(stockOpnameOne);
+
+
     }
 }

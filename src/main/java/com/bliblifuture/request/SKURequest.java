@@ -13,8 +13,6 @@ public class SKURequest implements Serializable{
     private String stockType;
     private String storageCode;
     private int systemQty;
-    private int physicalQty;
-    private int deviationQty;
     private String information;
     private StockOpname stockOpname;
 
@@ -56,22 +54,6 @@ public class SKURequest implements Serializable{
 
     public void setSystemQty(int systemQty) {
         this.systemQty = systemQty;
-    }
-
-    public int getPhysicalQty() {
-        return physicalQty;
-    }
-
-    public void setPhysicalQty(int physicalQty) {
-        this.physicalQty = physicalQty;
-    }
-
-    public int getDeviationQty() {
-        return deviationQty;
-    }
-
-    public void setDeviationQty(int deviationQty) {
-        this.deviationQty = deviationQty;
     }
 
     public String getInformation() {

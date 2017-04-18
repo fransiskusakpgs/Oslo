@@ -7,19 +7,16 @@ import javax.persistence.*;
 public class SKU {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String SKUid;
     private String itemName;
     private String stockType;
     private String storageCode;
     private int systemQty;
     private int physicalQty;
-    private int deviationQty;
+    private int deviationQty; //sistem-fisik
     private String information;
+
     @ManyToOne
-    @JoinColumn(name = "stockopname_id")
     private StockOpname stockOpname;
 
     public String getSKUid() {
@@ -71,7 +68,13 @@ public class SKU {
     }
 
     public int getDeviationQty() {
+
         return deviationQty;
+    }
+
+    public void countDeviation(int physicalQty, int systemQty) {
+        int a = systemQty - physicalQty ;
+        this.deviationQty = a;
     }
 
     public void setDeviationQty(int deviationQty) {
@@ -86,11 +89,11 @@ public class SKU {
         this.information = information;
     }
 
+    public StockOpname getStockOpname() {
+        return stockOpname;
+    }
 
+    public void setStockOpname(StockOpname stockOpname) {
+        this.stockOpname = stockOpname;
+    }
 }
-
-
-
-
-
-

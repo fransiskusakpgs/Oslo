@@ -1,8 +1,6 @@
 package com.bliblifuture.response;
 
-/**
- * Created by Fransiskus A K on 06/04/2017.
- */
+
 public class SKUresponse {
     public long getId() {
         return id;

@@ -6,6 +6,7 @@ import com.bliblifuture.model.UnknownSKU;
 import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UnknownSKURepository;
+import com.bliblifuture.request.SingleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,17 @@ public class SKUService {
     @Autowired
     SKURepository SKUrepo;
     @Autowired
-    UnknownSKURepository UnknownSKUrepo;
+    StockOpnameRepository stockOpnameRepo;
 
-    public List<SKU> findAll(){
-        List<SKU> data11 = SKUrepo.findAll();
-        return data11;
-    }
-    public List<UnknownSKU> findAll2(){
-        List<UnknownSKU> data12 = UnknownSKUrepo.findAll();
+    public List<SKU> findSKUByStockOpname(){ //data request udah dipassing disini
+
+        String activeStockOpname = "100" ;
+        StockOpname a = stockOpnameRepo.findByStockOpnameId(activeStockOpname);
+
+        List<SKU> data12 = SKUrepo.findByStockOpname(a);
+
         return data12;
+
     }
 
-
-}
+    }

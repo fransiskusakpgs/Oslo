@@ -1,8 +1,6 @@
 package com.bliblifuture.response;
 
-/**
- * Created by Fransiskus A K on 04/04/2017.
- */
+
 public class WorkListResponse {
 
     public long getId() {
