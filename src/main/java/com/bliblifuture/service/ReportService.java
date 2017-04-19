@@ -29,61 +29,16 @@ public class ReportService {
         return data;
     }
 
-    public Report findReportByDate(String request){
-        Date date =  formatWaktu(request);
-        Report data = reportRepo.findByDate(date);
-        return data;
-    }
-
-    public void createReport(ReportRequest request){
+    public void createReport(ReportRequest request) {
+        LocalDate newDate = LocalDate.parse(request.getReportDate(), DateTimeFormat.forPattern("yyyy-mm-dd"));
         Report newReport = new Report();
-
-//        String date = request.getFinishCountingTime();
-//        Date convertedDate = formatWaktu(date);
-//        List<StockOpname> stockOpnames = stockOpnameRepo.findByFinishCountingTime(convertedDate);
-//        LocalDateTime convertedDate = LocalDateTime.parse(date, DateTimeFormat.forPattern("yyyy/mm/dd hh:mm:ss"));
-//        List<StockOpname> stockOpnames = stockOpnameRepo.findByStartCountingTime(convertedDate);
-//        List<StockOpname> stockOpnames = stockOpnameRepo.findByStartCountingTimeBetween(convertedDate,)
-//        for (StockOpname stockOpname: stockOpnames) {
-//            stockOpname.setReport(newReport);
-//            stockOpnameRepo.save(stockOpname);
-//        }
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
-        LocalDate newDate = LocalDate.parse(request.getReportDate(), DateTimeFormat.forPattern("yyyy/mm/dd"));
+        newReport.setDate(request.getReportDate());
         List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(newDate);
+        System.out.println("inilho"+stockOpnames.size());
         newReport.setStockOpnames(stockOpnames);
+        reportRepo.save(newReport);
         newReport.countQty();
         newReport.countSKU();
         reportRepo.save(newReport);
-
-    }
-
-    public LocalDate convertStringToLocalDate(String stringDate){
-        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("yyyy/mm/dd"));
-        return convertedDate;
-    }
-
-    public boolean compareDate(Date date1, Date date2){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
-        if(sdf.format(date1).equals(sdf.format(date2))){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public Date formatWaktu(String waktu){
-
-        Date formatedDate = new Date();
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
-            Date convertedDate = sdf.parse(waktu);
-            formatedDate = convertedDate;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return formatedDate;
     }
 }

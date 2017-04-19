@@ -5,7 +5,6 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import javax.persistence.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public class StockOpname {
     private LocalDate reportDate;
     private int totalQty;
     private int totalSKU;
+
     @OneToMany
     private List<SKU> SKUs = new ArrayList<>();
     @OneToMany
@@ -76,12 +76,15 @@ public class StockOpname {
 
     public void endCounting(){
         LocalDateTime currentTime = new LocalDateTime();
-        this.setFinishCountingTime(currentTime);
+        this.finishCountingTime = currentTime;
         updateStatus();
-//        LocalDate currentDate = new LocalDate();
-//        this.reportDate = currentDate;
-//        System.out.println("inilho"+currentDate);
+    }
 
+    public void reporting(){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        String stringDate = sdf.format(date);
+        setStringReportDate(stringDate);
     }
 
     public LocalDateTime getStartCountingTime() {
@@ -191,12 +194,11 @@ public class StockOpname {
     public void setStringReportDate(String stringReportDate){
        LocalDate reportDate = convertStringToLocalDate(stringReportDate);
        this.reportDate = reportDate;
+        System.out.println("inilho"+this.reportDate);
     }
 
     public LocalDate convertStringToLocalDate(String stringDate){
-        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("yyyy/mm/dd"));
+        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("yyyy-mm-dd"));
         return convertedDate;
     }
-
-
 }

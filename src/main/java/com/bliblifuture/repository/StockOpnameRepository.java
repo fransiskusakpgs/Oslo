@@ -12,9 +12,6 @@ import java.util.List;
 @Repository
 public interface StockOpnameRepository extends JpaRepository<StockOpname, String> {
     StockOpname findByStockOpnameId(String stockOpnameId);
-//    List<StockOpname> findByFinishCountingTime(LocalDateTime finishCountingTime);
-    List<StockOpname> findByStartCountingTime(LocalDateTime startCountingTime);
-    List<StockOpname> findByStartCountingTimeBetween(LocalDateTime start, LocalDateTime end);
     List<StockOpname> findByReportDate(LocalDate date);
 
 }

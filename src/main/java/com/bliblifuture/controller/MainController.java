@@ -91,7 +91,7 @@ public class MainController {
     @ResponseBody
     public ListResponse<Report> findReport(){
         List<Report> data = reportService.findAllReport();
-        ListResponse<Report>  response = new ListResponse<Report>(true,"", data);
+        ListResponse<Report>  response = new ListResponse<>(true,"", data);
         return response;
     }
 

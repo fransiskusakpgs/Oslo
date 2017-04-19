@@ -1,5 +1,8 @@
 package com.bliblifuture.model;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +12,7 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private Date date;
+    private String date;
     private int countedSKU;
     private int countedQty;
     private int deficitSKU;
@@ -84,75 +87,76 @@ public class Report {
         this.deficitQty = deficitQty;
         this.surplusQty = surplusQty;
     }
-    public Date getDate() {
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Integer getCountedSKU() {
+    public int getCountedSKU() {
         return countedSKU;
     }
 
-    public void setCountedSKU(Integer countedSKU) {
+    public void setCountedSKU(int countedSKU) {
         this.countedSKU = countedSKU;
     }
 
-    public Integer getCountedQty() {
+    public int getCountedQty() {
         return countedQty;
     }
 
-    public void setCountedQty(Integer countedQty) {
+    public void setCountedQty(int countedQty) {
         this.countedQty = countedQty;
     }
 
-    public Integer getDeficitSKU() {
+    public int getDeficitSKU() {
         return deficitSKU;
     }
 
-    public void setDeficitSKU(Integer deficitSKU) {
+    public void setDeficitSKU(int deficitSKU) {
         this.deficitSKU = deficitSKU;
     }
 
-    public Integer getDeficitQty() {
+    public int getDeficitQty() {
         return deficitQty;
     }
 
-    public void setDeficitQty(Integer deficitQty) {
+    public void setDeficitQty(int deficitQty) {
         this.deficitQty = deficitQty;
     }
 
-    public Integer getSurplusSKU() {
+    public int getSurplusSKU() {
         return surplusSKU;
     }
 
-    public void setSurplusSKU(Integer surplusSKU) {
+    public void setSurplusSKU(int surplusSKU) {
         this.surplusSKU = surplusSKU;
     }
 
-    public Integer getSurplusQty() {
+    public int getSurplusQty() {
         return surplusQty;
     }
 
-    public void setSurplusQty(Integer surplusQty) {
+    public void setSurplusQty(int surplusQty) {
         this.surplusQty = surplusQty;
     }
 
-    public Integer getTotalUnknownSKU() {
+    public int getTotalUnknownSKU() {
         return totalUnknownSKU;
     }
 
-    public void setTotalUnknownSKU(Integer totalUnknownSKU) {
+    public void setTotalUnknownSKU(int totalUnknownSKU) {
         this.totalUnknownSKU = totalUnknownSKU;
     }
 
-    public Integer getTotalUnknownQty() {
+    public int getTotalUnknownQty() {
         return totalUnknownQty;
     }
 
-    public void setTotalUnknownQty(Integer totalUnknownQty) {
+    public void setTotalUnknownQty(int totalUnknownQty) {
         this.totalUnknownQty = totalUnknownQty;
     }
 

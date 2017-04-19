@@ -5,6 +5,7 @@ import com.bliblifuture.repository.*;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
@@ -105,7 +106,7 @@ public class DatabaseSeeder {
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
 //      checkDate
-        stockOpnameOne.setStringWaktuPembuatan("2011/02/01");
+        stockOpnameOne.setStringWaktuPembuatan("2011-02-01");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
         stockOpnameOne.addSKU(skuTwo);
@@ -116,21 +117,26 @@ public class DatabaseSeeder {
         stockOpnameOne.updateStatus();
         stockOpnameOne.startCounting();
         stockOpnameOne.endCounting();
-        stockOpnameOne.setStringReportDate("2012/11/02");
+        stockOpnameOne.reporting();
+//        LocalDate date = new LocalDate();
+//        stockOpnameOne.setReportDate(date);
+//        stockOpnameOne.setStringReportDate("2017-04-19");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();
         stockOpnameTwo.setStockOpnameId("STO-002-1002");
 //      checkDate
-        stockOpnameTwo.setStringWaktuPembuatan("2011/02/01");
+        stockOpnameTwo.setStringWaktuPembuatan("2011-02-01");
         stockOpnameRepo.save(stockOpnameTwo);
         stockOpnameTwo.addSKU(skuThree);
         stockOpnameTwo.addUnknownSKU(unknownSKUthree);
         stockOpnameTwo.countTotalQty();
         stockOpnameTwo.countTotalSKU();
         stockOpnameTwo.startCounting();
-        stockOpnameTwo.setStringReportDate("2012/11/02");
+//        stockOpnameTwo.setReportDate(date);
+//        stockOpnameTwo.setStringReportDate("2017-04-19");
         stockOpnameTwo.endCounting();
+        stockOpnameTwo.reporting();
         stockOpnameRepo.save(stockOpnameTwo);
 
 //      Admin One Dummy
