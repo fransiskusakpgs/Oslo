@@ -1,5 +1,6 @@
     package com.bliblifuture.model;
 
+import com.bliblifuture.OsloConstanta;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -82,7 +83,7 @@ public class StockOpname {
 
     public void reporting(){
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat(OsloConstanta.DATE_FORMAT);
         String stringDate = sdf.format(date);
         setStringReportDate(stringDate);
     }
@@ -194,11 +195,10 @@ public class StockOpname {
     public void setStringReportDate(String stringReportDate){
        LocalDate reportDate = convertStringToLocalDate(stringReportDate);
        this.reportDate = reportDate;
-        System.out.println("inilho"+this.reportDate);
     }
 
     public LocalDate convertStringToLocalDate(String stringDate){
-        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern("yyyy-mm-dd"));
+        LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern(OsloConstanta.DATE_FORMAT));
         return convertedDate;
     }
 }

@@ -2,10 +2,7 @@ package com.bliblifuture.configuration;
 
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
-import com.bliblifuture.request.StockOpnameRequest;
-import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
@@ -35,7 +32,9 @@ public class DatabaseSeeder {
     @PostConstruct
     private void mockupData(){
 
-//      Warehouse Dummy
+//      -------------------------------------------------------------
+//        Warehouse Dummy
+//      -------------------------------------------------------------
         Warehouse warehouseOne = new Warehouse();
         warehouseOne.setName("Cawang");
         warehouseRepo.save(warehouseOne);
@@ -48,6 +47,9 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
+//      -------------------------------------------------------------
+//        Unknown SKU Dummy
+//      -------------------------------------------------------------
         SKU skuOne = new SKU();
         skuOne.setSKUid("AAA1111");
         skuOne.setItemName("Agree To Shop Pants");
@@ -84,7 +86,9 @@ public class DatabaseSeeder {
         skuThree.setSystemQty(10);
         skuRepo.save(skuThree);
 
-
+//      -------------------------------------------------------------
+//        Unknown SKU Dummy
+//      -------------------------------------------------------------
         UnknownSKU unknownSKUone = new UnknownSKU();
         unknownSKUone.setUnknownSKUId("SKU-112-001");
         unknownSKUone.setStorageCode("B-101-100");
@@ -103,9 +107,11 @@ public class DatabaseSeeder {
         unknownSKUthree.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUthree);
 
+//      -------------------------------------------------------------
+//        StockOpname Dummy
+//      -------------------------------------------------------------
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
-//      checkDate
         stockOpnameOne.setStringWaktuPembuatan("2011-02-01");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
@@ -118,14 +124,10 @@ public class DatabaseSeeder {
         stockOpnameOne.startCounting();
         stockOpnameOne.endCounting();
         stockOpnameOne.reporting();
-//        LocalDate date = new LocalDate();
-//        stockOpnameOne.setReportDate(date);
-//        stockOpnameOne.setStringReportDate("2017-04-19");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();
         stockOpnameTwo.setStockOpnameId("STO-002-1002");
-//      checkDate
         stockOpnameTwo.setStringWaktuPembuatan("2011-02-01");
         stockOpnameRepo.save(stockOpnameTwo);
         stockOpnameTwo.addSKU(skuThree);
@@ -133,35 +135,35 @@ public class DatabaseSeeder {
         stockOpnameTwo.countTotalQty();
         stockOpnameTwo.countTotalSKU();
         stockOpnameTwo.startCounting();
-//        stockOpnameTwo.setReportDate(date);
-//        stockOpnameTwo.setStringReportDate("2017-04-19");
         stockOpnameTwo.endCounting();
         stockOpnameTwo.reporting();
         stockOpnameRepo.save(stockOpnameTwo);
 
-//      Admin One Dummy
+//      -------------------------------------------------------------
+//        Admin Dummy
+//      -------------------------------------------------------------
+
         Admin adminone = new Admin();
         adminone.setUsername("admin-demo-one");
         adminone.setPassword("123");
         adminone.setStatus("Active");
         adminone.addWarehouse(warehouseOne);
         adminRepo.save(adminone);
-
         adminone.createEntryUserRole(userRoleRepo);
         adminRepo.save(adminone);
 
-//      Admin Two Dummy
         Admin admintwo = new Admin();
         admintwo.setUsername("admin-demo-two");
         admintwo.setPassword("123");
         admintwo.setStatus("Active");
         admintwo.addWarehouse(warehouseTwo);
         adminRepo.save(admintwo);
-
         admintwo.createEntryUserRole(userRoleRepo);
         adminRepo.save(admintwo);
 
-//      SuperAdmin Dummy
+//      -------------------------------------------------------------
+//        SuperAdmin Dummy
+//      -------------------------------------------------------------
         SuperAdmin superAdminOne = new SuperAdmin();
         superAdminOne.setUsername("super-admin-demo");
         superAdminOne.setPassword("123");
@@ -170,7 +172,9 @@ public class DatabaseSeeder {
         superAdminOne.createEntryUserRole(userRoleRepo);
         superAdminRepo.save(superAdminOne);
 
-//      Counter Dummy
+//      -------------------------------------------------------------
+//        Counter Dummy
+//      -------------------------------------------------------------
         Counter counterOne = new Counter();
         counterOne.createEntryUserRole(userRoleRepo);
         counterOne.setUsername("demo-counter-one");

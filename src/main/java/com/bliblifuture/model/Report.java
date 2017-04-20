@@ -12,7 +12,7 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String date;
+    private LocalDate date;
     private int countedSKU;
     private int countedQty;
     private int deficitSKU;
@@ -88,11 +88,11 @@ public class Report {
         this.surplusQty = surplusQty;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

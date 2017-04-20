@@ -17,11 +17,9 @@ import com.bliblifuture.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -89,9 +87,9 @@ public class MainController {
     @RequestMapping(value ="/api/reports", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<Report> findReport(){
-        List<Report> data = reportService.findAllReport();
-        ListResponse<Report>  response = new ListResponse<>(true,"", data);
+    public SingleResponse findReport(@RequestParam String date){
+        Report data = reportService.findReportByDate(date);
+        SingleResponse response = new SingleResponse(true,"", data);
         return response;
     }
 
