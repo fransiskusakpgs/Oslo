@@ -1,11 +1,8 @@
 package com.bliblifuture.service;
-
-import com.bliblifuture.OsloConstanta;
 import com.bliblifuture.model.Report;
 import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.repository.ReportRepository;
 import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.request.ReportRequest;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +18,30 @@ public class ReportService {
     @Autowired
     StockOpnameRepository stockOpnameRepo;
 
-    public List<Report> findAllReport(){
-        List<Report> data = reportRepo.findAll();
+    public Report findReportByDate(LocalDate date){
+        Report data = reportRepo.findByDate(date);
         return data;
     }
 
-    public Report findReportByDate(String date){
-        LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
-        Report data = reportRepo.findByDate(convertedDate);
-        return data;
-    }
-
-    public void createReport(ReportRequest request) {
-        LocalDate newDate = LocalDate.parse(request.getReportDate(), DateTimeFormat.forPattern(OsloConstanta.DATE_FORMAT));
+    public Report createReport(LocalDate date) {
         Report newReport = new Report();
-        newReport.setDate(newDate);
-        List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(newDate);
+        newReport.setDate(date);
+        List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(date);
         newReport.setStockOpnames(stockOpnames);
         reportRepo.save(newReport);
         newReport.countQty();
         newReport.countSKU();
-        reportRepo.save(newReport);
+        reportRepo.saveAndFlush(newReport);
+        return newReport;
     }
+
+    public Report findOrCreateReportByDate(String date){
+        LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
+        Report report = findReportByDate(convertedDate);
+        if(report == null){
+            report = createReport(convertedDate);
+        }
+        return report;
+    }
+
 }

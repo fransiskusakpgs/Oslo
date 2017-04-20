@@ -1,10 +1,7 @@
 package com.bliblifuture.model;
 
-import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity

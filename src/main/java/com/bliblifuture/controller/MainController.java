@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -52,15 +51,6 @@ public class MainController {
         return response;
     }
 
-    @RequestMapping(value ="/api/reports", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public BaseResponse createReport(@RequestBody ReportRequest request){
-        reportService.createReport(request);
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
-    }
-
     @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -88,7 +78,7 @@ public class MainController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SingleResponse findReport(@RequestParam String date){
-        Report data = reportService.findReportByDate(date);
+        Report data = reportService.findOrCreateReportByDate(date);
         SingleResponse response = new SingleResponse(true,"", data);
         return response;
     }
