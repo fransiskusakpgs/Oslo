@@ -85,12 +85,21 @@ public class Report {
         this.surplusQty = surplusQty;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDate() {
+       String stringDate = date.toString();
+        return stringDate;
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getCountedSKU() {
@@ -163,5 +172,21 @@ public class Report {
 
     public void setStockOpnames(List<StockOpname> stockOpnames) {
         this.stockOpnames = stockOpnames;
+    }
+
+//    Fungsi ini ditambahkan untuk tujuan testing.
+//    Fungsi ini mengecek kesamaan isi antara 2 object.
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        Report report = (Report) o;
+
+        if(!date.equals(report.date)) return false;
+
+        return stockOpnames != null ? stockOpnames.equals(report.stockOpnames):
+                report.stockOpnames == null;
     }
 }

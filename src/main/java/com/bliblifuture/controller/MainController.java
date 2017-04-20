@@ -77,7 +77,7 @@ public class MainController {
     @RequestMapping(value ="/api/reports", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public SingleResponse findReport(@RequestParam String date){
+    public SingleResponse findOrCreateReport(@RequestParam String date){
         Report data = reportService.findOrCreateReportByDate(date);
         SingleResponse response = new SingleResponse(true,"", data);
         return response;
