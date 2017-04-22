@@ -183,10 +183,34 @@ public class Report {
         if(o == null || getClass() != o.getClass()) return false;
 
         Report report = (Report) o;
-
         if(!date.equals(report.date)) return false;
-
-        return stockOpnames != null ? stockOpnames.equals(report.stockOpnames):
+        if(countedQty != report.countedQty) return false;
+        if(countedSKU != report.countedSKU) return false;
+        if(deficitQty != report.deficitQty) return false;
+        if(deficitSKU != report.deficitSKU) return false;
+        if(surplusQty != report.surplusQty) return false;
+        if(surplusSKU != report.surplusSKU) return false;
+        if(totalUnknownQty != report.totalUnknownQty) return false;
+        if(totalUnknownSKU != report.totalUnknownSKU) return false;
+        return stockOpnames != null ? stockOpnames.containsAll(report.stockOpnames):
                 report.stockOpnames == null;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Report{");
+        sb.append("id=").append(id);
+        sb.append(", date=").append(date);
+        sb.append(", countedSKU=").append(countedSKU);
+        sb.append(", countedQty=").append(countedQty);
+        sb.append(", deficitSKU=").append(deficitSKU);
+        sb.append(", deficitQty=").append(deficitQty);
+        sb.append(", surplusSKU=").append(surplusSKU);
+        sb.append(", surplusQty=").append(surplusQty);
+        sb.append(", totalUnknownSKU=").append(totalUnknownSKU);
+        sb.append(", totalUnknownQty=").append(totalUnknownQty);
+        sb.append(", stockOpnames=").append(stockOpnames);
+        sb.append('}');
+        return sb.toString();
     }
 }

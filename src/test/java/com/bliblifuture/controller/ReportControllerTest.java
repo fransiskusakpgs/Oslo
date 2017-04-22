@@ -51,6 +51,7 @@ public class ReportControllerTest {
     LocalDate date = LocalDate.parse("2017-01-01", DateTimeFormat.forPattern("yyyy-MM-dd"));
     List<StockOpname> stockOpnameList = new ArrayList<>();
 
+
 //    Mengisi variabel yang akan digunakan
     @Before
     public void setUp(){

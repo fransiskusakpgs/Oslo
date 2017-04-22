@@ -17,7 +17,7 @@ public class StockOpname {
     @Id
     private String stockOpnameId;
     private LocalDate waktuPembuatan;
-    private String Status;
+    private String status;
     private LocalDateTime startCountingTime;
     private LocalDateTime finishCountingTime;
     private LocalDate reportDate;
@@ -121,11 +121,11 @@ public class StockOpname {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public LocalDate getWaktuPembuatan() {
@@ -200,5 +200,43 @@ public class StockOpname {
     public LocalDate convertStringToLocalDate(String stringDate){
         LocalDate convertedDate = LocalDate.parse(stringDate, DateTimeFormat.forPattern(OsloConstanta.DATE_FORMAT));
         return convertedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StockOpname stockOpname = (StockOpname) o;
+        if(!stockOpnameId.equals(stockOpname.stockOpnameId)) return false;
+        if(!waktuPembuatan.equals(stockOpname.waktuPembuatan))return false;
+        if(!status.equals(stockOpname.waktuPembuatan))return false;
+        if(!startCountingTime.equals(stockOpname.startCountingTime))return false;
+        if(!finishCountingTime.equals(stockOpname.finishCountingTime))return false;
+        if(totalQty != stockOpname.totalQty )return false;
+        if(totalSKU != stockOpname.totalSKU )return false;
+        if(!reportDate.equals(stockOpname.reportDate)) return false;
+        if(!unknownSKUs.equals(stockOpname.unknownSKUs)) return false;
+        return SKUs!= null ? SKUs.containsAll(stockOpname.SKUs):
+                stockOpname.SKUs == null;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("StockOpname{");
+        sb.append("stockOpnameId='").append(stockOpnameId).append('\'');
+        sb.append(", waktuPembuatan=").append(waktuPembuatan);
+        sb.append(", status='").append(status).append('\'');
+        sb.append(", startCountingTime=").append(startCountingTime);
+        sb.append(", finishCountingTime=").append(finishCountingTime);
+        sb.append(", reportDate=").append(reportDate);
+        sb.append(", totalQty=").append(totalQty);
+        sb.append(", totalSKU=").append(totalSKU);
+        sb.append(", SKUs=").append(SKUs);
+        sb.append(", unknownSKUs=").append(unknownSKUs);
+        sb.append(", assignedTo=").append(assignedTo);
+        sb.append(", report=").append(report);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -86,7 +86,23 @@ public class SKU {
         this.information = information;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        SKU sku = (SKU) o;
+        if(!SKUid.equals(sku.SKUid))return false;
+        if(!itemName.equals(sku.itemName))return false;
+        if(!stockType.equals(sku.stockType))return false;
+        if(!storageCode.equals(sku.storageCode))return false;
+        if(systemQty != sku.systemQty)return false;
+        if(physicalQty != sku.physicalQty)return false;
+        if(deviationQty != sku.deviationQty)return false;
+        if(!information.equals(sku.information)) return false;
+        return stockOpname!= null ? stockOpname.equals(sku.stockOpname):
+                sku.stockOpname == null;
+    }
 }
 
 

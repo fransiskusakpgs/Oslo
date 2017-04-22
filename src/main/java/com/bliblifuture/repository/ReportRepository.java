@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReportRepository extends JpaRepository<Report,String> {
     Report findByDate(LocalDate date);
+
+
 }
