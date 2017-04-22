@@ -9,11 +9,10 @@ import com.bliblifuture.request.AssignmentRequest;
 import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -69,7 +68,7 @@ public class StockOpnameService {
         }
         newStockOpname.countTotalQty();
         newStockOpname.countTotalSKU();
-        Date time = new Date();
+        LocalDate time = new LocalDate();
         newStockOpname.setWaktuPembuatan(time);
         stockOpnameRepo.save(newStockOpname);
     }
