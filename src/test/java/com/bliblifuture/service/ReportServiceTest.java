@@ -27,7 +27,6 @@ public class ReportServiceTest {
     @InjectMocks
     private  ReportService reportService;
 
-
     @Mock
     private ReportRepository reportRepository;
     @Mock
@@ -126,7 +125,6 @@ public class ReportServiceTest {
 
         // Verify
         Mockito.verify(this.reportRepository, Mockito.times(1)).findByDate(convertedDate);
-
     }
 
     @Test
@@ -145,47 +143,46 @@ public class ReportServiceTest {
         Mockito.verify(this.stockOpnameRepository, Mockito.times(1)).findByReportDate(convertedDate);
         Mockito.verify(this.reportRepository, Mockito.times(1)).save(report);
         Mockito.verify(this.reportRepository, Mockito.times(1)).saveAndFlush(report);
-
     }
-//    public Report createReport(LocalDate date) {
-//        Report newReport = new Report();
-//        newReport.setDate(date);
-//        List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(date);
-//        newReport.setStockOpnames(stockOpnames);
-//        reportRepo.save(newReport);
-//        newReport.countQty();
-//        newReport.countSKU();
-//        reportRepo.saveAndFlush(newReport);
-//        return newReport;
-//    }
 
+    @Test
+    public void findOrCreateReportTestNullResult() {
+        // Given
+        String stringDate = "20170101";
+        BDDMockito.given(this.reportService.findReportByDate(convertedDate))
+                .willReturn(null);
+        BDDMockito.given(this.stockOpnameRepository.findByReportDate(convertedDate))
+                .willReturn(stockOpnameList);
 
-//    @Test
-//    public void findOrCreateReport(){
-//        // Given
-//        String stringDate = "20170101";
-//
-//        LocalDate convertedDate = LocalDate.parse("2017-01-01", DateTimeFormat.forPattern("yyyy-MM-dd"));
-//        Report report = new Report();
-//        report.setDate(convertedDate);
-//
-//        // When
-//        Report result = reportService.findOrCreateReportByDate(stringDate);
-//
-//        // Then
-//        Assert.assertEquals(report, result);
-//
-//        // Verify
-//        Mockito.verify(this.reportRepository, Mockito.times(1)).findByDate(convertedDate);
+//        BDDMockito.given(this.reportService.createReport(convertedDate))
+//                .willReturn(null);
 
-//        public Report findOrCreateReportByDate(String date){
-//            LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
-//            Report report = findReportByDate(convertedDate);
-//            if(report == null){
-//                report = createReport(convertedDate);
-//            }
-//            return report;
-//        }
+        // When
+        Report result = reportService.findOrCreateReportByDate(stringDate);
 
+        // Then
+        Assert.assertEquals(report, result);
 
+        // Verify
+        Mockito.verify(this.reportRepository, Mockito.times(1)).findByDate(convertedDate);
+        Mockito.verify(this.stockOpnameRepository, Mockito.times(1)).findByReportDate(convertedDate);
+        Mockito.verify(this.reportRepository, Mockito.times(1)).save(report);
+        Mockito.verify(this.reportRepository, Mockito.times(1)).saveAndFlush(report);
+    }
+
+    @Test
+    public void findOrCreateReportTest_NotNullResult() {
+        // Given
+        String stringDate = "20170101";
+        BDDMockito.given(this.reportService.findReportByDate(convertedDate))
+                .willReturn(report);
+
+        // When
+        Report result = reportService.findOrCreateReportByDate(stringDate);
+
+        // Then
+        Assert.assertEquals(report, result);
+        // Verify
+        Mockito.verify(this.reportRepository, Mockito.times(1)).findByDate(convertedDate);
+    }
 }
