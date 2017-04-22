@@ -2,8 +2,8 @@ package com.bliblifuture.configuration;
 
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
-import com.bliblifuture.repository.SKURepository;
-import com.bliblifuture.repository.UnknownSKURepository;
+import com.bliblifuture.request.StockOpnameRequest;
+import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ public class DatabaseSeeder {
     @Autowired
     CounterRepository counterRepo;
     @Autowired
-    SKURepository skuRepo;
-    @Autowired
     StockOpnameRepository stockOpnameRepo;
+    @Autowired
+    SKURepository skuRepo;
     @Autowired
     SuperAdminRepository superAdminRepo;
     @Autowired
@@ -27,6 +27,7 @@ public class DatabaseSeeder {
     UserRoleRepository userRoleRepo;
     @Autowired
     WarehouseRepository warehouseRepo;
+
 
     @Autowired
     StockOpnameService stockOpnameService;
@@ -46,7 +47,6 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
-//      SKU Dummy
         SKU skuOne = new SKU();
         skuOne.setSKUid("AAA1111");
         skuOne.setItemName("Agree To Shop Pants");
@@ -71,7 +71,6 @@ public class DatabaseSeeder {
         skuTwo.setSystemQty(1);
         skuRepo.save(skuTwo);
 
-//      Unknown SKU Dummy
         UnknownSKU unknownSKUone = new UnknownSKU();
         unknownSKUone.setUnknownSKUId("SKU-112-001");
         unknownSKUone.setStorageCode("B-101-100");
@@ -84,21 +83,21 @@ public class DatabaseSeeder {
         unknownSKUtwo.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUtwo);
 
-//      StockOpname Dummy
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001-1001");
 //      checkDate
         stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
         stockOpnameRepo.save(stockOpnameOne);
+        stockOpnameOne.setStatus("");
         stockOpnameOne.setStockOpnameId("100");
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.addSKU(skuOne);
         stockOpnameOne.addSKU(skuTwo);
         stockOpnameOne.addUnknownSKU(unknownSKUone);
         stockOpnameOne.addUnknownSKU(unknownSKUtwo);
+        stockOpnameOne.startCounting();
         stockOpnameOne.countTotalQty();
         stockOpnameOne.countTotalSKU();
-        stockOpnameOne.updateStatus();
         stockOpnameRepo.save(stockOpnameOne);
 
 //      Admin One Dummy
@@ -108,6 +107,7 @@ public class DatabaseSeeder {
         adminone.setStatus("Active");
         adminone.addWarehouse(warehouseOne);
         adminRepo.save(adminone);
+
         adminone.createEntryUserRole(userRoleRepo);
         adminRepo.save(adminone);
 
@@ -140,5 +140,6 @@ public class DatabaseSeeder {
         counterRepo.save(counterOne);
         counterOne.setWarehouse(warehouseOne);
         counterRepo.save(counterOne);
+
     }
 }
