@@ -2,11 +2,12 @@ package com.bliblifuture.configuration;
 
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
+import com.bliblifuture.repository.SKURepository;
+import com.bliblifuture.repository.UnknownSKURepository;
+import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
-import java.util.*;
 
 @Component
 public class DatabaseSeeder {
@@ -15,30 +16,22 @@ public class DatabaseSeeder {
     @Autowired
     CounterRepository counterRepo;
     @Autowired
+    SKURepository skuRepo;
+    @Autowired
     StockOpnameRepository stockOpnameRepo;
     @Autowired
     SuperAdminRepository superAdminRepo;
+    @Autowired
+    UnknownSKURepository unknownSKURepo;
     @Autowired
     UserRoleRepository userRoleRepo;
     @Autowired
     WarehouseRepository warehouseRepo;
 
-
+    @Autowired
+    StockOpnameService stockOpnameService;
     @PostConstruct
     private void mockupData(){
-
-//      StockOpname Dummy
-        StockOpname stockOpnameOne = new StockOpname();
-        stockOpnameOne.setSKU("ABAB");
-        stockOpnameRepo.save(stockOpnameOne);
-
-        StockOpname stockOpnameTwo = new StockOpname();
-        stockOpnameTwo.setSKU("BABA");
-        stockOpnameRepo.save(stockOpnameTwo);
-
-        StockOpname stockOpnameThree = new StockOpname();
-        stockOpnameThree.setSKU("CACA");
-        stockOpnameRepo.save(stockOpnameThree);
 
 //      Warehouse Dummy
         Warehouse warehouseOne = new Warehouse();
@@ -53,6 +46,61 @@ public class DatabaseSeeder {
         warehouseThree.setName("Gudang KS Tubun");
         warehouseRepo.save(warehouseThree);
 
+//      SKU Dummy
+        SKU skuOne = new SKU();
+        skuOne.setSKUid("AAA1111");
+        skuOne.setItemName("Agree To Shop Pants");
+        skuOne.setDeviationQty(0);
+        skuOne.setInformation("");
+        skuOne.setStockType("Trading");
+        skuOne.setStorageCode("A-101-100");
+        skuRepo.save(skuOne);
+        skuOne.setPhysicalQty(0);
+        skuOne.setSystemQty(1);
+        skuRepo.save(skuOne);
+
+        SKU skuTwo = new SKU();
+        skuTwo.setSKUid("BBB1111");
+        skuTwo.setItemName("Agree To Shop Pants");
+        skuTwo.setDeviationQty(0);
+        skuTwo.setInformation("");
+        skuTwo.setStockType("Trading");
+        skuTwo.setStorageCode("A-101-100");
+        skuRepo.save(skuTwo);
+        skuTwo.setPhysicalQty(0);
+        skuTwo.setSystemQty(1);
+        skuRepo.save(skuTwo);
+
+//      Unknown SKU Dummy
+        UnknownSKU unknownSKUone = new UnknownSKU();
+        unknownSKUone.setUnknownSKUId("SKU-112-001");
+        unknownSKUone.setStorageCode("B-101-100");
+        unknownSKUone.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUone);
+
+        UnknownSKU unknownSKUtwo = new UnknownSKU();
+        unknownSKUtwo.setUnknownSKUId("SKU-112-001");
+        unknownSKUtwo.setStorageCode("B-101-101");
+        unknownSKUtwo.setPhysicalQty(1);
+        unknownSKURepo.save(unknownSKUtwo);
+
+//      StockOpname Dummy
+        StockOpname stockOpnameOne = new StockOpname();
+        stockOpnameOne.setStockOpnameId("STO-001-1001");
+//      checkDate
+        stockOpnameOne.formatWaktuPembuatan("2011/02/01 03:04:01");
+        stockOpnameRepo.save(stockOpnameOne);
+        stockOpnameOne.setStockOpnameId("100");
+        stockOpnameRepo.save(stockOpnameOne);
+        stockOpnameOne.addSKU(skuOne);
+        stockOpnameOne.addSKU(skuTwo);
+        stockOpnameOne.addUnknownSKU(unknownSKUone);
+        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
+        stockOpnameOne.countTotalQty();
+        stockOpnameOne.countTotalSKU();
+        stockOpnameOne.updateStatus();
+        stockOpnameRepo.save(stockOpnameOne);
+
 //      Admin One Dummy
         Admin adminone = new Admin();
         adminone.setUsername("admin-demo-one");
@@ -60,7 +108,6 @@ public class DatabaseSeeder {
         adminone.setStatus("Active");
         adminone.addWarehouse(warehouseOne);
         adminRepo.save(adminone);
-
         adminone.createEntryUserRole(userRoleRepo);
         adminRepo.save(adminone);
 
@@ -93,6 +140,5 @@ public class DatabaseSeeder {
         counterRepo.save(counterOne);
         counterOne.setWarehouse(warehouseOne);
         counterRepo.save(counterOne);
-
     }
 }

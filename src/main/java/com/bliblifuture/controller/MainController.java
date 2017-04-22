@@ -1,10 +1,12 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
+
+import com.bliblifuture.repository.StockOpnameRepository;
+import com.bliblifuture.request.*;
+
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
-import com.bliblifuture.request.UserRequest;
-import com.bliblifuture.request.WarehouseRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
 import com.bliblifuture.service.StockOpnameService;
@@ -28,6 +30,34 @@ public class MainController {
     UserService userService;
     @Autowired
     WarehouseService warehouseService;
+
+    @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {
+        stockOpnameService.addUnknownSKUtoList(request);
+        BaseResponse responseBS = new BaseResponse(true,"");
+        return responseBS;
+
+    }
+
+    @RequestMapping(value = "api/assignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse assignStockOpname(@RequestBody AssignmentRequest request){
+        stockOpnameService.assignStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
+    @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
+        stockOpnameService.createStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
 
     @RequestMapping(value = "api/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,4 +118,15 @@ public class MainController {
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
+
+    @RequestMapping(value = "/api/assignment", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
+             produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse unAssignStockOpname(@RequestBody AssignmentRequest request){
+        stockOpnameService.unAssignStockOpname(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
+
 }
