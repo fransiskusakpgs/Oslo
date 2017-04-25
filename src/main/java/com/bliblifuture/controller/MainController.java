@@ -41,7 +41,7 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "api/assignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "api/assignments", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse assignStockOpname(@RequestBody AssignmentRequest request){
