@@ -176,10 +176,10 @@ public class DatabaseSeeder {
 //        Counter Dummy
 //      -------------------------------------------------------------
         Counter counterOne = new Counter();
-        counterOne.createEntryUserRole(userRoleRepo);
         counterOne.setUsername("demo-counter-one");
         counterOne.setPassword("123");
         counterOne.setStatus("Active");
+        counterOne.createEntryUserRole(userRoleRepo);
         counterRepo.save(counterOne);
         counterOne.setWarehouse(warehouseOne);
         counterRepo.save(counterOne);
