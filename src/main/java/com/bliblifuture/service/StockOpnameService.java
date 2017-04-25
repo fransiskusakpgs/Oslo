@@ -39,7 +39,7 @@ public class StockOpnameService {
         stockOpnameRepo.save(currentStockOpname);
     }
 
-    public void assignStockOpname(AssignmentRequest request)throws IllegalArgumentException{
+    public Boolean assignStockOpname(AssignmentRequest request)throws IllegalArgumentException{
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(
                 request.getStockOpnameId());
         if(currentStockOpname.getAssignedTo()!= null){
@@ -59,6 +59,7 @@ public class StockOpnameService {
         stockOpnameRepo.save(currentStockOpname);
         currentStockOpname.updateStatus();
         stockOpnameRepo.save(currentStockOpname);
+        return true;
     }
 
     public void createStockOpname(StockOpnameRequest stockOpnameRequest) {

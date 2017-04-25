@@ -47,8 +47,8 @@ public class MainController {
     @ResponseBody
     public BaseResponse assignStockOpname(@RequestBody AssignmentRequest request){
         try{
-            stockOpnameService.assignStockOpname(request);
-            return  new BaseResponse(true,"");
+            Boolean success = stockOpnameService.assignStockOpname(request);
+            return  new BaseResponse(success,"");
         } catch (IllegalArgumentException e){
             return new BaseResponse(false, e.getMessage());
         }
