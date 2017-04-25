@@ -10,10 +10,7 @@ import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
 import com.bliblifuture.response.SingleResponse;
-import com.bliblifuture.service.ReportService;
-import com.bliblifuture.service.StockOpnameService;
-import com.bliblifuture.service.UserService;
-import com.bliblifuture.service.WarehouseService;
+import com.bliblifuture.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -31,6 +28,8 @@ public class MainController {
     UserService userService;
     @Autowired
     WarehouseService warehouseService;
+    @Autowired
+    AuthenticationService authenticationService;
 
     @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -94,8 +93,10 @@ public class MainController {
 
     @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<User> getAllUsers(){
-        List<User> data= userService.findAll();
+    public ListResponse<User> getAllUsers(@RequestParam String warehouse){
+        User user = authenticationService.getAuthenticatedUser();
+        String userRole = user.getRole();
+        List<User> data= userService.findAll(userRole, warehouse);
         ListResponse<User> response = new ListResponse<>(true,"",data);
         return response;
     }
