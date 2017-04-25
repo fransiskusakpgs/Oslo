@@ -27,7 +27,6 @@ public class StockOpnameService {
     UnknownSKURepository unknownSKURepo;
 
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
-
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
         UnknownSKU newUnknownSKU = new UnknownSKU();
         newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUId());
@@ -40,11 +39,22 @@ public class StockOpnameService {
         stockOpnameRepo.save(currentStockOpname);
     }
 
-    public void assignStockOpname(AssignmentRequest request){
+    public void assignStockOpname(AssignmentRequest request)throws IllegalArgumentException{
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(
                 request.getStockOpnameId());
+        if(currentStockOpname.getAssignedTo()!= null){
+            throw new IllegalArgumentException("This StockOpname already assigned to "
+                    +currentStockOpname.getAssignedTo().getUsername()+"!");
+        }
         Counter currentCounter = counterRepo.findByUsername(
                 request.getUsername());
+        if(currentCounter == null){
+            throw new IllegalArgumentException("We can't find the counter!");
+        }
+        if(!currentCounter.getStatus().equals("Active")){
+            throw new IllegalArgumentException(currentCounter.getUsername()
+                    +" is not an active counter!");
+        }
         currentStockOpname.setAssignedTo(currentCounter);
         stockOpnameRepo.save(currentStockOpname);
         currentStockOpname.updateStatus();

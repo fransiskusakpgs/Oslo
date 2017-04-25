@@ -42,13 +42,16 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "api/assignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "api/assignments", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse assignStockOpname(@RequestBody AssignmentRequest request){
-        stockOpnameService.assignStockOpname(request);
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
+        try{
+            stockOpnameService.assignStockOpname(request);
+            return  new BaseResponse(true,"");
+        } catch (IllegalArgumentException e){
+            return new BaseResponse(false, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
