@@ -81,9 +81,12 @@ public class MainController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SingleResponse findOrCreateReport(@RequestParam String date){
-        Report data = reportService.findOrCreateReportByDate(date);
-        SingleResponse response = new SingleResponse(true,"", data);
-        return response;
+        try {
+            Report data = reportService.findOrCreateReportByDate(date);
+            return new SingleResponse(true,"", data);
+        } catch (IllegalArgumentException e){
+            return new SingleResponse(false,e.getMessage(), null);
+        }
     }
 
 

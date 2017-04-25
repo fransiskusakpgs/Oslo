@@ -35,13 +35,15 @@ public class ReportService {
         return newReport;
     }
 
-    public Report findOrCreateReportByDate(String date){
+    public Report findOrCreateReportByDate(String date) throws IllegalArgumentException{
         LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
+        if(convertedDate.isAfter( new LocalDate())||convertedDate.isEqual(new LocalDate())){
+            throw new IllegalArgumentException("Please insert the date before today!");
+        }
         Report report = findReportByDate(convertedDate);
         if(report == null){
             report = createReport(convertedDate);
         }
         return report;
     }
-
 }
