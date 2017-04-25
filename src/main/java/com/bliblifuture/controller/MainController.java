@@ -140,8 +140,11 @@ public class MainController {
              produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse unAssignStockOpname(@RequestBody AssignmentRequest request){
-        stockOpnameService.unAssignStockOpname(request);
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
+        try{
+            Boolean success = stockOpnameService.unAssignStockOpname(request);
+            return new BaseResponse(success,"");
+        }catch (IllegalArgumentException e){
+            return new BaseResponse(false,e.getMessage());
+        }
     }
 }

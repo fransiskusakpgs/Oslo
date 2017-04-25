@@ -89,10 +89,15 @@ public class StockOpnameService {
         return data2;
     }
 
-    public void unAssignStockOpname(AssignmentRequest request){
+    public Boolean unAssignStockOpname(AssignmentRequest request) throws IllegalArgumentException{
         StockOpname selectedStockOpname = stockOpnameRepo.findByStockOpnameId(request.getStockOpnameId());
+        if(!selectedStockOpname.getStatus().equals("ASSIGNED")){
+            throw new IllegalArgumentException("Sorry this StockOpname has already "
+                    + selectedStockOpname.getStatus());
+        }
         selectedStockOpname.unAssignStockOpname();
         stockOpnameRepo.save(selectedStockOpname);
+        return true;
     }
 
 }
