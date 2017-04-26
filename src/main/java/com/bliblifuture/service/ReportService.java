@@ -23,10 +23,13 @@ public class ReportService {
         return data;
     }
 
-    public Report createReport(LocalDate date) {
+    public Report createReport(LocalDate date) throws IllegalArgumentException {
         Report newReport = new Report();
         newReport.setDate(date);
         List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(date);
+        if(stockOpnames.size()==0){
+            throw new IllegalArgumentException("Sorry, there are no stockopname done on " + date.toString());
+        }
         newReport.setStockOpnames(stockOpnames);
         reportRepo.save(newReport);
         newReport.countQty();
