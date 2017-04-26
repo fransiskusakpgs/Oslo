@@ -12,9 +12,9 @@ public class SKURequest implements Serializable{
     private String itemName;
     private String stockType;
     private String storageCode;
-    private int systemQty;
+    private String systemQty;
     private String information;
-    private StockOpname stockOpname;
+//    private StockOpname stockOpname;
 
     public String getSKUid() {
         return SKUid;
@@ -48,11 +48,11 @@ public class SKURequest implements Serializable{
         this.storageCode = storageCode;
     }
 
-    public int getSystemQty() {
+    public String getSystemQty() {
         return systemQty;
     }
 
-    public void setSystemQty(int systemQty) {
+    public void setSystemQty(String systemQty) {
         this.systemQty = systemQty;
     }
 
@@ -64,11 +64,11 @@ public class SKURequest implements Serializable{
         this.information = information;
     }
 
-    public StockOpname getStockOpname() {
-        return stockOpname;
-    }
-
-    public void setStockOpname(StockOpname stockOpname) {
-        this.stockOpname = stockOpname;
-    }
+//    public StockOpname getStockOpname() {
+//        return stockOpname;
+//    }
+//
+//    public void setStockOpname(StockOpname stockOpname) {
+//        this.stockOpname = stockOpname;
+//    }
 }

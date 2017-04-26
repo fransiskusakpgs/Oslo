@@ -6,6 +6,7 @@ import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UnknownSKURepository;
 import com.bliblifuture.repository.WorkListRepository;
+import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.SingleRequest;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
@@ -18,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +55,8 @@ public class MainController {
 
     @RequestMapping( value = "api/unknownSKUs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<UnknownSKU> getAllDataUnknownSKU() {
-        List<UnknownSKU> data = unknownSKUService.findUnknownSKUByStockOpname(); //sampe returndata12
+    public ListResponse<UnknownSKU> getAllDataUnknownSKU(@RequestParam String id) {
+        List<UnknownSKU> data = unknownSKUService.findUnknownSKUByStockOpname(id); //sampe returndata12
         ListResponse<UnknownSKU> dataresponse = new ListResponse<>( true, "", data );
         return dataresponse;
     }
@@ -66,8 +64,9 @@ public class MainController {
 
     @RequestMapping(value = "api/SKUs" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
     @ResponseBody
-    public ListResponse<SKU> getAllDataSKU() {
-        List<SKU> data = skuService.findSKUByStockOpname();
+    public ListResponse<SKU> getAllDataSKU(@RequestParam String id) {
+
+        List<SKU> data = skuService.findSKUByStockOpname(id);
         ListResponse<SKU> dataresponse2 = new ListResponse<>(true, "", data);
         return dataresponse2;
 
@@ -75,14 +74,23 @@ public class MainController {
     }
 
 
-//@RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-//        produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
-//    stockOpnameService.createStockOpname(request);
-//    BaseResponse response = new BaseResponse(true,"");
-//    return response;
-//}
+@RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {
+    stockOpnameService.createStockOpname(request);
+    BaseResponse response = new BaseResponse(true,"");
+    return response;
+}
+
+    @RequestMapping(value = "api/SKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse createSKU(@RequestBody SKURequest request) {
+        skuService.createSKU(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
 
 
     @RequestMapping(value = "api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,

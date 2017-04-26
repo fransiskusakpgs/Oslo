@@ -31,26 +31,26 @@ public class StockOpnameService {
         return data2;
     }
 
-//    public void createStockOpname(StockOpnameRequest stockOpnameRequest) {
-//
-//        StockOpname newStockOpname = new StockOpname();
-//        newStockOpname.setStatus(stockOpnameRequest.getStatus());
-//        for (SKURequest SKU : stockOpnameRequest.getSKUs()) {
-//            SKU newSKU = new SKU();
-//            newSKU.setItemName(SKU.getItemName());
-//            newSKU.setDeviationQty(SKU.getDeviationQty());
-//            newSKU.setInformation(SKU.getInformation());
-//            newSKU.setStockType(SKU.getStockType());
-//            newSKU.setStorageCode(SKU.getStorageCode());
-//            newSKU.setPhysicalQty(SKU.getPhysicalQty());
-//            newSKU.setSystemQty(SKU.getSystemQty());
-//            skuRepo.save(newSKU);
-//        }
-//        newStockOpname.countTotalQty();
-//        newStockOpname.countTotalSKU();
-//        newStockOpname.setWaktuPembuatan("");
-//        stockOpnameRepo.save(newStockOpname);
-//    }
+    public void createStockOpname(StockOpnameRequest stockOpnameRequest) {
+
+        StockOpname newStockOpname = new StockOpname();
+        newStockOpname.setStockOpnameId(stockOpnameRequest.getStockOpnameId());
+        newStockOpname.setStatus(stockOpnameRequest.getStatus());
+        newStockOpname.setWaktuPembuatan(stockOpnameRequest.getWaktuPembuatan());
+        newStockOpname.setTotalSKU(stockOpnameRequest.getSKUs().size());
+//        newStockOpname.setTotalQty(stockOpnameRequest.get);
+        stockOpnameRepo.save(newStockOpname);
+        List<SKU> SKUs = skuRepo.findByStockOpname(newStockOpname);
+
+        int totalSKU = 0;
+                for (SKU SKU: SKUs
+             ) { totalSKU += SKU.getSystemQty();
+
+
+
+                }
+    }
+
 
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
 
@@ -65,7 +65,7 @@ public class StockOpnameService {
 
         List<UnknownSKU> uk = new ArrayList<>();
         uk.add(newUnknownSKU);
-        st.setUnknownSKUs(uk);
+//        st.setUnknownSKUs(uk);
 //        st.addUnknownSKU(newUnknownSKU);
 
 

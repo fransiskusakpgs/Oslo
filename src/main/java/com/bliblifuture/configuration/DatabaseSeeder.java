@@ -1,5 +1,4 @@
 package com.bliblifuture.configuration;
-
 import com.bliblifuture.model.SKU;
 import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.model.UnknownSKU;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-
 @Component
 public class DatabaseSeeder {
     @Autowired
@@ -28,7 +26,6 @@ public class DatabaseSeeder {
     SKURepository skuRepo;
     @Autowired
     UnknownSKURepository unknownSKURepo;
-
     @Autowired
     StockOpnameService stockOpnameService;
 
@@ -85,13 +82,17 @@ public class DatabaseSeeder {
 
 //        stockOpnameOne.addSKU(skuOne);
 //        stockOpnameOne.addSKU(skuTwo);
-        stockOpnameOne.setSKUs(gabungan);
+//        stockOpnameOne.setSKUs(gabungan);
+//        stockOpnameRepo.save(stockOpnameOne); //frans
+
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
+
         skuTwo.setStockOpname(stockOpnameOne);
         skuRepo.save(skuTwo);
-        stockOpnameOne.setUnknownSKUs(unknownSKUsOnes);
+//        stockOpnameOne.setUnknownSKUs(unknownSKUsOnes);
 //        stockOpnameOne.addUnknownSKU(unknownSKUone);
+
         unknownSKUone.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUone);
 
@@ -99,11 +100,9 @@ public class DatabaseSeeder {
 //        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
         unknownSKUtwo.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUtwo);
-        stockOpnameOne.countTotalQty();
-        stockOpnameOne.countTotalSKU();
+//        stockOpnameOne.countTotalQty();
+//        stockOpnameOne.countTotalSKU();
         stockOpnameOne.setWaktuPembuatan("11/01/2016");
         stockOpnameRepo.save(stockOpnameOne);
-
-
     }
 }

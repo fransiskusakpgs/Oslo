@@ -30,9 +30,9 @@ public class UnknownSKUService {
 //        return data12;
 //    }
 
-    public List<UnknownSKU> findUnknownSKUByStockOpname(){ //data request udah dipassing disini
-        String activeStockOpname = "100"; //ini cuma duummy Stockopname ID
-        StockOpname a = stockOpnameRepo.findByStockOpnameId(activeStockOpname);
+    public List<UnknownSKU> findUnknownSKUByStockOpname(String id){ //data request udah dipassing disini
+
+        StockOpname a = stockOpnameRepo.findByStockOpnameId(id);
         List<UnknownSKU> data12 = UnknownSKUrepo.findByStockOpname(a);
         return data12;
     }
