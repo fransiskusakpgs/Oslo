@@ -2,7 +2,6 @@ package com.bliblifuture.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name="UnknownSKU")
 public class UnknownSKU {
@@ -11,9 +10,9 @@ public class UnknownSKU {
     private String unknownSKUId;
     private String storageCode;
     private int physicalQty;
-//    @ManyToOne
-//    @JoinColumn(name = "stockopname_Id")
-//    private StockOpname stockOpname;
+
+    @ManyToOne
+    private StockOpname stockOpname;
 
     public String getUnknownSKUId() {
         return unknownSKUId;
@@ -39,6 +38,13 @@ public class UnknownSKU {
         this.physicalQty = physicalQty;
     }
 
+    public StockOpname getStockOpname() {
+        return stockOpname;
+    }
+
+    public void setStockOpname(StockOpname stockOpname) {
+        this.stockOpname = stockOpname;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
