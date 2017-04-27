@@ -1,10 +1,7 @@
 package com.bliblifuture.request;
 
-import com.bliblifuture.model.StockOpname;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class SKURequest implements Serializable{
 
@@ -63,12 +60,4 @@ public class SKURequest implements Serializable{
     public void setInformation(String information) {
         this.information = information;
     }
-
-//    public StockOpname getStockOpname() {
-//        return stockOpname;
-//    }
-//
-//    public void setStockOpname(StockOpname stockOpname) {
-//        this.stockOpname = stockOpname;
-//    }
 }

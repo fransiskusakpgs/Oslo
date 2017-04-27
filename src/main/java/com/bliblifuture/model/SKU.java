@@ -13,7 +13,7 @@ public class SKU {
     private String storageCode;
     private int systemQty;
     private int physicalQty;
-    private int deviationQty; //sistem-fisik
+    private int deviationQty;
     private String information;
 
     @ManyToOne

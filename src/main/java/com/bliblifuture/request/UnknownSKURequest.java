@@ -1,7 +1,5 @@
 package com.bliblifuture.request;
 
-import com.bliblifuture.model.StockOpname;
-
 import java.io.Serializable;
 
 public class UnknownSKURequest implements Serializable{

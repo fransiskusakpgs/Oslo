@@ -2,7 +2,6 @@ package com.bliblifuture.model;
 
 import javax.persistence.*;
 
-
     @Entity
     @Table(name="worklist")
 
@@ -64,6 +63,4 @@ import javax.persistence.*;
         public void setSKU(String SKU) {
             this.SKU = SKU;
         }
-
-
-    }
+}

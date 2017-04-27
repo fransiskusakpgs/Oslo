@@ -2,20 +2,16 @@ package com.bliblifuture.configuration;
 import com.bliblifuture.model.SKU;
 import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.model.UnknownSKU;
-import com.bliblifuture.model.WorkList;
 import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UnknownSKURepository;
 import com.bliblifuture.repository.WorkListRepository;
-import com.bliblifuture.request.StockOpnameRequest;
-import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.service.StockOpnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+
 @Component
 public class DatabaseSeeder {
     @Autowired
@@ -67,42 +63,22 @@ public class DatabaseSeeder {
         unknownSKUtwo.setPhysicalQty(1);
         unknownSKURepo.save(unknownSKUtwo);
 
-        List<UnknownSKU> unknownSKUsOnes = new ArrayList<>();
-        unknownSKUsOnes.add(unknownSKUone);
-        unknownSKUsOnes.add(unknownSKUtwo);
-
-        List<SKU> gabungan = new ArrayList<>();
-        gabungan.add(skuOne);
-        gabungan.add(skuTwo);
-
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStatus("Halo");
         stockOpnameOne.setStockOpnameId("100");
+        stockOpnameOne.setWaktuPembuatan("11/01/2016");
         stockOpnameRepo.save(stockOpnameOne);
-
-//        stockOpnameOne.addSKU(skuOne);
-//        stockOpnameOne.addSKU(skuTwo);
-//        stockOpnameOne.setSKUs(gabungan);
-//        stockOpnameRepo.save(stockOpnameOne); //frans
 
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
 
         skuTwo.setStockOpname(stockOpnameOne);
         skuRepo.save(skuTwo);
-//        stockOpnameOne.setUnknownSKUs(unknownSKUsOnes);
-//        stockOpnameOne.addUnknownSKU(unknownSKUone);
 
         unknownSKUone.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUone);
 
-
-//        stockOpnameOne.addUnknownSKU(unknownSKUtwo);
         unknownSKUtwo.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUtwo);
-//        stockOpnameOne.countTotalQty();
-//        stockOpnameOne.countTotalSKU();
-        stockOpnameOne.setWaktuPembuatan("11/01/2016");
-        stockOpnameRepo.save(stockOpnameOne);
     }
 }

@@ -38,61 +38,11 @@ public class StockOpnameService {
         newStockOpname.setStatus(stockOpnameRequest.getStatus());
         newStockOpname.setWaktuPembuatan(stockOpnameRequest.getWaktuPembuatan());
         newStockOpname.setTotalSKU(stockOpnameRequest.getSKUs().size());
-//        newStockOpname.setTotalQty(stockOpnameRequest.get);
         stockOpnameRepo.save(newStockOpname);
         List<SKU> SKUs = skuRepo.findByStockOpname(newStockOpname);
 
         int totalSKU = 0;
-                for (SKU SKU: SKUs
-             ) { totalSKU += SKU.getSystemQty();
-
-
-
-                }
-    }
-
-
-    public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
-
-        UnknownSKU newUnknownSKU = new UnknownSKU();
-        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUid());
-        newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
-        newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
-        unknownSKURepo.save(newUnknownSKU);
-        StockOpname st = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
-        newUnknownSKU.setStockOpname(st);
-        unknownSKURepo.save(newUnknownSKU);
-
-        List<UnknownSKU> uk = new ArrayList<>();
-        uk.add(newUnknownSKU);
-//        st.setUnknownSKUs(uk);
-//        st.addUnknownSKU(newUnknownSKU);
-
-
-
-
-//
-        stockOpnameRepo.save(st);
-
-
-
-
-
-//        System.out.println("inilho"+us.size());
-//
-//        us.add(newUnknownSKU);
-//
-//        System.out.println("inilho"+us.size());
-//
-//
-//        stockOpnameRepo.save(currentStockOpname);
-//
-//        System.out.println("inilho"+us.size());
-//        System.out.println("inilho" + unknownSKURepo.findByStockOpname(currentStockOpname).size());
-//
-//
-//        System.out.println("inilho" + unknownSKURepo.findByStockOpname(currentStockOpname).size());
-
+        for (SKU SKU: SKUs) { totalSKU += SKU.getSystemQty();}
     }
 }
 

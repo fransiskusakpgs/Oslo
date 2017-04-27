@@ -2,7 +2,6 @@ package com.bliblifuture.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name="UnknownSKU")
 public class UnknownSKU {
