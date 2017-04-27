@@ -31,10 +31,13 @@ public class ReportService {
         return data;
     }
 
-    public Report createReport(LocalDate date) {
+    public Report createReport(LocalDate date) throws IllegalArgumentException {
         Report newReport = new Report();
         newReport.setDate(date);
         List<StockOpname> stockOpnames = stockOpnameRepo.findByReportDate(date);
+        if(stockOpnames.size()==0){
+            throw new IllegalArgumentException("Sorry, there are no stockopname done on " + date.toString());
+        }
         newReport.setStockOpnames(stockOpnames);
         reportRepo.save(newReport);
         countingSKUandQty(newReport, stockOpnames);
@@ -44,8 +47,11 @@ public class ReportService {
         return newReport;
     }
 
-    public Report findOrCreateReportByDate(String date){
+    public Report findOrCreateReportByDate(String date) throws IllegalArgumentException{
         LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
+        if(convertedDate.isAfter( new LocalDate())||convertedDate.isEqual(new LocalDate())){
+            throw new IllegalArgumentException("Please insert the date before today!");
+        }
         Report report = findReportByDate(convertedDate);
         if(report == null){
             report = createReport(convertedDate);
@@ -103,5 +109,4 @@ public class ReportService {
         report.setSurplusQty(surplusQty);
         report.setSurplusSKU(surplusSKU);
     }
-
 }
