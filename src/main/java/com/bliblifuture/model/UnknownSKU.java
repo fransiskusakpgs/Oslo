@@ -45,4 +45,14 @@ public class UnknownSKU {
     public void setStockOpname(StockOpname stockOpname) {
         this.stockOpname = stockOpname;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UnknownSKU unknownSKU = (UnknownSKU) o;
+        if(!storageCode.equals(unknownSKU.storageCode)) return false;
+        if(!unknownSKUId.equals(unknownSKU.unknownSKUId)) return false;
+        return physicalQty != unknownSKU.physicalQty;
+    }
 }
