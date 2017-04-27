@@ -16,6 +16,7 @@ public class Counter extends User {
 
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
         UserRole counterRole = new UserRole();
+        counterRole.setUsername(this.getUsername());
         counterRole.setRole("ROLE_COUNTER");
         userRoleRepo.save(counterRole);
 

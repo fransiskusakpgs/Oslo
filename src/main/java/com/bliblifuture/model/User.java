@@ -13,6 +13,7 @@ public class User {
     private String username;
     private String password;
     private String status;
+    private boolean enabled = true;
 
     @OneToOne
     protected UserRole userRole;
@@ -46,6 +47,15 @@ public class User {
     }
 
     public String getRole() {
-        return userRole.role;
+        return userRole.getRole();
+}
+
+    public boolean isEnabled() {
+
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

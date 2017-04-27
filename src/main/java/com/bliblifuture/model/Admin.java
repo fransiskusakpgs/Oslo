@@ -25,6 +25,7 @@ public class Admin extends User{
 
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
         UserRole adminrole = new UserRole();
+        adminrole.setUsername(this.getUsername());
         adminrole.setRole("ROLE_ADMIN");
         userRoleRepo.save(adminrole);
 
