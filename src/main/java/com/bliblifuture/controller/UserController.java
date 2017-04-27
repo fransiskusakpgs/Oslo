@@ -48,16 +48,16 @@ public class UserController {
     @RequestMapping(value = "api/users", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BaseResponse registerUser(@RequestBody UserRequest request){
-        if(request.getRole().equals("ROLE_ADMIN")){
-            userService.registerAdmin(request);
-        } else if (request.getRole().equals("ROLE_COUNTER")) {
-            userService.registerCounter(request);
+    public BaseResponse registerUser(@RequestBody UserRequest request) {
+        try {
+            if (request.getRole().equals("ROLE_ADMIN")) {
+                userService.registerAdmin(request);
+            } else if (request.getRole().equals("ROLE_COUNTER")) {
+                userService.registerCounter(request);
+            }
+            return  new BaseResponse(true,"");
+        } catch (Exception e) {
+            return  new BaseResponse(false,e.getMessage());
         }
-
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
     }
-
-
 }

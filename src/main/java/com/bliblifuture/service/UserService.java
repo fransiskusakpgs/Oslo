@@ -1,9 +1,11 @@
 package com.bliblifuture.service;
 
+import com.bliblifuture.OsloUtils;
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class UserService {
     UserRoleRepository userRoleRepo;
     @Autowired
     WarehouseRepository warehouseRepo;
+    @Autowired
+    AuthenticationService authenticationService;
 
     public void editAdmin(UserRequest data) {
         Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
@@ -75,14 +79,20 @@ public class UserService {
         return null;
     }
 
-    public void registerAdmin(UserRequest data){
+    public void registerAdmin(UserRequest data) throws IllegalArgumentException{
+
+        if(authenticationService.getAuthenticatedUser()
+                .getRole().equals("ROLE_ADMIN")){
+            throw new IllegalArgumentException("Sorry you're not allowed to register admin!");
+        }
+
 //      Membuat admin
         Admin newAdmin = new Admin();
+        newAdmin.setUsername(data.getUsername());
         newAdmin.createEntryUserRole(userRoleRepo);
         adminRepo.save(newAdmin);
 
 //      Mengisi atribut admin
-        newAdmin.setUsername(data.getUsername());
         newAdmin.setPassword(data.getPassword());
         newAdmin.setStatus(data.getStatus());
         adminRepo.save(newAdmin);
@@ -102,11 +112,16 @@ public class UserService {
         newAdmin.setWarehouses(acceptedWarehouses);
     }
 
-    public void registerCounter(UserRequest data){
+    public void registerCounter(UserRequest data)throws IllegalArgumentException{
+
+        if(data.getWarehouse().size()!=1){
+            throw new IllegalArgumentException("Counter not allowed have more than one warehouse!");
+        }
+
         Counter newCounter = new Counter();
+        newCounter.setUsername(data.getUsername());
         newCounter.createEntryUserRole(userRoleRepo);
         counterRepo.save(newCounter);
-        newCounter.setUsername(data.getUsername());
         newCounter.setPassword(data.getPassword());
         newCounter.setStatus(data.getStatus());
         Warehouse counterSetWarehouse = warehouseRepo.findByName(data.getWarehouse().get(0));

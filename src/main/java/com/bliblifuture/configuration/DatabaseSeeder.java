@@ -189,7 +189,6 @@ public class DatabaseSeeder {
         counterTwo.setWarehouse(warehouseTwo);
         counterRepo.save(counterTwo);
 
-
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
 
