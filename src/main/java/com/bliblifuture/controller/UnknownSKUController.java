@@ -1,13 +1,9 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.UnknownSKU;
-import com.bliblifuture.repository.StockOpnameRepository;
-import com.bliblifuture.repository.WorkListRepository;
 import com.bliblifuture.request.UnknownSKURequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
-import com.bliblifuture.service.SKUService;
-import com.bliblifuture.service.StockOpnameService;
 import com.bliblifuture.service.UnknownSKUService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,5 +32,4 @@ public class UnknownSKUController {
         ListResponse<UnknownSKU> dataresponse = new ListResponse<>( true, "", data );
         return dataresponse;
     }
-
 }

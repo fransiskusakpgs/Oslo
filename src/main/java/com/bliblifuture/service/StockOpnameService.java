@@ -26,25 +26,24 @@ public class StockOpnameService {
     UnknownSKURepository unknownSKURepo;
     @Autowired
     CounterRepository counterRepo;
-    @Autowired
-
 
     public List<StockOpname> findAll(){
         List<StockOpname> data2 = stockOpnameRepo.findAll();
         return data2;
-    public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
-
-        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
-        UnknownSKU newUnknownSKU = new UnknownSKU();
-        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUId());
-        newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
-        newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
-        unknownSKURepo.save(newUnknownSKU);
-        currentStockOpname.addUnknownSKU(newUnknownSKU);
-        currentStockOpname.countTotalQty();
-        currentStockOpname.countTotalSKU();
-        stockOpnameRepo.save(currentStockOpname);
     }
+//
+//    public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
+//        StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
+//        UnknownSKU newUnknownSKU = new UnknownSKU();
+//        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUid());
+//        newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
+//        newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
+//        unknownSKURepo.save(newUnknownSKU);
+//        currentStockOpname.addUnknownSKU(newUnknownSKU);
+//        currentStockOpname.countTotalQty();
+//        currentStockOpname.countTotalSKU();
+//        stockOpnameRepo.save(currentStockOpname);
+//    }
 
     public void assignStockOpname(AssignmentRequest request){
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(
@@ -62,37 +61,23 @@ public class StockOpnameService {
         StockOpname newStockOpname = new StockOpname();
         newStockOpname.setStockOpnameId(stockOpnameRequest.getStockOpnameId());
         newStockOpname.setStatus(stockOpnameRequest.getStatus());
-        for (SKURequest SKU : stockOpnameRequest.getSKUs()) {
-            SKU newSKU = new SKU();
-            newSKU.setItemName(SKU.getItemName());
-            newSKU.setDeviationQty(SKU.getDeviationQty());
-            newSKU.setInformation(SKU.getInformation());
-            newSKU.setStockType(SKU.getStockType());
-            newSKU.setStorageCode(SKU.getStorageCode());
-            newSKU.setPhysicalQty(SKU.getPhysicalQty());
-            newSKU.setSystemQty(SKU.getSystemQty());
-            skuRepo.save(newSKU);
-        }
-        newStockOpname.countTotalQty();
-        newStockOpname.countTotalSKU();
         LocalDate time = new LocalDate();
         newStockOpname.setWaktuPembuatan(time);
-        newStockOpname.setWaktuPembuatan(stockOpnameRequest.getWaktuPembuatan());
-        newStockOpname.setTotalSKU(stockOpnameRequest.getSKUs().size());
-        stockOpnameRepo.save(newStockOpname);
+        int totalSKU = 0;
         List<SKU> SKUs = skuRepo.findByStockOpname(newStockOpname);
+        for (SKU SKU: SKUs) { totalSKU += SKU.getSystemQty();}
+        stockOpnameRepo.save(newStockOpname);
+    }
 
-    public List<StockOpname> findAll(){
-        List<StockOpname> data2 = stockOpnameRepo.findAll();
-        return data2;
+    public List<StockOpname> findAllStockOpname(){
+        List<StockOpname> data = stockOpnameRepo.findAll();
+        return data;
     }
 
     public void unAssignStockOpname(AssignmentRequest request){
         StockOpname selectedStockOpname = stockOpnameRepo.findByStockOpnameId(request.getStockOpnameId());
         selectedStockOpname.unAssignStockOpname();
         stockOpnameRepo.save(selectedStockOpname);
-        int totalSKU = 0;
-        for (SKU SKU: SKUs) { totalSKU += SKU.getSystemQty();}
     }
 }
 
