@@ -43,10 +43,22 @@ public class UserService {
         adminRepo.save(currentAdmin);
     }
 
-    public void editCounter(UserRequest data){
+    public void editCounter(UserRequest data) throws Exception{
+        if(data.getUsername()== null || data.getUsername().equals("")||
+                data.getRole()== null || data.getRole().equals("")||
+                data.getStatus()== null || data.getStatus().equals("")||
+                data.getPassword()== null || data.getPassword().equals("")) {
+            throw new Exception("Neither Username, Password, Role nor Warehouse can be empty!");
+        }
+
+        if(data.getWarehouse().size()!=1){
+            throw new Exception("Please check your warehouse input!");
+        }
+
         Counter currentCounter = counterRepo.findByUsername(data.getUsername());
         currentCounter.setPassword(data.getPassword());
         currentCounter.setStatus(data.getStatus());
+        currentCounter.setWarehouse(warehouseRepo.findByName(data.getWarehouse().get(0)));
         counterRepo.save(currentCounter);
     }
 
