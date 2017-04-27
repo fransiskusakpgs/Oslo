@@ -22,68 +22,7 @@ public class Report {
     @OneToMany
     private List<StockOpname> stockOpnames;
 
-    public void countSKU(){
-        int countedSKU = 0;
-        int uncountedSKU = 0;
-        int totalUnknwonQty = 0;
-        int totalUnknwonSKU = 0;
-        for (StockOpname stockOpname: stockOpnames) {
-            List<SKU> skus = stockOpname.getSKUs();
-            List<UnknownSKU> unknownSKUs = stockOpname.getUnknownSKUs();
-            for (SKU sku: skus) {
-                String status = sku.getInformation();
-                if (status.equals("COUNTED")){
-                    countedSKU++;
-                }
-                else{
-                    uncountedSKU++;
-                }
-            }
 
-            for (UnknownSKU unknownSKU: unknownSKUs) {
-                totalUnknwonQty += unknownSKU.getPhysicalQty();
-                totalUnknwonSKU++;
-            }
-        }
-        this.countedSKU = countedSKU;
-        this.totalUnknownQty = totalUnknwonQty;
-        this.totalUnknownSKU = totalUnknwonSKU;
-    }
-
-    public void countQty(){
-        int countedQty = 0;
-        int deficitQty = 0;
-        int surplusQty = 0;
-        int deficitSKU = 0;
-        int surplusSKU = 0;
-        for (StockOpname stockOpname: stockOpnames) {
-            List<SKU> skus = stockOpname.getSKUs();
-            for (SKU sku: skus) {
-                String status = sku.getInformation();
-                if (status.equals("COUNTED")){
-
-                    countedQty += sku.getPhysicalQty();
-
-                    int sistemQty = sku.getSystemQty();
-                    int fisikQty =sku.getPhysicalQty();
-                    int selisih = sistemQty-fisikQty;
-
-                    if (selisih>0){
-                        deficitQty += Math.abs(selisih);
-                        deficitSKU++;
-                    } else if (selisih < 0) {
-                        surplusQty += selisih;
-                        surplusSKU++;
-                    }
-                }
-            }
-        }
-        this.deficitSKU = deficitSKU;
-        this.surplusSKU = surplusSKU;
-        this.countedQty = countedQty;
-        this.deficitQty = deficitQty;
-        this.surplusQty = surplusQty;
-    }
 
     public String getDate() {
        String stringDate = date.toString();

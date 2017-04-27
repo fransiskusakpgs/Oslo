@@ -3,7 +3,7 @@ package com.bliblifuture.response;
 import java.io.Serializable;
 import java.util.List;
 //Http Template
-public class ListResponse<T> implements Serializable {
+public class ListResponse<T> implements Serializable { //T tu minta template
 
     private List<T> data;
     private boolean success;

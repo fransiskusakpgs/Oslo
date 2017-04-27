@@ -1,9 +1,6 @@
 package com.bliblifuture.service;
 
-import com.bliblifuture.model.Admin;
-import com.bliblifuture.model.Counter;
-import com.bliblifuture.model.User;
-import com.bliblifuture.model.Warehouse;
+import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +46,32 @@ public class UserService {
         counterRepo.save(currentCounter);
     }
 
-    public List<User> findAll(){
-        List<User> dataUser = userRepo.findAll();
-        return dataUser;
+    public List<User> findAll(String userRole, String warehouse){
+        List<User> listUser = new ArrayList<>();
+        if (userRole.equals("ROLE_ADMIN")){
+            Warehouse warehouseActive = warehouseRepo.findByName(warehouse);
+            List<Counter> listCounter = counterRepo.findByWarehouse(warehouseActive);
+            for (Counter counter: listCounter) {
+                User dataUser = (User)counter;
+                listUser.add(dataUser);
+            }
+            return listUser;
+        }
+        else if(userRole.equals("ROLE_SUPER_ADMIN")){
+            List<UserRole> listUserRoleAdmin = userRoleRepo.findByRole("ROLE_ADMIN");
+            for (UserRole dataUserRole: listUserRoleAdmin) {
+                User dataUser = userRepo.findByUserRole(dataUserRole);
+                listUser.add(dataUser);
+            }
+            List<UserRole> listUserRoleCounter = userRoleRepo.findByRole("ROLE_COUNTER");
+            for (UserRole dataUserRole: listUserRoleCounter) {
+                User dataUser = userRepo.findByUserRole(dataUserRole);
+                listUser.add(dataUser);
+            }
+
+            return listUser;
+        }
+        return null;
     }
 
     public void registerAdmin(UserRequest data){

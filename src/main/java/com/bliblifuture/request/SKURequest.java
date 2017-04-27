@@ -1,10 +1,7 @@
 package com.bliblifuture.request;
 
-import com.bliblifuture.model.StockOpname;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class SKURequest implements Serializable{
 
@@ -12,11 +9,9 @@ public class SKURequest implements Serializable{
     private String itemName;
     private String stockType;
     private String storageCode;
-    private int systemQty;
-    private int physicalQty;
-    private int deviationQty;
+    private String systemQty;
     private String information;
-    private StockOpname stockOpname;
+//    private StockOpname stockOpname;
 
     public String getSKUid() {
         return SKUid;
@@ -50,28 +45,12 @@ public class SKURequest implements Serializable{
         this.storageCode = storageCode;
     }
 
-    public int getSystemQty() {
+    public String getSystemQty() {
         return systemQty;
     }
 
-    public void setSystemQty(int systemQty) {
+    public void setSystemQty(String systemQty) {
         this.systemQty = systemQty;
-    }
-
-    public int getPhysicalQty() {
-        return physicalQty;
-    }
-
-    public void setPhysicalQty(int physicalQty) {
-        this.physicalQty = physicalQty;
-    }
-
-    public int getDeviationQty() {
-        return deviationQty;
-    }
-
-    public void setDeviationQty(int deviationQty) {
-        this.deviationQty = deviationQty;
     }
 
     public String getInformation() {
@@ -80,13 +59,5 @@ public class SKURequest implements Serializable{
 
     public void setInformation(String information) {
         this.information = information;
-    }
-
-    public StockOpname getStockOpname() {
-        return stockOpname;
-    }
-
-    public void setStockOpname(StockOpname stockOpname) {
-        this.stockOpname = stockOpname;
     }
 }

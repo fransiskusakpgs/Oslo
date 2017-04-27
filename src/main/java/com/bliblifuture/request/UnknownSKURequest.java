@@ -1,32 +1,21 @@
 package com.bliblifuture.request;
 
-import com.bliblifuture.model.StockOpname;
-
 import java.io.Serializable;
 
 public class UnknownSKURequest implements Serializable{
 
-    private String stockOpnameId;
-    private String unknownSKUId;
+    private String unknownSKUid;
     private String storageCode;
     private int physicalQty;
+    private String stockOpnameId;
 
-    public String getStockOpnameId() {
-        return stockOpnameId;
+    public String getUnknownSKUid() {
+        return unknownSKUid;
     }
 
-    public void setStockOpnameId(String stockOpnameId) {
-        this.stockOpnameId = stockOpnameId;
+    public void setUnknownSKUid(String unknownSKUid) {
+        this.unknownSKUid = unknownSKUid;
     }
-
-    public String getUnknownSKUId() {
-        return unknownSKUId;
-    }
-
-    public void setUnknownSKUId(String unknownSKUId) {
-        this.unknownSKUId = unknownSKUId;
-    }
-
 
     public String getStorageCode() {
         return storageCode;
@@ -44,12 +33,11 @@ public class UnknownSKURequest implements Serializable{
         this.physicalQty = physicalQty;
     }
 
-//    public void setStockOpname(StockOpname stockOpname) {
-//        this.stockOpname = stockOpname;
-//    }
-//
-//    public StockOpname getStockOpname() {
-//        return stockOpname;
-//    }
+    public String getStockOpnameId() {
+        return stockOpnameId;
+    }
 
+    public void setStockOpnameId(String stockOpnameId) {
+        this.stockOpnameId = stockOpnameId;
+    }
 }

@@ -7,7 +7,9 @@ import com.bliblifuture.model.SKU;
 import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.model.UnknownSKU;
 import com.bliblifuture.repository.ReportRepository;
+import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
+import com.bliblifuture.repository.UnknownSKURepository;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.After;
@@ -31,6 +33,10 @@ public class ReportServiceTest {
     private ReportRepository reportRepository;
     @Mock
     private StockOpnameRepository stockOpnameRepository;
+    @Mock
+    private SKURepository skuRepository;
+    @Mock
+    private UnknownSKURepository unknownSKURepository;
 
     // Deklarasi variabel yang dibutuhkan
     SKU sku1 = new SKU();
@@ -45,6 +51,7 @@ public class ReportServiceTest {
     StockOpname stockOpname2 = new StockOpname();
     List<StockOpname> stockOpnameList = new ArrayList<>();
     Report report = new Report();
+    Report newReport = new Report();
 
     @Before
     public void setUp(){
@@ -57,6 +64,7 @@ public class ReportServiceTest {
         sku1.setPhysicalQty(10);
         sku1.setDeviationQty(0);
         sku1.setInformation("COUNTED");
+        sku1.setStockOpname(stockOpname1);
 
         sku2.setSKUid("SKU-01-02");
         sku2.setItemName("Buku");
@@ -65,6 +73,7 @@ public class ReportServiceTest {
         sku2.setPhysicalQty(5);
         sku2.setDeviationQty(5);
         sku2.setInformation("COUNTED");
+        sku2.setStockOpname(stockOpname2);
 
         sku3.setSKUid("SKU-01-03");
         sku3.setItemName("Buku");
@@ -82,27 +91,33 @@ public class ReportServiceTest {
         unknownSKU1.setUnknownSKUId("SKU-01-04");
         unknownSKU1.setStorageCode("A-01");
         unknownSKU1.setPhysicalQty(2);
-
+        unknownSKU1.setStockOpname(stockOpname1);
         unknownSKUS.add(unknownSKU1);
 
         stockOpname1.setStockOpnameId("STO-01-01");
         stockOpname1.setStatus("FINISH COUNTING");
         stockOpname1.setReportDate(convertedDate);
-        stockOpname1.setSKUs(skus1);
-        stockOpname1.setUnknownSKUs(unknownSKUS);
 
         stockOpname2.setStockOpnameId("STO-01-02");
         stockOpname2.setStatus("FINISH COUNTING");
         stockOpname2.setReportDate(convertedDate);
-        stockOpname2.setSKUs(skus2);
 
         stockOpnameList.add(stockOpname1);
         stockOpnameList.add(stockOpname2);
 
         report.setDate(convertedDate);
         report.setStockOpnames(stockOpnameList);
-        report.countSKU();
-        report.countQty();
+        report.setTotalUnknownSKU(1);
+        report.setTotalUnknownQty(2);
+        report.setSurplusSKU(0);
+        report.setSurplusQty(0);
+        report.setDeficitQty(5);
+        report.setDeficitSKU(1);
+        report.setCountedSKU(2);
+        report.setCountedQty(15);
+
+        newReport.setDate(convertedDate);
+        newReport.setStockOpnames(stockOpnameList);
     }
 
     @After
@@ -110,6 +125,7 @@ public class ReportServiceTest {
         Mockito.verifyNoMoreInteractions(this.reportRepository);
         Mockito.verifyNoMoreInteractions(this.stockOpnameRepository);
     }
+
 
 
     @Test
@@ -132,17 +148,19 @@ public class ReportServiceTest {
         // Given
         BDDMockito.given(this.stockOpnameRepository.findByReportDate(convertedDate))
                 .willReturn(stockOpnameList);
+        BDDMockito.given(this.skuRepository.findByStockOpname(stockOpname1)).willReturn(skus1);
+        BDDMockito.given(this.unknownSKURepository.findByStockOpname(stockOpname1)).willReturn(unknownSKUS);
 
         // When
         Report result = reportService.createReport(convertedDate);
-        System.out.println("report"+report);
-        System.out.println("result"+result);
         //Then
         Assert.assertEquals(report,result);
         // Verify
         Mockito.verify(this.stockOpnameRepository, Mockito.times(1)).findByReportDate(convertedDate);
         Mockito.verify(this.reportRepository, Mockito.times(1)).save(report);
         Mockito.verify(this.reportRepository, Mockito.times(1)).saveAndFlush(report);
+        Mockito.verify(this.skuRepository, Mockito.times(1)).findByStockOpname(stockOpname1);
+        Mockito.verify(this.unknownSKURepository, Mockito.times(1)).findByStockOpname(stockOpname1);
     }
 
     @Test
@@ -153,21 +171,17 @@ public class ReportServiceTest {
                 .willReturn(null);
         BDDMockito.given(this.stockOpnameRepository.findByReportDate(convertedDate))
                 .willReturn(stockOpnameList);
-
-//        BDDMockito.given(this.reportService.createReport(convertedDate))
-//                .willReturn(null);
-
         // When
         Report result = reportService.findOrCreateReportByDate(stringDate);
 
         // Then
-        Assert.assertEquals(report, result);
+        Assert.assertEquals(newReport, result);
 
         // Verify
         Mockito.verify(this.reportRepository, Mockito.times(1)).findByDate(convertedDate);
         Mockito.verify(this.stockOpnameRepository, Mockito.times(1)).findByReportDate(convertedDate);
-        Mockito.verify(this.reportRepository, Mockito.times(1)).save(report);
-        Mockito.verify(this.reportRepository, Mockito.times(1)).saveAndFlush(report);
+        Mockito.verify(this.reportRepository, Mockito.times(1)).save(newReport);
+        Mockito.verify(this.reportRepository, Mockito.times(1)).saveAndFlush(newReport);
     }
 
     @Test

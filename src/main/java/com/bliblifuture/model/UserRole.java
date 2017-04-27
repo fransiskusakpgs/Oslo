@@ -5,9 +5,16 @@ import javax.persistence.*;
 @Entity
 public class UserRole {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    protected String role;
+    private String username;
+    private String role;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getRole() {
         return role;
@@ -16,5 +23,4 @@ public class UserRole {
     public void setRole(String role) {
         this.role = role;
     }
-
 }
