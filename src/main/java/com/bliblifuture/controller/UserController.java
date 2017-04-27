@@ -24,14 +24,19 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse editUser(@RequestBody UserRequest request){
-        if (request.getRole().equals("ROLE_ADMIN")){
-            userService.editAdmin(request);
+        try{
+            if (request.getRole().equals("ROLE_ADMIN")){
+                userService.editAdmin(request);
+            }
+            else if(request.getRole().equals("ROLE_COUNTER")){
+                userService.editCounter(request);
+            }
+            return new BaseResponse(true,"");
+        } catch (Exception e){
+            return new BaseResponse(false,e.getMessage());
         }
-        else if(request.getRole().equals("ROLE_COUNTER")){
-            userService.editCounter(request);
-        }
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
+
+
     }
 
     @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
