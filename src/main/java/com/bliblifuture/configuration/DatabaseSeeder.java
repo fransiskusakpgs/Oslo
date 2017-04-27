@@ -180,6 +180,15 @@ public class DatabaseSeeder {
         counterOne.setWarehouse(warehouseOne);
         counterRepo.save(counterOne);
 
+        Counter counterTwo = new Counter();
+        counterTwo.setUsername("demo-counter-two");
+        counterTwo.setPassword("123");
+        counterTwo.setStatus("Active");
+        counterTwo.createEntryUserRole(userRoleRepo);
+        counterRepo.save(counterTwo);
+        counterTwo.setWarehouse(warehouseTwo);
+        counterRepo.save(counterTwo);
+
 
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);

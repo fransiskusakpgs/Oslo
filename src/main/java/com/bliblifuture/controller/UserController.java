@@ -4,14 +4,14 @@ import com.bliblifuture.model.User;
 import com.bliblifuture.request.UserRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+import com.bliblifuture.service.AuthenticationService;
 import com.bliblifuture.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +36,10 @@ public class UserController {
 
     @RequestMapping(value="/api/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<User> getAllUsers(){
-        List<User> data= userService.findAll();
+    public ListResponse<User> getAllUsers(@RequestParam String warehouse){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        List<User> data= userService.findAll(username,warehouse);
         ListResponse<User> response = new ListResponse<>(true,"",data);
         return response;
     }

@@ -46,9 +46,10 @@ public class UserService {
         counterRepo.save(currentCounter);
     }
 
-    public List<User> findAll(String userRole, String warehouse){
+    public List<User> findAll(String username, String warehouse){
+        List<UserRole> userRole = userRoleRepo.findByUsername(username);
         List<User> listUser = new ArrayList<>();
-        if (userRole.equals("ROLE_ADMIN")){
+        if (userRole.get(0).getRole().equals("ROLE_ADMIN")){
             Warehouse warehouseActive = warehouseRepo.findByName(warehouse);
             List<Counter> listCounter = counterRepo.findByWarehouse(warehouseActive);
             for (Counter counter: listCounter) {
@@ -57,7 +58,7 @@ public class UserService {
             }
             return listUser;
         }
-        else if(userRole.equals("ROLE_SUPER_ADMIN")){
+        else if(userRole.get(0).getRole().equals("ROLE_SUPER_ADMIN")){
             List<UserRole> listUserRoleAdmin = userRoleRepo.findByRole("ROLE_ADMIN");
             for (UserRole dataUserRole: listUserRoleAdmin) {
                 User dataUser = userRepo.findByUserRole(dataUserRole);

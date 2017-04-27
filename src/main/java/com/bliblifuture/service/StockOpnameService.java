@@ -28,17 +28,18 @@ public class StockOpnameService {
     CounterRepository counterRepo;
 
 
+
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
         StockOpname currentStockOpname = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
         UnknownSKU newUnknownSKU = new UnknownSKU();
-        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUId());
+        newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUid());
         newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
         newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
+        newUnknownSKU.setStockOpname(currentStockOpname);
         unknownSKURepo.save(newUnknownSKU);
-        currentStockOpname.addUnknownSKU(newUnknownSKU);
-        currentStockOpname.countTotalQty();
-        currentStockOpname.countTotalSKU();
+
         stockOpnameRepo.save(currentStockOpname);
+    }
 
     public List<StockOpname> findAll(){
         List<StockOpname> data2 = stockOpnameRepo.findAll();
@@ -76,9 +77,11 @@ public class StockOpnameService {
         newStockOpname.setStatus(stockOpnameRequest.getStatus());
         LocalDate time = new LocalDate();
         newStockOpname.setWaktuPembuatan(time);
-        int totalSKU = 0;
+        int totalQty = 0;
         List<SKU> SKUs = skuRepo.findByStockOpname(newStockOpname);
-        for (SKU SKU: SKUs) { totalSKU += SKU.getSystemQty();}
+        for (SKU SKU: SKUs) { totalQty += SKU.getSystemQty();}
+        newStockOpname.setTotalSKU(SKUs.size());
+        newStockOpname.setTotalQty(totalQty);
         stockOpnameRepo.save(newStockOpname);
     }
 
