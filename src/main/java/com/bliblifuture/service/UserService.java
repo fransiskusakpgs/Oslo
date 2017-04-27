@@ -44,6 +44,12 @@ public class UserService {
     }
 
     public void editCounter(UserRequest data) throws Exception{
+
+        if(!authenticationService.getAuthenticatedUser().getRole().equals("ROLE_ADMIN")){
+            throw new IllegalAccessException("Sorry you don't have access to change counter's warehouse! " +
+                    "If you want to change counter's warehouse please ask Super Admin!");
+        }
+
         if(data.getUsername()== null || data.getUsername().equals("")||
                 data.getRole()== null || data.getRole().equals("")||
                 data.getStatus()== null || data.getStatus().equals("")||
