@@ -51,7 +51,7 @@ public class UserService {
             if(currentAdmin.getStatus().equals("Inactive")){
                 currentAdmin.setEnabled(true);
                 currentAdmin.setStatus(data.getStatus());
-            } 
+            }
         }
 
         List<String> newWarehouses = data.getWarehouse();
