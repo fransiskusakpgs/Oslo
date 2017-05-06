@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Admin extends User{
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouse_id")
     private List<Warehouse> warehouses = new ArrayList<>();
 

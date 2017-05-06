@@ -1,15 +1,13 @@
 package com.bliblifuture.service;
 
-import com.bliblifuture.OsloUtils;
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class UserService {
@@ -32,6 +30,7 @@ public class UserService {
         Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
         currentAdmin.setPassword(data.getPassword());
         currentAdmin.setStatus(data.getStatus());
+
         adminRepo.save(currentAdmin);
 
         List<String> newWarehouses = data.getWarehouse();
