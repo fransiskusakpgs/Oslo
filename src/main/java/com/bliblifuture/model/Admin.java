@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Admin extends User{
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouse_id")
     private List<Warehouse> warehouses = new ArrayList<>();
 
@@ -19,7 +19,6 @@ public class Admin extends User{
     }
 
     public void addWarehouse(Warehouse warehouse){
-//        warehouse.addAdmins(this);
         this.warehouses.add(warehouse);
     }
 
@@ -32,17 +31,6 @@ public class Admin extends User{
         this.userRole = adminrole;
     }
 
-    public void deleteWarehouse(Warehouse warehouse){
-        warehouses.remove(warehouse);
-    }
-
-//    public void deleteAllWarehouse(){
-//        for (Warehouse wh: warehouses) {
-//            wh.deleteAdmin(this);
-//        }
-//        warehouses.clear();
-//    }
-
     public List<Warehouse> getWarehouses() {
         return warehouses;
     }
@@ -50,7 +38,6 @@ public class Admin extends User{
     public void setWarehouses(List<Warehouse> warehouses) {
         this.warehouses = warehouses;
     }
-
 
 }
 
