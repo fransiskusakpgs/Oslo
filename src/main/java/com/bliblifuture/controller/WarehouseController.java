@@ -24,8 +24,12 @@ public class WarehouseController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse selectWarehouse(@RequestBody WarehouseRequest request){
-        BaseResponse response = new BaseResponse(true,"");
-        return response;
+        try {
+            return new BaseResponse(warehouseService.changeWarehouseActive(request),"");
+        } catch (Exception e){
+
+            return new BaseResponse(false,e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/api/warehouses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
