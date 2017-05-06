@@ -26,6 +26,15 @@ public class WarehouseService {
         List<Warehouse> data = warehouseRepo.findAll();
         return data;
     }
+    public List<Warehouse> findWarehouseByAdmin() throws Exception{
+        User currentUser = authenticationService.getAuthenticatedUser();
+        if(!currentUser.getRole().equals("ROLE_ADMIN")){
+            throw new Exception("This user can't access this api");
+        }
+
+        List<Warehouse> warehouses = adminRepo.findByUsername(currentUser.getUsername()).getWarehouses();
+        return warehouses;
+    }
 
     public boolean changeWarehouseActive (WarehouseRequest request) throws Exception {
         User currentUser = authenticationService.getAuthenticatedUser();

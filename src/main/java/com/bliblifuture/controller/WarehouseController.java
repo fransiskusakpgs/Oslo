@@ -35,9 +35,11 @@ public class WarehouseController {
     @RequestMapping(value = "/api/warehouses", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<Warehouse> getAllWarehouse() {
-        List<Warehouse> data = warehouseService.findAll();
-        ListResponse<Warehouse> response = new ListResponse<>(true, "", data);
-        return response;
+        try {
+            List<Warehouse> data = warehouseService.findWarehouseByAdmin();
+            return new ListResponse<>(true, "", data);
+        } catch (Exception e){
+            return new ListResponse<>(false, e.getMessage(),null);
+        }
     }
-
 }
