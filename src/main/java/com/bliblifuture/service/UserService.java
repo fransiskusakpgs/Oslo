@@ -32,7 +32,7 @@ public class UserService {
         currentAdmin.setStatus(data.getStatus());
         adminRepo.save(currentAdmin);
 
-        currentAdmin.deleteAllWarehouse();
+//        currentAdmin.deleteAllWarehouse();
         List<String> newWarehouses = data.getWarehouse();
         List<Warehouse> acceptedWarehouses = new ArrayList<>();
             for (String newWarehouse : newWarehouses) {

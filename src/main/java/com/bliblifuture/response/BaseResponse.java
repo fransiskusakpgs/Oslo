@@ -5,7 +5,7 @@ public class BaseResponse {
     private String errorMessage;
 
     public BaseResponse(Boolean success, String errorMessage){
-        this.success = true;
+        this.success = success;
         this.errorMessage = errorMessage;
     }
 
