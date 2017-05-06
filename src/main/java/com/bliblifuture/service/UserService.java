@@ -25,14 +25,15 @@ public class UserService {
     WarehouseRepository warehouseRepo;
     @Autowired
     AuthenticationService authenticationService;
+    @Autowired
+    StockOpnameRepository stockOpnameRepo;
 
-    public void editAdmin(UserRequest data) {
+    public boolean editAdmin(UserRequest data) {
         Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
         currentAdmin.setPassword(data.getPassword());
         currentAdmin.setStatus(data.getStatus());
         adminRepo.save(currentAdmin);
 
-//        currentAdmin.deleteAllWarehouse();
         List<String> newWarehouses = data.getWarehouse();
         List<Warehouse> acceptedWarehouses = new ArrayList<>();
             for (String newWarehouse : newWarehouses) {
@@ -41,9 +42,10 @@ public class UserService {
             }
         currentAdmin.setWarehouses(acceptedWarehouses);
         adminRepo.save(currentAdmin);
+        return true;
     }
 
-    public void editCounter(UserRequest data) throws Exception{
+    public boolean editCounter(UserRequest data) throws Exception{
         if(!authenticationService.getAuthenticatedUser().getRole().equals("ROLE_SUPER_ADMIN")){
             throw new IllegalAccessException("Sorry you don't have access to change counter's warehouse! " +
                     "If you want to change counter's warehouse please ask Super Admin!");
@@ -61,10 +63,30 @@ public class UserService {
         }
 
         Counter currentCounter = counterRepo.findByUsername(data.getUsername());
+        if(currentCounter==null){
+            throw new Exception("Counter not found");
+        }
+
+        if(data.getStatus().equals("Inactive")){
+            if(currentCounter.getStatus().equals("Active") &&
+                    stockOpnameRepo.findByAssignedTo(currentCounter).size()!=0){
+                throw new Exception("Counter not found");
+            }else{
+                currentCounter.setEnabled(false);
+                currentCounter.setStatus(data.getStatus());
+            }
+        } else if(data.getStatus().equals("Active")){
+            if(currentCounter.getStatus().equals("Inactive")){
+                currentCounter.setEnabled(true);
+                currentCounter.setStatus(data.getStatus());
+            }
+        }
+
         currentCounter.setPassword(data.getPassword());
-        currentCounter.setStatus(data.getStatus());
         currentCounter.setWarehouse(warehouseRepo.findByName(data.getWarehouse().get(0)));
         counterRepo.save(currentCounter);
+
+        return true;
     }
 
     public List<User> findAll(String username, String warehouse){

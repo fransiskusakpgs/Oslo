@@ -1,5 +1,6 @@
 package com.bliblifuture.repository;
 
+import com.bliblifuture.model.Counter;
 import com.bliblifuture.model.StockOpname;
 import org.joda.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,6 @@ import java.util.List;
 public interface StockOpnameRepository extends JpaRepository<StockOpname, String> {
     StockOpname findByStockOpnameId(String stockOpnameId);
     List<StockOpname> findByReportDate(LocalDate date);
+    List<StockOpname> findByAssignedTo(Counter counter);
 
 }
