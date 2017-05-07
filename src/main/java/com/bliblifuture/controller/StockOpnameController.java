@@ -32,7 +32,7 @@ public class StockOpnameController {
         return response;
     }
 
-    @RequestMapping(value = "api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/api/stockopnames", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse createStockOpnames(@RequestBody StockOpnameRequest request) {

@@ -56,7 +56,7 @@ public class DatabaseSeeder {
         warehouseRepo.save(warehouseThree);
 
 //      -------------------------------------------------------------
-//        Unknown SKU Dummy
+//      SKU Dummy
 //      -------------------------------------------------------------
         SKU skuOne = new SKU();
         skuOne.setSKUid("SKU-001");
