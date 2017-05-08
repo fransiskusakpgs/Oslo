@@ -1,5 +1,7 @@
 package com.bliblifuture.model;
 
+import org.joda.time.LocalDateTime;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import javax.persistence.*;
 public class SKU {
 
     @Id
-    private String SKUid;
+    private String skuId;
     private String itemName;
     private String stockType;
     private String storageCode;
@@ -15,15 +17,16 @@ public class SKU {
     private int physicalQty;
     private int deviationQty;
     private String information;
+
     @ManyToOne
     private StockOpname stockOpname;
 
-    public String getSKUid() {
-        return SKUid;
+    public String getSkuId() {
+        return skuId;
     }
 
-    public void setSKUid(String SKUid) {
-        this.SKUid = SKUid;
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
     }
 
     public String getItemName() {
@@ -101,7 +104,7 @@ public class SKU {
         if (o == null || getClass() != o.getClass()) return false;
 
         SKU sku = (SKU) o;
-        if(!SKUid.equals(sku.SKUid))return false;
+        if(!skuId.equals(sku.skuId))return false;
         if(!itemName.equals(sku.itemName))return false;
         if(!stockType.equals(sku.stockType))return false;
         if(!storageCode.equals(sku.storageCode))return false;
@@ -112,4 +115,5 @@ public class SKU {
         return stockOpname!= null ? stockOpname.equals(sku.stockOpname):
                 sku.stockOpname == null;
     }
+
 }
