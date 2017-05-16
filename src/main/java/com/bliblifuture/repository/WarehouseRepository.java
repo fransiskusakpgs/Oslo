@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface WarehouseRepository extends JpaRepository<Warehouse, String> {
     Warehouse findByName(String name);
-    List<Warehouse> findByAdmins(Admin admin);
 }

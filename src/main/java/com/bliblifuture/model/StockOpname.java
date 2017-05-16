@@ -8,8 +8,6 @@ import org.joda.time.format.DateTimeFormat;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="stockOpname")
@@ -24,26 +22,10 @@ public class StockOpname {
     private int totalQty;
     private int totalSKU;
 
-//    @OneToMany
-//    private List<SKU> SKUs = new ArrayList<>();
-//    @OneToMany
-//    private List<UnknownSKU> unknownSKUs = new ArrayList<>();
     @ManyToOne
     private Counter assignedTo;
     @ManyToOne
     private Report report;
-
-//    public void countTotalSKU() {
-//        totalSKU = SKUs.size();
-//    }
-//
-//    public void countTotalQty(){
-//        int total = 0;
-//        for (SKU sku: SKUs) {
-//            total = total + sku.getSystemQty();
-//        }
-//        this.totalQty = total;
-//    }
 
     public void unAssignStockOpname(){
         this.assignedTo = null;
@@ -63,11 +45,6 @@ public class StockOpname {
             this.setStatus("OPEN");
         }
     }
-
-
-//    public void addUnknownSKU(UnknownSKU unknownSKU){
-//        this.unknownSKUs.add(unknownSKU);
-//    }
 
     public void startCounting(){
         LocalDateTime  currentTime = new LocalDateTime();
@@ -140,26 +117,6 @@ public class StockOpname {
         this.waktuPembuatan = convertStringToLocalDate(stringWaktuPembuatan);
     }
 
-//    public List<SKU> getSKUs() {
-//        return SKUs;
-//    }
-//
-//    public void setSKUs(List<SKU> SKUs) {
-//        this.SKUs = SKUs;
-//    }
-//
-//    public void addSKU(SKU sku){
-//        this.SKUs.add(sku);
-//    }
-//
-//    public List<UnknownSKU> getUnknownSKUs() {
-//        return unknownSKUs;
-//    }
-//
-//    public void setUnknownSKUs(List<UnknownSKU> unknownSKUs) {
-//        this.unknownSKUs = unknownSKUs;
-//    }
-
     public int getTotalQty() {
         return totalQty;
     }
@@ -217,9 +174,6 @@ public class StockOpname {
         if(totalSKU != stockOpname.totalSKU )return false;
         if(!reportDate.equals(stockOpname.reportDate)) return false;
         return !reportDate.equals(stockOpname.reportDate);
-//        if(!unknownSKUs.equals(stockOpname.unknownSKUs)) return false;
-//        return SKUs!= null ? SKUs.containsAll(stockOpname.SKUs):
-//                stockOpname.SKUs == null;
     }
 
     @Override
@@ -233,8 +187,6 @@ public class StockOpname {
         sb.append(", reportDate=").append(reportDate);
         sb.append(", totalQty=").append(totalQty);
         sb.append(", totalSKU=").append(totalSKU);
-//        sb.append(", SKUs=").append(SKUs);
-//        sb.append(", unknownSKUs=").append(unknownSKUs);
         sb.append(", assignedTo=").append(assignedTo);
         sb.append(", report=").append(report);
         sb.append('}');

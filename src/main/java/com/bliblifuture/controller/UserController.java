@@ -25,13 +25,16 @@ public class UserController {
     @ResponseBody
     public BaseResponse editUser(@RequestBody UserRequest request){
         try{
+            boolean success;
             if (request.getRole().equals("ROLE_ADMIN")){
-                userService.editAdmin(request);
+                success =userService.editAdmin(request);
             }
             else if(request.getRole().equals("ROLE_COUNTER")){
-                userService.editCounter(request);
+                success = userService.editCounter(request);
+            } else{
+                success = false;
             }
-            return new BaseResponse(true,"");
+            return new BaseResponse(success,"");
         } catch (Exception e){
             return new BaseResponse(false,e.getMessage());
         }

@@ -1,15 +1,13 @@
 package com.bliblifuture.service;
 
-import com.bliblifuture.OsloUtils;
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class UserService {
@@ -25,25 +23,50 @@ public class UserService {
     WarehouseRepository warehouseRepo;
     @Autowired
     AuthenticationService authenticationService;
+    @Autowired
+    StockOpnameRepository stockOpnameRepo;
 
-    public void editAdmin(UserRequest data) {
+    public boolean editAdmin(UserRequest data) throws Exception {
+
+        if(data.getUsername()== null || data.getUsername().equals("")||
+                data.getRole()== null || data.getRole().equals("")||
+                data.getStatus()== null || data.getStatus().equals("")||
+                data.getPassword()== null || data.getPassword().equals("")) {
+            throw new Exception("Neither Username, Password, Role nor Warehouse can be empty!");
+        }
+
         Admin currentAdmin = adminRepo.findByUsername(data.getUsername());
-        currentAdmin.setPassword(data.getPassword());
-        currentAdmin.setStatus(data.getStatus());
-        adminRepo.save(currentAdmin);
+        if(currentAdmin==null){
+            throw new Exception("Admin not found");
+        }
 
-        currentAdmin.deleteAllWarehouse();
+        if(data.getStatus().equals("Inactive")){
+            if(!currentAdmin.getStatus().equals("Active")){
+                throw new Exception("Sorry you can't inactive this counter");
+            }else{
+                currentAdmin.setEnabled(false);
+                currentAdmin.setStatus(data.getStatus());
+            }
+        } else if(data.getStatus().equals("Active")){
+            if(currentAdmin.getStatus().equals("Inactive")){
+                currentAdmin.setEnabled(true);
+                currentAdmin.setStatus(data.getStatus());
+            }
+        }
+
         List<String> newWarehouses = data.getWarehouse();
         List<Warehouse> acceptedWarehouses = new ArrayList<>();
             for (String newWarehouse : newWarehouses) {
                 Warehouse availableWarehouse = warehouseRepo.findByName(newWarehouse);
                 acceptedWarehouses.add(availableWarehouse);
             }
+        currentAdmin.setPassword(data.getPassword());
         currentAdmin.setWarehouses(acceptedWarehouses);
         adminRepo.save(currentAdmin);
+        return true;
     }
 
-    public void editCounter(UserRequest data) throws Exception{
+    public boolean editCounter(UserRequest data) throws Exception{
         if(!authenticationService.getAuthenticatedUser().getRole().equals("ROLE_SUPER_ADMIN")){
             throw new IllegalAccessException("Sorry you don't have access to change counter's warehouse! " +
                     "If you want to change counter's warehouse please ask Super Admin!");
@@ -61,10 +84,30 @@ public class UserService {
         }
 
         Counter currentCounter = counterRepo.findByUsername(data.getUsername());
+        if(currentCounter==null){
+            throw new Exception("Counter not found");
+        }
+
+        if(data.getStatus().equals("Inactive")){
+            if(!currentCounter.getStatus().equals("Active") ||
+                    stockOpnameRepo.findByAssignedTo(currentCounter).size()!=0){
+                throw new Exception("Sorry you can't inactive this counter");
+            }else{
+                currentCounter.setEnabled(false);
+                currentCounter.setStatus(data.getStatus());
+            }
+        } else if(data.getStatus().equals("Active")){
+            if(currentCounter.getStatus().equals("Inactive")){
+                currentCounter.setEnabled(true);
+                currentCounter.setStatus(data.getStatus());
+            }
+        }
+
         currentCounter.setPassword(data.getPassword());
-        currentCounter.setStatus(data.getStatus());
         currentCounter.setWarehouse(warehouseRepo.findByName(data.getWarehouse().get(0)));
         counterRepo.save(currentCounter);
+
+        return true;
     }
 
     public List<User> findAll(String username, String warehouse){
