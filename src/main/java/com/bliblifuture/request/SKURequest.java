@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class SKURequest implements Serializable{
 
-    private String SKUid;
+    private String skuId;
     private String itemName;
     private String stockType;
     private String storageCode;
@@ -13,12 +13,12 @@ public class SKURequest implements Serializable{
     private String information;
 //    private StockOpname stockOpname;
 
-    public String getSKUid() {
-        return SKUid;
+    public String getSkuId() {
+        return skuId;
     }
 
-    public void setSKUid(String SKUid) {
-        this.SKUid = SKUid;
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
     }
 
     public String getItemName() {

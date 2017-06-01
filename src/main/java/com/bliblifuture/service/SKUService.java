@@ -27,18 +27,20 @@ public class SKUService {
     }
 
     public void  createSKU(SKURequest skuRequest) {
-        //bikin sku
-        //create new sku
-        //masukkan data dari request ke sku yg barusan dibikin
-        //.save new yg barusan
-
         SKU newSKU = new SKU();
-        newSKU.setSKUid("10");
+        newSKU.setSkuId("10");
+
         newSKU.setStockOpname(stockOpnameRepo.findByStockOpnameId("100"));
         newSKU.setStockType(skuRequest.getStockType());
         newSKU.setStorageCode(skuRequest.getStorageCode());
         newSKU.setItemName(skuRequest.getItemName());
         newSKU.setSystemQty(Integer.parseInt(skuRequest.getSystemQty()));
         SKUrepo.save(newSKU);
+
+        //bikin sku
+        //create new sku
+        //masukkan data dari request ke sku yg barusan dibikin
+        //.save new yg barusan
     }
+
 }

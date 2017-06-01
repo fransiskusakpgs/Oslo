@@ -25,12 +25,14 @@ public class UnknownSKUService {
 
 
     public void addUnknownSKUtoList (UnknownSKURequest unknownSKURequest) {
-
         UnknownSKU newUnknownSKU = new UnknownSKU();
         newUnknownSKU.setUnknownSKUId(unknownSKURequest.getUnknownSKUid());
+        unknownSKURepo.save(newUnknownSKU);
+
         newUnknownSKU.setStorageCode(unknownSKURequest.getStorageCode());
         newUnknownSKU.setPhysicalQty(unknownSKURequest.getPhysicalQty());
         unknownSKURepo.save(newUnknownSKU);
+
         StockOpname st = stockOpnameRepo.findByStockOpnameId(unknownSKURequest.getStockOpnameId());
         newUnknownSKU.setStockOpname(st);
         unknownSKURepo.save(newUnknownSKU);
@@ -46,6 +48,4 @@ public class UnknownSKUService {
         List<UnknownSKU> data12 = unknownSKURepo.findByStockOpname(a);
         return data12;
     }
-
-
 }
