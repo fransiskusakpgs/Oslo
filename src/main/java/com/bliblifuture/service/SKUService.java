@@ -28,7 +28,7 @@ public class SKUService {
 
     public void  createSKU(SKURequest skuRequest) {
         SKU newSKU = new SKU();
-        newSKU.setSKUid("10");
+        newSKU.setSkuId("10");
 
         newSKU.setStockOpname(stockOpnameRepo.findByStockOpnameId("100"));
         newSKU.setStockType(skuRequest.getStockType());

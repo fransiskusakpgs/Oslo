@@ -61,7 +61,7 @@ public class UserService {
                 acceptedWarehouses.add(availableWarehouse);
             }
         currentAdmin.setPassword(data.getPassword());
-        currentAdmin.setWarehouses(acceptedWarehouses);
+        currentAdmin.setWarehouse(acceptedWarehouses);
         adminRepo.save(currentAdmin);
         return true;
     }
@@ -140,7 +140,6 @@ public class UserService {
     }
 
     public void registerAdmin(UserRequest data) throws IllegalArgumentException{
-
         if(authenticationService.getAuthenticatedUser()
                 .getRole().equals("ROLE_ADMIN")){
             throw new IllegalArgumentException("Sorry you're not allowed to register admin!");
@@ -155,7 +154,6 @@ public class UserService {
 //      Mengisi atribut admin
         newAdmin.setPassword(data.getPassword());
         newAdmin.setStatus(data.getStatus());
-        adminRepo.save(newAdmin);
 
 //      Mendapatkan semua warehouse yang ada di database
         List<Warehouse> availableWarehouses = warehouseRepo.findAll();
@@ -169,7 +167,8 @@ public class UserService {
                 }
             }
         }
-        newAdmin.setWarehouses(acceptedWarehouses);
+        newAdmin.setWarehouse(acceptedWarehouses);
+        adminRepo.save(newAdmin);
     }
 
     public void registerCounter(UserRequest data)throws IllegalArgumentException{

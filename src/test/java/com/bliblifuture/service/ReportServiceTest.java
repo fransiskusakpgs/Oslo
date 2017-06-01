@@ -1,7 +1,5 @@
 package com.bliblifuture.service;
 
-import com.bliblifuture.OsloConstanta;
-import com.bliblifuture.OsloUtils;
 import com.bliblifuture.model.Report;
 import com.bliblifuture.model.SKU;
 import com.bliblifuture.model.StockOpname;
@@ -17,8 +15,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
-
-import javax.persistence.ManyToOne;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +53,7 @@ public class ReportServiceTest {
     public void setUp(){
         MockitoAnnotations.initMocks(this);
 
-        sku1.setSKUid("SKU-01-01");
+        sku1.setSkuId("SKU-01-01");
         sku1.setItemName("Buku");
         sku1.setStorageCode("A-01");
         sku1.setSystemQty(10);
@@ -66,7 +62,7 @@ public class ReportServiceTest {
         sku1.setInformation("COUNTED");
         sku1.setStockOpname(stockOpname1);
 
-        sku2.setSKUid("SKU-01-02");
+        sku2.setSkuId("SKU-01-02");
         sku2.setItemName("Buku");
         sku2.setStorageCode("A-01");
         sku2.setSystemQty(10);
@@ -75,7 +71,7 @@ public class ReportServiceTest {
         sku2.setInformation("COUNTED");
         sku2.setStockOpname(stockOpname2);
 
-        sku3.setSKUid("SKU-01-03");
+        sku3.setSkuId("SKU-01-03");
         sku3.setItemName("Buku");
         sku3.setStorageCode("A-01");
         sku3.setSystemQty(10);

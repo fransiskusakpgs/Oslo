@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface SKURepository extends JpaRepository<SKU, String> {
     List<SKU> findByStockOpname (StockOpname stockOpname);
+    SKU findByskuId (String skuId);
+    //string dan Id jadi parameter ngesearchnya
 
 }

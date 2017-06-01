@@ -1,15 +1,12 @@
 package com.bliblifuture.service;
 
 import com.bliblifuture.model.SKU;
-import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.repository.SKURepository;
 import com.bliblifuture.repository.StockOpnameRepository;
 import com.bliblifuture.repository.UpdateQuantityRepository;
-import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.UpdateQuantityRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 
@@ -22,11 +19,44 @@ public class UpdateQuantityService {
     StockOpnameRepository stockOpnameRepository;
 
     public void updateQuantity(UpdateQuantityRequest updateQuantityRequest) {
-        SKU newSKU = new SKU();
-        newSKU.setSKUid("10");
-        skuRepository.save(newSKU);
-        newSKU.setPhysicalQty(updateQuantityRequest.getPhysicalQty());
-        skuRepository.save(newSKU);
-    }
-}
 
+        //ingat SKUid masih diset cara manual
+        //newSKU.setSkuId(updateQuantityRequest.getSkuId());
+
+        //SKU editedSKU = skuRepository.findByskuId(updateQuantityRequest.getSkuId());
+        //editedSKU.setPhysicalQty(updateQuantityRequest.getPhysicalQty());
+        //editedSKU.setInformation("COUNTED");
+        //skuRepository.save(editedSKU);
+    }
+
+    public boolean updateStatus(UpdateQuantityRequest updateQuantityRequest) {
+
+        String info = "";
+        SKU skuYangDiUpdate = skuRepository.findByskuId(updateQuantityRequest.getSkuId());
+
+        String reqQty = updateQuantityRequest.getPhysicalQty();
+        int sistemkuantiti = skuYangDiUpdate.getSystemQty();
+        int pisikalkuantiti = Integer.parseInt(updateQuantityRequest.getPhysicalQty());
+        System.out.println("ini"+pisikalkuantiti);
+
+        if (reqQty == null || reqQty.equals(""))
+        {skuYangDiUpdate.setInformation("Belum dihitung");}
+        else
+            {
+            if (sistemkuantiti - pisikalkuantiti < 0)
+            {info = "Kurang";}
+            else if (sistemkuantiti - pisikalkuantiti == 0)
+            {info = "Sesuai";}
+             else if (sistemkuantiti - pisikalkuantiti > 0)
+            {info = "Kelebihan";}
+            }
+
+        skuYangDiUpdate.setPhysicalQty(pisikalkuantiti);
+        skuYangDiUpdate.setInformation(info);
+        skuRepository.save(skuYangDiUpdate);
+
+        return true; //diasumsikan kalo udah sampe baris atasnya brarti udah dilakukakan saving
+        }
+    }
+
+    //potensi human eror bsr muncul kalo pake if di dalam if dkk
