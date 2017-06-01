@@ -56,10 +56,10 @@ public class DatabaseSeeder {
         warehouseRepo.save(warehouseThree);
 
 //      -------------------------------------------------------------
-//        Unknown SKU Dummy
+//      SKU Dummy
 //      -------------------------------------------------------------
         SKU skuOne = new SKU();
-        skuOne.setSKUid("SKU-001");
+        skuOne.setSkuId("SKU-001");
         skuOne.setItemName("Agree To Shop Pants");
         skuOne.setDeviationQty(0);
         skuOne.setInformation("");
@@ -71,7 +71,7 @@ public class DatabaseSeeder {
         skuRepo.save(skuOne);
 
         SKU skuTwo = new SKU();
-        skuTwo.setSKUid("SKU-002");
+        skuTwo.setSkuId("SKU-002");
         skuTwo.setItemName("Agree To Shop Pants");
         skuTwo.setDeviationQty(0);
         skuTwo.setInformation("COUNTED");
@@ -83,14 +83,14 @@ public class DatabaseSeeder {
         skuRepo.save(skuTwo);
 
         SKU skuThree = new SKU();
-        skuThree.setSKUid("SKU-003");
+        skuThree.setSkuId("SKU-003");
         skuThree.setItemName("Agree To Shop Pants");
         skuThree.setDeviationQty(0);
-        skuThree.setInformation("COUNTED");
+        //skuThree.setInformation("COUNTED");
         skuThree.setStockType("Trading");
         skuThree.setStorageCode("A-101-100");
         skuRepo.save(skuThree);
-        skuThree.setPhysicalQty(5);
+        //skuThree.setPhysicalQty(5);
         skuThree.setSystemQty(10);
         skuRepo.save(skuThree);
 
@@ -189,6 +189,9 @@ public class DatabaseSeeder {
         counterTwo.setWarehouse(warehouseTwo);
         counterRepo.save(counterTwo);
 
+        stockOpnameTwo.setAssignedTo(counterOne);
+        stockOpnameRepo.save(stockOpnameTwo);
+
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
 
@@ -201,4 +204,5 @@ public class DatabaseSeeder {
         unknownSKUtwo.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUtwo);
     }
+
 }
