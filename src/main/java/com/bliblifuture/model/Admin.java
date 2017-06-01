@@ -12,14 +12,14 @@ public class Admin extends User{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "warehouse_id")
-    private List<Warehouse> warehouses = new ArrayList<>();
+    private List<Warehouse> warehouse = new ArrayList<>();
 
     public Admin(){
         super();
     }
 
     public void addWarehouse(Warehouse warehouse){
-        this.warehouses.add(warehouse);
+        this.warehouse.add(warehouse);
     }
 
     public void createEntryUserRole(UserRoleRepository userRoleRepo){
@@ -31,12 +31,12 @@ public class Admin extends User{
         this.userRole = adminrole;
     }
 
-    public List<Warehouse> getWarehouses() {
-        return warehouses;
+    public List<Warehouse> getWarehouse() {
+        return warehouse;
     }
 
-    public void setWarehouses(List<Warehouse> warehouses) {
-        this.warehouses = warehouses;
+    public void setWarehouse(List<Warehouse> warehouse) {
+        this.warehouse = warehouse;
     }
 
 }

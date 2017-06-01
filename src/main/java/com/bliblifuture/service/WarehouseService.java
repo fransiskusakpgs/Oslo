@@ -1,6 +1,5 @@
 package com.bliblifuture.service;
 
-import com.bliblifuture.model.Admin;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.repository.AdminRepository;
@@ -9,7 +8,6 @@ import com.bliblifuture.request.WarehouseRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.spec.ECField;
 import java.util.List;
 
 @Service
@@ -32,13 +30,13 @@ public class WarehouseService {
             throw new Exception("This user can't access this api");
         }
 
-        List<Warehouse> warehouses = adminRepo.findByUsername(currentUser.getUsername()).getWarehouses();
+        List<Warehouse> warehouses = adminRepo.findByUsername(currentUser.getUsername()).getWarehouse();
         return warehouses;
     }
 
     public boolean changeWarehouseActive (WarehouseRequest request) throws Exception {
         User currentUser = authenticationService.getAuthenticatedUser();
-        List<Warehouse> warehouses = adminRepo.findByUsername(currentUser.getUsername()).getWarehouses();
+        List<Warehouse> warehouses = adminRepo.findByUsername(currentUser.getUsername()).getWarehouse();
         Warehouse selectedWarehouse = warehouseRepo.findByName(request.getData());
         if (warehouses.contains(selectedWarehouse)) {
             return true;
