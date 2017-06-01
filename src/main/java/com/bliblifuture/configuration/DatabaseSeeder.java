@@ -189,6 +189,9 @@ public class DatabaseSeeder {
         counterTwo.setWarehouse(warehouseTwo);
         counterRepo.save(counterTwo);
 
+        stockOpnameTwo.setAssignedTo(counterOne);
+        stockOpnameRepo.save(stockOpnameTwo);
+
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
 
@@ -201,4 +204,5 @@ public class DatabaseSeeder {
         unknownSKUtwo.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUtwo);
     }
+
 }
