@@ -7,23 +7,20 @@ import com.bliblifuture.service.WorklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class WorklistController {
     @Autowired
     WorklistService worklistService;
 
     @RequestMapping(value = "/api/worklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<StockOpname> getAllStockOpnameWorklist(@RequestParam String username) {
-        List<StockOpname> data = worklistService.findStockOpnameByAssignedTo(username);
+    public ListResponse<StockOpname> getAllStockOpnameWorklist() {
+        List<StockOpname> data = worklistService.findStockOpnameByAssignedTo();
         ListResponse<StockOpname> dataresponse2 = new ListResponse<>(true, "", data);
         return dataresponse2;
     }
