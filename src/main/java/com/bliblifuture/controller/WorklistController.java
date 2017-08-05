@@ -16,7 +16,7 @@ import java.util.List;
 public class WorklistController {
     @Autowired
     WorklistService worklistService;
-
+//hapus aja baris ini
     @RequestMapping(value = "/api/worklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<StockOpname> getAllStockOpnameWorklist() {

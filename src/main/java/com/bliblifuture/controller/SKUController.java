@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class SKUController {
     @Autowired
     SKUService skuService;
@@ -27,6 +28,7 @@ public class SKUController {
     @Autowired
     UpdateFinishTimeService updateFinishTimeService;
 
+
     @RequestMapping(value = "/api/SKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -36,7 +38,7 @@ public class SKUController {
         return response;
     }
 
-    @RequestMapping(value = "/api/updatestatus" , method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = " " , method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse updateStatusDanQuantity(@RequestBody UpdateQuantityRequest   updateQuantityRequest){
         return new BaseResponse( updateQuantityService.updateStatus(updateQuantityRequest),""); //format coding paling hebat
@@ -61,4 +63,10 @@ public class SKUController {
     public  BaseResponse updateFinishTime(@RequestParam String id) {
         return new BaseResponse(updateFinishTimeService.updateJam(id),"");
     }
+
+//    @RequestMapping(value = "/api/updateQuantity", method = RequestMethod.PUT )
+//    @ResponseBody
+//    public  BaseResponse updateQuantity(@RequestParam String id) {
+//        return new BaseResponse(updateQuantityService.(id),"");
+//    }
 }

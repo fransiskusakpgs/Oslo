@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UnknownSKUController {
 
     @Autowired
