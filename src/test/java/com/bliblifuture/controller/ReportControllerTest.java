@@ -43,7 +43,7 @@ public class ReportControllerTest {
     @LocalServerPort
     private int serverPort;
 
-//    Untuk melakukan mapping data dari request ke jason
+    //    Untuk melakukan mapping data dari request ke jason
     ObjectMapper mapper = new ObjectMapper();
 
 //   Deklarasi variabel yang akan digunakan
@@ -86,7 +86,7 @@ public class ReportControllerTest {
                 .body(containsString("5"))
                 .statusCode(200);
 
-            // Dicocokan dengan fungsi equals yang kita buat di model Report
+            // Memastikan findOrCreateReportByDate dipanggil 1x
             verify(reportService).findOrCreateReportByDate("20170101");
         }
 }
