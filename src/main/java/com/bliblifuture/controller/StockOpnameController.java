@@ -30,11 +30,16 @@ public class StockOpnameController {
     public ListResponse<StockOpnameResponse> getAllData() {
         List<StockOpname> data = stockOpnameService.findAll();
 
-        //
         List<StockOpnameResponse> responses = new ArrayList<StockOpnameResponse>();
         for (StockOpname stockOpname: data) {
             StockOpnameResponse response = new StockOpnameResponse();
             BeanUtils.copyProperties(stockOpname, response);
+            if(stockOpname.getAssignedTo()== null){
+                response.setAssignedTo("");
+            }else{
+                response.setAssignedTo(stockOpname.getAssignedTo().getUsername());
+            }
+
             response.setWaktuPembuatan(stockOpname.getWaktuPembuatan().toDate());
             responses.add(response);
         }

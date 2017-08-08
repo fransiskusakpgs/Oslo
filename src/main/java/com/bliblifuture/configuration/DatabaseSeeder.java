@@ -135,6 +135,18 @@ public class DatabaseSeeder {
         stockOpnameTwo.reporting();
         stockOpnameRepo.save(stockOpnameTwo);
 
+        StockOpname stockOpnameThree = new StockOpname();
+        stockOpnameThree.setStockOpnameId("STO-003");
+        stockOpnameThree.setStringWaktuPembuatan("2011-02-04");
+        stockOpnameThree.setStatus("OPEN");
+        stockOpnameRepo.save(stockOpnameThree);
+
+        StockOpname stockOpnameFour = new StockOpname();
+        stockOpnameFour.setStockOpnameId("STO-004");
+        stockOpnameFour.setStringWaktuPembuatan("2011-02-04");
+        stockOpnameFour.setStatus("OPEN");
+        stockOpnameRepo.save(stockOpnameFour);
+
 //      -------------------------------------------------------------
 //        Admin Dummy
 //      -------------------------------------------------------------
@@ -189,6 +201,9 @@ public class DatabaseSeeder {
         counterTwo.setWarehouse(warehouseTwo);
         counterRepo.save(counterTwo);
 
+        stockOpnameOne.setAssignedTo(counterOne);
+        stockOpnameRepo.save(stockOpnameOne);
+
         stockOpnameTwo.setAssignedTo(counterOne);
         stockOpnameRepo.save(stockOpnameTwo);
 
@@ -203,6 +218,24 @@ public class DatabaseSeeder {
 
         unknownSKUtwo.setStockOpname(stockOpnameOne);
         unknownSKURepo.save(unknownSKUtwo);
+
+        stockOpnameOne.setTotalQty(100);
+        stockOpnameOne.setTotalSKU(10);
+        stockOpnameRepo.save(stockOpnameOne);
+
+        System.out.println(stockOpnameOne.getTotalQty());
+
+        stockOpnameTwo.setTotalQty(150);
+        stockOpnameTwo.setTotalSKU(6);
+        stockOpnameRepo.save(stockOpnameTwo);
+
+        stockOpnameThree.setTotalQty(120);
+        stockOpnameThree.setTotalSKU(8);
+        stockOpnameRepo.save(stockOpnameThree);
+
+        stockOpnameFour.setTotalQty(120);
+        stockOpnameFour.setTotalSKU(8);
+        stockOpnameRepo.save(stockOpnameFour);
     }
 
 }

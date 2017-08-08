@@ -7,11 +7,13 @@ import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.request.UserRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+import com.bliblifuture.response.SingleUserResponse;
 import com.bliblifuture.response.UserResponse;
 import com.bliblifuture.service.AuthenticationService;
 import com.bliblifuture.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -98,5 +100,14 @@ public class UserController {
         } catch (Exception e) {
             return  new BaseResponse(false,e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "api/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SingleUserResponse loginUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserResponse userData = userService.getUserData(username);
+        return new SingleUserResponse(true, "",userData);
     }
 }
