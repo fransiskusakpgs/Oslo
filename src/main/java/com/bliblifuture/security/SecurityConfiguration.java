@@ -62,7 +62,6 @@ class SecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
                             + username + "'");
                 }
             }
-
         };
     }
 }

@@ -19,13 +19,10 @@ public class WorklistService {
     @Autowired
     CounterRepository   counterRepository;
 
-    public List<StockOpname> findStockOpnameByAssignedTo(String username) { //data request udah dipassing disini
-
-        Counter assignedTo = counterRepository.findByUsername(username);
-
-        List<StockOpname> a = worklistRepository.findStockOpnameByAssignedTo(assignedTo);
-
-
-        return a;
+    @Autowired
+    AuthenticationService   authenticationService;
+    public List<StockOpname> findStockOpnameByAssignedTo() { //data request udah dipassing disini
+       List<StockOpname> a = worklistRepository.findStockOpnameByAssignedTo((Counter)authenticationService.getAuthenticatedUser());
+       return a;
     }
 }

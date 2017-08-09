@@ -5,10 +5,7 @@ import com.bliblifuture.model.Counter;
 import com.bliblifuture.model.User;
 import com.bliblifuture.model.Warehouse;
 import com.bliblifuture.request.UserRequest;
-import com.bliblifuture.response.BaseResponse;
-import com.bliblifuture.response.ListResponse;
-import com.bliblifuture.response.SingleUserResponse;
-import com.bliblifuture.response.UserResponse;
+import com.bliblifuture.response.*;
 import com.bliblifuture.service.AuthenticationService;
 import com.bliblifuture.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -102,12 +99,22 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "api/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "api/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public SingleUserResponse loginUser() {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//        UserResponse userData = userService.getUserData(username);
+//        return new SingleUserResponse(true, "",userData);
+//    }
+
+    @RequestMapping(value = "/api/usersingle", method = RequestMethod.GET)
     @ResponseBody
-    public SingleUserResponse loginUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        UserResponse userData = userService.getUserData(username);
-        return new SingleUserResponse(true, "",userData);
+    public SingleUserResponse getDetailOfUser(@RequestParam String username) {
+        User dataUser = userService.findDetailOfUser(username);
+        SingleUserResponse dataresponseUser1 = new SingleUserResponse(true, "", dataUser);
+        return dataresponseUser1;
     }
+
+
 }

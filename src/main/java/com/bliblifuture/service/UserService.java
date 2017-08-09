@@ -215,4 +215,10 @@ public class UserService {
         userData.setWarehouse(warehouseListString);
         return userData;
     }
+
+//    public User findDetailOfUser(String username){
+//        User b = userRepo.findByUsername(username);
+//        return b;
+//    }
+
 }

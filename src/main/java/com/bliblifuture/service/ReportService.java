@@ -47,6 +47,11 @@ public class ReportService {
         return newReport;
     }
 
+    public List<StockOpname> getStockopnameReport(LocalDate date){
+        List<StockOpname> stockOpnamesreport = stockOpnameRepo.findByReportDate(date);
+        return stockOpnamesreport;
+    }
+
     public Report findOrCreateReportByDate(String date) throws IllegalArgumentException{
         LocalDate convertedDate = LocalDate.parse(date, DateTimeFormat.forPattern("yyyyMMdd"));
         if(convertedDate.isAfter( new LocalDate())||convertedDate.isEqual(new LocalDate())){

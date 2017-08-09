@@ -1,12 +1,14 @@
 package com.bliblifuture.response;
 
+import com.bliblifuture.model.User;
+
 public class SingleUserResponse {
 
         private boolean success;
         private String errorMessage;
-        private UserResponse data;
+        private User data;
 
-        public SingleUserResponse(Boolean success, String errorMessage, UserResponse data){
+        public SingleUserResponse(Boolean success, String errorMessage, User data){
             this.success = true;
             this.errorMessage = errorMessage;
             this.data = data;
@@ -28,11 +30,11 @@ public class SingleUserResponse {
             this.errorMessage = errorMessage;
         }
 
-        public UserResponse getData() {
+        public User getData() {
             return data;
         }
 
-        public void setData(UserResponse data) {
+        public void setData(User data) {
             this.data = data;
         }
 }

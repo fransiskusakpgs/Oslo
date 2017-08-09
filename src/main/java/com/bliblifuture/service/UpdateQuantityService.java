@@ -37,7 +37,7 @@ public class UpdateQuantityService {
         String reqQty = updateQuantityRequest.getPhysicalQty();
         int sistemkuantiti = skuYangDiUpdate.getSystemQty();
         int pisikalkuantiti = Integer.parseInt(updateQuantityRequest.getPhysicalQty());
-        System.out.println("ini"+pisikalkuantiti);
+        //System.out.println("ini"+pisikalkuantiti);
 
         if (reqQty == null || reqQty.equals(""))
         {skuYangDiUpdate.setInformation("Belum dihitung");}

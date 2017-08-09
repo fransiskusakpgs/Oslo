@@ -209,6 +209,9 @@ public class DatabaseSeeder {
 
         skuOne.setStockOpname(stockOpnameOne);
         skuRepo.save(skuOne);
+        //6 agustus 2017
+        skuOne.setStockOpname(stockOpnameTwo);
+        skuRepo.save(skuOne);
 
         skuTwo.setStockOpname(stockOpnameOne);
         skuRepo.save(skuTwo);
