@@ -18,7 +18,7 @@ public class UnknownSKUController {
     @Autowired
     UnknownSKUService unknownSKUService;
 
-    @RequestMapping(value = "/" +"api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {

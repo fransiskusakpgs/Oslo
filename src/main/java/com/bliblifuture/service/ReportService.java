@@ -109,4 +109,8 @@ public class ReportService {
         report.setSurplusQty(surplusQty);
         report.setSurplusSKU(surplusSKU);
     }
+    public List<StockOpname> getStockopnameReport(LocalDate date){
+        List<StockOpname> stockOpnamesreport = stockOpnameRepo.findByReportDate(date);
+        return stockOpnamesreport;
+    }
 }
