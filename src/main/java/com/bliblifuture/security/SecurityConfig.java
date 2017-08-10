@@ -25,7 +25,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("ADMIN")
                 .antMatchers("/api/assignments")
                     .hasRole("ADMIN")
-               .anyRequest().fullyAuthenticated()
+                .antMatchers("/api/worklist")
+                    .hasRole("COUNTER")
+                .antMatchers("/api/SKUs")
+                    .hasAnyRole("COUNTER","ADMIN")
+                .antMatchers("/api/SKU")
+                    .hasRole("COUNTER")
+                .antMatchers("/api/updatequantityandstatus")
+                    .hasRole("COUNTER")
+                .antMatchers("/api/allSKU ")
+                    .hasRole("ADMIN")
+                .antMatchers("/api/unknownSKUs1")
+                    .hasRole("ADMIN")
+                .antMatchers("/api/api/users")
+                .hasRole("ADMIN")
+
+
+
+
+                .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic()
                 .and()

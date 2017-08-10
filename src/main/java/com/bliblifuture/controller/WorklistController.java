@@ -16,11 +16,11 @@ import java.util.List;
 public class WorklistController {
     @Autowired
     WorklistService worklistService;
-
+//hapus aja baris ini
     @RequestMapping(value = "/api/worklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ListResponse<StockOpname> getAllStockOpnameWorklist(@RequestParam String username) {
-        List<StockOpname> data = worklistService.findStockOpnameByAssignedTo(username);
+    public ListResponse<StockOpname> getAllStockOpnameWorklist() {
+        List<StockOpname> data = worklistService.findStockOpnameByAssignedTo();
         ListResponse<StockOpname> dataresponse2 = new ListResponse<>(true, "", data);
         return dataresponse2;
     }

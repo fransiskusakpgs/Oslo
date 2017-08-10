@@ -3,6 +3,8 @@ package com.bliblifuture.service;
 import com.bliblifuture.model.*;
 import com.bliblifuture.repository.*;
 import com.bliblifuture.request.UserRequest;
+import com.bliblifuture.response.UserResponse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -111,9 +113,9 @@ public class UserService {
     }
 
     public List<User> findAll(String username, String warehouse){
-        List<UserRole> userRole = userRoleRepo.findByUsername(username);
+        UserRole userRole = userRoleRepo.findByUsername(username);
         List<User> listUser = new ArrayList<>();
-        if (userRole.get(0).getRole().equals("ROLE_ADMIN")){
+        if (userRole.getRole().equals("ROLE_ADMIN")){
             Warehouse warehouseActive = warehouseRepo.findByName(warehouse);
             List<Counter> listCounter = counterRepo.findByWarehouse(warehouseActive);
             for (Counter counter: listCounter) {
@@ -122,7 +124,7 @@ public class UserService {
             }
             return listUser;
         }
-        else if(userRole.get(0).getRole().equals("ROLE_SUPER_ADMIN")){
+        else if(userRole.getRole().equals("ROLE_SUPER_ADMIN")){
             List<UserRole> listUserRoleAdmin = userRoleRepo.findByRole("ROLE_ADMIN");
             for (UserRole dataUserRole: listUserRoleAdmin) {
                 User dataUser = userRepo.findByUserRole(dataUserRole);
@@ -187,4 +189,36 @@ public class UserService {
         newCounter.setWarehouse(counterSetWarehouse);
         counterRepo.save(newCounter);
     }
+
+    public UserResponse getUserData(String username){
+        UserResponse userData = new UserResponse();
+        User user = userRepo.findByUsername(username);
+        BeanUtils.copyProperties(user,userData);
+        UserRole userRole = userRoleRepo.findByUsername(username);
+        String role = userRole.getRole();
+        userData.setRole(role);
+        System.out.println(role);
+        List<Warehouse> warehouseList = new ArrayList<>();
+        if(role.equals("ROLE_ADMIN")){
+            Admin admin = adminRepo.findByUsername(username);
+            warehouseList  = admin.getWarehouse();
+            System.out.println(warehouseList.get(0));
+        }else if(role.equals("ROLE_COUNTER")){
+            Counter counter = counterRepo.findByUsername(username);
+            Warehouse warehouse = counter.getWarehouse();
+            warehouseList.add(warehouse);
+        }
+        List<String> warehouseListString = new ArrayList<>();
+        for (Warehouse warehouse:warehouseList) {
+            warehouseListString.add(warehouse.getName());
+        }
+        userData.setWarehouse(warehouseListString);
+        return userData;
+    }
+
+//    public User findDetailOfUser(String username){
+//        User b = userRepo.findByUsername(username);
+//        return b;
+//    }
+
 }

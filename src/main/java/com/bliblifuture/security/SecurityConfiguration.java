@@ -42,14 +42,14 @@ class SecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
                 // Mencari user dari username melalui repository
                 com.bliblifuture.model.User user = userRepo.findByUsername(username);
                 // Mencari role user dari user yang telah didapatkan sebelumnya
-                List<UserRole> userRoleList = userRoleRepository.findByUsername(user.getUsername());
+                UserRole userRoleList = userRoleRepository.findByUsername(user.getUsername());
                 // Membuat list granted authority: yang akan dicocokkan dengan input user oleh spring security
                 List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
                 // Untuk setiap user role dalam list user role, dimasukkan kedalam grantedAuthority list menggunakan
                 // class Simple Granted Authority
-                for (UserRole userRole: userRoleList) {
-                    grantedAuthorityList.add(new SimpleGrantedAuthority(userRole.getRole()));
-                }
+//                for (UserRole userRole: userRoleList) {
+                    grantedAuthorityList.add(new SimpleGrantedAuthority(userRoleList.getRole()));
+//                }
                 // Jika usernya ditemukan maka kembalikan:
                 if(user != null) {
 
@@ -62,7 +62,6 @@ class SecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
                             + username + "'");
                 }
             }
-
         };
     }
 }

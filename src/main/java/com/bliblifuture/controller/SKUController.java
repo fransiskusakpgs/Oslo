@@ -5,15 +5,17 @@ import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.UpdateQuantityRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+import com.bliblifuture.response.SKUSingleResponse;
+import com.bliblifuture.response.SKUresponse;
 import com.bliblifuture.service.SKUService;
 import com.bliblifuture.service.UpdateFinishTimeService;
 import com.bliblifuture.service.UpdateQuantityService;
 import com.bliblifuture.service.UpdateStartTimeService;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -22,28 +24,29 @@ public class SKUController {
     @Autowired
     SKUService skuService;
     @Autowired
-    UpdateQuantityService   updateQuantityService;
+    UpdateQuantityService updateQuantityService;
     @Autowired
     UpdateStartTimeService updateStartTimeService;
     @Autowired
     UpdateFinishTimeService updateFinishTimeService;
+
 
     @RequestMapping(value = "/api/SKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse createSKU(@RequestBody SKURequest request) {
         skuService.createSKU(request);
-        BaseResponse response = new BaseResponse(true,"");
+        BaseResponse response = new BaseResponse(true, "");
         return response;
     }
 
-    @RequestMapping(value = "/api/updatestatus" , method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/updatequantityandstatus ", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BaseResponse updateStatusDanQuantity(@RequestBody UpdateQuantityRequest   updateQuantityRequest){
-        return new BaseResponse( updateQuantityService.updateStatus(updateQuantityRequest),""); //format coding paling hebat
+    public BaseResponse updateStatusDanQuantity(@RequestBody UpdateQuantityRequest updateQuantityRequest) {
+        return new BaseResponse(updateQuantityService.updateStatus(updateQuantityRequest), ""); //format coding paling hebat
     }
 
-    @RequestMapping(value = "/api/SKUs" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+    @RequestMapping(value = "/api/SKUs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<SKU> getAllDataSKU(@RequestParam String id) {
         List<SKU> data = skuService.findSKUByStockOpname(id);
@@ -51,15 +54,38 @@ public class SKUController {
         return dataresponse2;
     }
 
-    @RequestMapping(value = "/api/updatestarttimestockopname", method = RequestMethod.PUT )
+    @RequestMapping(value = "/api/SKU", method = RequestMethod.GET)
     @ResponseBody
-    public  BaseResponse updateStartTime(@RequestParam String id) {
-        return new BaseResponse(updateStartTimeService.updateJam(id),"");
+    public SKUSingleResponse getDetailOfSKU(@RequestParam String id) {
+        SKU dataSKU = skuService.findDetailOfSKU(id);
+        SKUSingleResponse dataresponseSKU = new SKUSingleResponse(true, "", dataSKU);
+        return dataresponseSKU;
     }
 
-    @RequestMapping(value = "/api/updatefinishtimestockopname", method = RequestMethod.PUT )
+    @RequestMapping(value = "/api/updatestarttimestockopname", method = RequestMethod.PUT)
     @ResponseBody
-    public  BaseResponse updateFinishTime(@RequestParam String id) {
-        return new BaseResponse(updateFinishTimeService.updateJam(id),"");
+    public BaseResponse updateStartTime(@RequestParam String id) {
+        return new BaseResponse(updateStartTimeService.updateJam(id), "");
+    }
+
+    @RequestMapping(value = "/api/updatefinishtimestockopname", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResponse updateFinishTime(@RequestParam String id) {
+        return new BaseResponse(updateFinishTimeService.updateJam(id), "");
+    }
+
+    @RequestMapping(value = "/api/allSKU", method = RequestMethod.GET)
+    @ResponseBody
+    public ListResponse<SKU> getAllSKUforReport() {
+        List<SKU> data = skuService.findAllSKUReport();
+        ListResponse<SKU> dataresponse3 = new ListResponse<>(true, "", data);
+        return dataresponse3;
+
+
+//    @RequestMapping(value = "/api/updateQuantity", method = RequestMethod.PUT )
+//    @ResponseBody
+//    public  BaseResponse updateQuantity(@RequestParam String id) {
+//        return new BaseResponse(updateQuantityService.(id),"");
+//    }
     }
 }
