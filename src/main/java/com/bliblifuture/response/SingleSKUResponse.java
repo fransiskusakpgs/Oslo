@@ -3,12 +3,12 @@ package com.bliblifuture.response;
 
 import com.bliblifuture.model.Report;
 
-public class SingleResponse {
+public class SingleSKUResponse {
     private boolean success;
     private String errorMessage;
-    private Report data;
+    private SKUresponse data;
 
-    public SingleResponse(Boolean success, String errorMessage, Report data){
+    public SingleSKUResponse(Boolean success, String errorMessage, SKUresponse data){
         this.success = true;
         this.errorMessage = errorMessage;
         this.data = data;
@@ -30,11 +30,11 @@ public class SingleResponse {
         this.errorMessage = errorMessage;
     }
 
-    public Report getData() {
-        return data;
+    public void setData(SKUresponse data) {
+        this.data = data;
     }
 
-    public void setData(Report data) {
-        this.data = data;
+    public SKUresponse getData() {
+        return data;
     }
 }

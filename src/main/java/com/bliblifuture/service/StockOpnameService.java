@@ -9,7 +9,9 @@ import com.bliblifuture.request.AssignmentRequest;
 import com.bliblifuture.request.SKURequest;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.request.UnknownSKURequest;
+import com.bliblifuture.response.StockOpnameResponse;
 import org.joda.time.LocalDate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Service;
@@ -99,6 +101,24 @@ public class StockOpnameService {
         selectedStockOpname.unAssignStockOpname();
         stockOpnameRepo.save(selectedStockOpname);
         return true;
+    }
+
+    public StockOpnameResponse getStockopnameData(String id){
+        StockOpnameResponse response = new StockOpnameResponse();
+        StockOpname stockOpname = stockOpnameRepo.findByStockOpnameId(id);
+
+        BeanUtils.copyProperties(stockOpname, response);
+        if(stockOpname.getAssignedTo()== null){
+            response.setAssignedTo("");
+        }else{
+            response.setAssignedTo(stockOpname.getAssignedTo().getUsername());
+        }
+        response.setWaktuPembuatan(stockOpname.getWaktuPembuatan().toDate());
+        if(stockOpname.getStartCountingTime() != null) {
+            response.setStartCountingTime(stockOpname.getStartCountingTime().toDate());
+            response.setFinishCountingTime(stockOpname.getFinishCountingTime().toDate());
+        }
+        return response;
     }
 }
 

@@ -11,6 +11,7 @@ import java.util.List;
 public interface SKURepository extends JpaRepository<SKU, String> {
     List<SKU> findByStockOpname (StockOpname stockOpname);
     SKU findByskuId (String skuId);
+    SKU findByStorageCode(String storageCode);
     //string dan Id jadi parameter ngesearchnya
 
 }

@@ -1,6 +1,8 @@
 package com.bliblifuture.response;
 
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 public class StockOpnameResponse {
@@ -8,8 +10,10 @@ public class StockOpnameResponse {
     private String Status;
     private Date waktuPembuatan;
     private String assignedTo;
-    private String totalQty;
-    private String totalSKU;
+    private int totalQty;
+    private int totalSKU;
+    private Date startCountingTime;
+    private Date finishCountingTime;
 
 
     public String getStockOpnameId() {
@@ -44,19 +48,35 @@ public class StockOpnameResponse {
         this.assignedTo = assignedTo;
     }
 
-    public String getTotalQty() {
+    public int getTotalQty() {
         return totalQty;
     }
 
-    public void setTotalQty(String totalQty) {
+    public void setTotalQty(int totalQty) {
         this.totalQty = totalQty;
     }
 
-    public String getTotalSKU() {
+    public int getTotalSKU() {
         return totalSKU;
     }
 
-    public void setTotalSKU(String totalSKU) {
+    public void setTotalSKU(int totalSKU) {
         this.totalSKU = totalSKU;
+    }
+
+    public Date getStartCountingTime() {
+        return startCountingTime;
+    }
+
+    public void setStartCountingTime(Date startCountingTime) {
+        this.startCountingTime = startCountingTime;
+    }
+
+    public Date getFinishCountingTime() {
+        return finishCountingTime;
+    }
+
+    public void setFinishCountingTime(Date finishCountingTime) {
+        this.finishCountingTime = finishCountingTime;
     }
 }

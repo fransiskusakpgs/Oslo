@@ -18,7 +18,7 @@ public class UnknownSKUController {
     @Autowired
     UnknownSKUService unknownSKUService;
 
-    @RequestMapping(value = "/unknownSKUs1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/" +"api/unknownSKUs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BaseResponse addUnknownSKU(@RequestBody UnknownSKURequest request) {
@@ -28,7 +28,7 @@ public class UnknownSKUController {
         return responseBS;
     }
 
-    @RequestMapping( value = "/unknownSKUs1" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping( value = "/api/unknownSKUs" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ListResponse<UnknownSKU> getAllDataUnknownSKU(@RequestParam String id) {
         List<UnknownSKU> data = unknownSKUService.findUnknownSKUByStockOpname(id); //sampe returndata12

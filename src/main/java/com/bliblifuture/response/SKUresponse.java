@@ -2,6 +2,16 @@ package com.bliblifuture.response;
 
 
 public class SKUresponse {
+
+    private long id;
+    private String itemName;
+    private String stockType;
+    private String storageCode;
+    private int systemQty;
+    private int physicalQty;
+    private int deviationQty;
+    private String information;
+
     public long getId() {
         return id;
     }
@@ -65,13 +75,4 @@ public class SKUresponse {
     public void setInformation(String information) {
         this.information = information;
     }
-
-    private long id;
-    private String itemName;
-    private String stockType;
-    private String storageCode;
-    private int systemQty;
-    private int physicalQty;
-    private int deviationQty;
-    private String information;
 }

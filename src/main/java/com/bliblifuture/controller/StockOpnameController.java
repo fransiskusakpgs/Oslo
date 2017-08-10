@@ -4,6 +4,7 @@ import com.bliblifuture.model.StockOpname;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
+import com.bliblifuture.response.SingleStockOpnameResponse;
 import com.bliblifuture.response.StockOpnameResponse;
 import com.bliblifuture.service.SKUService;
 import com.bliblifuture.service.StockOpnameService;
@@ -24,6 +25,14 @@ import java.util.List;
 public class StockOpnameController {
     @Autowired
     StockOpnameService stockOpnameService;
+
+    @RequestMapping(value="/api/stockopname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SingleStockOpnameResponse getSingleStockOpnameData(@RequestParam String id){
+        StockOpnameResponse data = stockOpnameService.getStockopnameData(id);
+        SingleStockOpnameResponse response = new SingleStockOpnameResponse(true,"",data);
+        return response;
+    }
 
     @RequestMapping(value="/api/stockopnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

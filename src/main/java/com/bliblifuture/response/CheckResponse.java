@@ -1,12 +1,16 @@
 package com.bliblifuture.response;
 
-public class BaseResponse {
+public class CheckResponse {
     private boolean success;
     private String errorMessage;
+    private boolean sto;
+    private boolean storageCode;
 
-    public BaseResponse(Boolean success, String errorMessage){
+    public CheckResponse(boolean success, String errorMessage,boolean sto,boolean storageCode){
         this.success = success;
         this.errorMessage = errorMessage;
+        this.sto = sto;
+        this.storageCode = storageCode;
     }
 
     public boolean isSuccess() {
@@ -23,5 +27,21 @@ public class BaseResponse {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public boolean isSto() {
+        return sto;
+    }
+
+    public void setSto(boolean sto) {
+        this.sto = sto;
+    }
+
+    public boolean isStorageCode() {
+        return storageCode;
+    }
+
+    public void setStorageCode(boolean storageCode) {
+        this.storageCode = storageCode;
     }
 }

@@ -13,5 +13,4 @@ public interface StockOpnameRepository extends JpaRepository<StockOpname, String
     StockOpname findByStockOpnameId(String stockOpnameId);
     List<StockOpname> findByReportDate(LocalDate date);
     List<StockOpname> findByAssignedTo(Counter counter);
-
 }

@@ -85,7 +85,7 @@ public class ReportService {
                         deficitQty += Math.abs(selisih);
                         deficitSKU++;
                     } else if (selisih < 0) {
-                        surplusQty += selisih;
+                        surplusQty += Math.abs(selisih);
                         surplusSKU++;
                     }
                 }
