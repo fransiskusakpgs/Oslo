@@ -1,6 +1,7 @@
 package com.bliblifuture.controller;
 
 import com.bliblifuture.model.StockOpname;
+import com.bliblifuture.request.SingleRequest;
 import com.bliblifuture.request.StockOpnameRequest;
 import com.bliblifuture.response.BaseResponse;
 import com.bliblifuture.response.ListResponse;
@@ -30,6 +31,8 @@ public class StockOpnameController {
     @ResponseBody
     public SingleStockOpnameResponse getSingleStockOpnameData(@RequestParam String id){
         StockOpnameResponse data = stockOpnameService.getStockopnameData(id);
+        System.out.println("haloo");
+        System.out.println(data.getStartCountingTime());
         SingleStockOpnameResponse response = new SingleStockOpnameResponse(true,"",data);
         return response;
     }
@@ -66,5 +69,16 @@ public class StockOpnameController {
         BaseResponse response = new BaseResponse(true,"");
         return response;
     }
+
+    @RequestMapping(value = "/api/updatesto", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BaseResponse updateStockOpname(@RequestBody String request) {
+        stockOpnameService.updateStockOpnameStatus(request);
+        BaseResponse response = new BaseResponse(true,"");
+        return response;
+    }
+
+
 
 }

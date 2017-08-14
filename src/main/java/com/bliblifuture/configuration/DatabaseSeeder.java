@@ -66,7 +66,6 @@ public class DatabaseSeeder {
         skuOne.setStockType("Trading");
         skuOne.setStorageCode("A-101-100");
         skuRepo.save(skuOne);
-        skuOne.setPhysicalQty(5);
         skuOne.setSystemQty(5);
         skuRepo.save(skuOne);
 
@@ -78,7 +77,6 @@ public class DatabaseSeeder {
         skuTwo.setStockType("Trading");
         skuTwo.setStorageCode("A-101-101");
         skuRepo.save(skuTwo);
-        skuTwo.setPhysicalQty(5);
         skuTwo.setSystemQty(10);
         skuRepo.save(skuTwo);
 
@@ -86,11 +84,10 @@ public class DatabaseSeeder {
         skuThree.setSkuId("SKU-003");
         skuThree.setItemName("Agree To Shop Pants");
         skuThree.setDeviationQty(0);
-        //skuThree.setInformation("COUNTED");
+        skuThree.setInformation("COUNTED");
         skuThree.setStockType("Trading");
         skuThree.setStorageCode("A-101-102");
         skuRepo.save(skuThree);
-        //skuThree.setPhysicalQty(5);
         skuThree.setSystemQty(10);
         skuRepo.save(skuThree);
 
@@ -98,7 +95,7 @@ public class DatabaseSeeder {
         skuFour.setSkuId("SKU-004");
         skuFour.setItemName("Agree To Shop Pants");
         skuFour.setDeviationQty(0);
-        //skuThree.setInformation("COUNTED");
+        skuThree.setInformation("COUNTED");
         skuFour.setStockType("Trading");
         skuFour.setStorageCode("A-101-103");
         skuRepo.save(skuFour);
@@ -110,7 +107,7 @@ public class DatabaseSeeder {
         skuFive.setSkuId("SKU-004");
         skuFive.setItemName("Agree To Shop Pants");
         skuFive.setDeviationQty(0);
-        //skuThree.setInformation("COUNTED");
+        skuThree.setInformation("COUNTED");
         skuFive.setStockType("Trading");
         skuFive.setStorageCode("A-101-104");
         skuRepo.save(skuFive);
@@ -122,7 +119,7 @@ public class DatabaseSeeder {
         skuSix.setSkuId("SKU-004");
         skuSix.setItemName("Agree To Shop Pants");
         skuSix.setDeviationQty(0);
-        //skuThree.setInformation("COUNTED");
+        skuThree.setInformation("COUNTED");
         skuSix.setStockType("Trading");
         skuSix.setStorageCode("A-101-103");
         skuRepo.save(skuSix);
@@ -158,11 +155,11 @@ public class DatabaseSeeder {
         StockOpname stockOpnameOne = new StockOpname();
         stockOpnameOne.setStockOpnameId("STO-001");
         stockOpnameOne.setStringWaktuPembuatan("2011-02-01");
-        stockOpnameOne.startCounting();
-        stockOpnameOne.endCounting();
+//        stockOpnameOne.startCounting();
+//        stockOpnameOne.endCounting();
         stockOpnameRepo.save(stockOpnameOne);
         stockOpnameOne.setReportDate(OsloUtils.convertStringDateToLocalDate("2017-04-24"));
-//        stockOpnameOne.setStatus("FINISH COUNTING");
+        stockOpnameOne.setStatus("ASSIGNED");
         stockOpnameRepo.save(stockOpnameOne);
 
         StockOpname stockOpnameTwo = new StockOpname();

@@ -41,8 +41,6 @@ public class ReportService {
         newReport.setStockOpnames(stockOpnames);
         reportRepo.save(newReport);
         countingSKUandQty(newReport, stockOpnames);
-//        newReport.countQty();
-//        newReport.countSKU();
         reportRepo.saveAndFlush(newReport);
         return newReport;
     }

@@ -118,7 +118,14 @@ public class StockOpnameService {
             response.setStartCountingTime(stockOpname.getStartCountingTime().toDate());
             response.setFinishCountingTime(stockOpname.getFinishCountingTime().toDate());
         }
+        System.out.println("haloo");
+        System.out.println(response.getStartCountingTime());
         return response;
+    }
+
+    public boolean updateStockOpnameStatus(String stockOpnameId){
+        stockOpnameRepo.findByStockOpnameId(stockOpnameId).updateStatus();
+        return true;
     }
 }
 

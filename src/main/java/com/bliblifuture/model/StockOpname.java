@@ -32,16 +32,14 @@ public class StockOpname {
     }
 
     public void updateStatus(){
-        if (!(assignedTo == null)){
-            this.setStatus("ASSIGNED");
-        }
-        else if(!(startCountingTime == null)){
-            this.setStatus("IN PROGRESS");
-        }
-        else if(!(finishCountingTime == null)){
+
+        if(!(this.getFinishCountingTime() == null)){
             this.setStatus("FINISH COUNTING");
-        }
-        else{
+        }else if(!(this.getStartCountingTime()== null)){
+            this.setStatus("IN PROGRESS");
+        }else if(!(this.getAssignedTo()== null)){
+            this.setStatus("ASSIGNED");
+        }else{
             this.setStatus("OPEN");
         }
     }
